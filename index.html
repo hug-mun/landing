@@ -235,6 +235,142 @@
     color: var(--fg-muted); margin: 0;
   }
 
+  /* ── THESIS ── */
+  .thesis {
+    padding: 96px 48px 72px;
+    max-width: 860px; margin: 0 auto;
+  }
+  .thesis .eyebrow {
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-subtle); margin-bottom: 16px;
+  }
+  .thesis h2 {
+    font-family: var(--font-display); font-size: 44px; font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.1;
+    color: var(--ink-900); margin-bottom: 24px;
+    text-wrap: balance;
+  }
+  .thesis p {
+    font-family: var(--font-serif); font-size: 18px; line-height: 1.65;
+    color: var(--fg-muted); max-width: 60ch; margin-bottom: 20px;
+  }
+  .thesis p.lead {
+    font-size: 20px; color: var(--fg); margin-bottom: 28px;
+  }
+  .thesis-cols {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 32px; margin: 32px 0;
+  }
+  .thesis-col h4 {
+    font-family: var(--font-sans); font-size: 13px; font-weight: 600;
+    letter-spacing: 0.06em; text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+  .thesis-col ul {
+    list-style: none; padding: 0; margin: 0;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .thesis-col li {
+    font-family: var(--font-serif); font-size: 15px; line-height: 1.5;
+    color: var(--fg-muted); padding-left: 16px; position: relative;
+  }
+  .thesis-col li::before {
+    content: ""; position: absolute; left: 0; top: 8px;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--dot, var(--fg-subtle));
+  }
+
+  /* ── PIPELINE ── */
+  .pipeline {
+    display: flex; align-items: center; justify-content: center;
+    gap: 0; padding: 48px 0; margin: 40px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .pipeline-step {
+    text-align: center; padding: 20px 28px;
+    flex: 1; max-width: 220px;
+  }
+  .pipeline-step .step-label {
+    font-family: var(--font-mono); font-size: 11px;
+    color: var(--fg-subtle); letter-spacing: 0.05em;
+    text-transform: uppercase; margin-bottom: 6px;
+  }
+  .pipeline-step .step-name {
+    font-family: var(--font-display); font-size: 22px; font-weight: 600;
+    color: var(--ink-900);
+  }
+  .pipeline-arrow {
+    font-family: var(--font-mono); font-size: 20px;
+    color: var(--fg-subtle); flex-shrink: 0;
+  }
+  .pipeline-step.active {
+    background: var(--huginn-100); border-radius: var(--r-lg);
+  }
+  .pipeline-step.active .step-name { color: var(--huginn-700); }
+
+  /* ── HYPOTHESES ── */
+  .hypotheses {
+    padding: 72px 48px 80px;
+  }
+  .hyp-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 20px; max-width: 860px; margin: 0 auto;
+  }
+  .hyp-card {
+    background: var(--cream-50); border: 1px solid var(--border);
+    border-radius: var(--r-lg); padding: 28px 28px 24px;
+  }
+  .hyp-card .hyp-id {
+    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
+    color: var(--huginn-600); margin-bottom: 10px;
+  }
+  .hyp-card p {
+    font-family: var(--font-serif); font-size: 15px; line-height: 1.55;
+    color: var(--fg); margin: 0;
+  }
+
+  /* ── VISION ── */
+  .vision {
+    padding: 80px 48px;
+    background: var(--ink-900);
+    color: var(--cream-50);
+  }
+  .vision-inner {
+    max-width: 860px; margin: 0 auto;
+  }
+  .vision .eyebrow {
+    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--cream-400); margin-bottom: 16px;
+  }
+  .vision h2 {
+    font-family: var(--font-display); font-size: 40px; font-weight: 600;
+    letter-spacing: -0.02em; line-height: 1.12;
+    color: var(--cream-50); margin-bottom: 28px;
+    text-wrap: balance;
+  }
+  .vision-list {
+    list-style: none; padding: 0; margin: 0;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px;
+  }
+  .vision-list li {
+    font-family: var(--font-serif); font-size: 17px; line-height: 1.5;
+    color: var(--cream-200); padding-left: 20px; position: relative;
+  }
+  .vision-list li::before {
+    content: ""; position: absolute; left: 0; top: 9px;
+    width: 8px; height: 8px; border-radius: 50%;
+    background: var(--huginn-500);
+  }
+  .vision p.honest {
+    font-family: var(--font-serif); font-size: 16px; line-height: 1.6;
+    color: var(--cream-300); max-width: 56ch;
+    margin-top: 32px; padding-top: 28px;
+    border-top: 1px solid rgba(224,211,181,.12);
+  }
+
   /* ── DUALITY SECTION ── */
   .duality {
     display: grid; grid-template-columns: 1fr 1fr;
@@ -350,9 +486,14 @@
   </div>
 </nav>
 
+<!-- ════════ RAVEN LOOP ════════ -->
+<section style="position: relative; overflow: hidden; background: var(--cream-100);">
+  <p class="hero-tagline" style="padding-top: 40px; padding-bottom: 0; margin: 0;">The home for AI experiments at Hug&Mun Labs</p>
+  <canvas id="raven-canvas" style="display:block; width:100%; height:240px; background:var(--cream-100); image-rendering:pixelated;"></canvas>
+</section>
+
 <!-- ════════ HERO ════════ -->
 <section class="hero">
-  <p class="hero-tagline">The home for AI experiments at Hug&Mun Labs</p>
 
   <div class="card-scatter">
     <!-- Card 1: Gentags paper -->
@@ -402,78 +543,129 @@
   </div>
 </section>
 
-<!-- ════════ FEATURED PAPER ════════ -->
-<section class="featured">
-  <div class="featured-eyebrow">Latest paper</div>
-  <h2>Gentags</h2>
-  <p>Discrete semantic state for constraint-sensitive decision pipelines. We introduce a representation that compresses source text into short, evidence-grounded semantic units — and show it outperforms lexical baselines on decision fidelity.</p>
-  <div style="display: flex; gap: 12px; justify-content: center;">
+<!-- ════════ CORE THESIS ════════ -->
+<section class="thesis" id="about">
+  <div class="eyebrow">Core thesis</div>
+  <h2>Intelligence requires structured internal belief states. Current AI systems lack them.</h2>
+  <p class="lead">We design representations and learning dynamics that allow machines to form, update, and act on beliefs derived from semantic information.</p>
+  <p>Most modern AI systems operate as next-token predictors or pattern generators. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria.</p>
+
+  <div class="thesis-cols">
+    <div class="thesis-col">
+      <h4 style="color: var(--muninn-700);">What current systems lack</h4>
+      <ul>
+        <li style="--dot: var(--muninn-500);">Stable internal states</li>
+        <li style="--dot: var(--muninn-500);">Explicit commitments</li>
+        <li style="--dot: var(--muninn-500);">Traceable uncertainty</li>
+        <li style="--dot: var(--muninn-500);">Consistent decision criteria</li>
+      </ul>
+    </div>
+    <div class="thesis-col">
+      <h4 style="color: var(--huginn-700);">Where they break down</h4>
+      <ul>
+        <li style="--dot: var(--huginn-500);">Multi-step reasoning</li>
+        <li style="--dot: var(--huginn-500);">Decision consistency</li>
+        <li style="--dot: var(--huginn-500);">Evidence accumulation</li>
+        <li style="--dot: var(--huginn-500);">Adaptive planning</li>
+      </ul>
+    </div>
+  </div>
+
+  <p>LLMs represent meaning implicitly in high-dimensional activations. But implicit representations are hard to update incrementally, cannot easily track uncertainty, do not persist commitments over time, and are difficult to verify against constraints. Decision systems require persistent structure, revisable commitments, and explicit conditions. This is the gap hug&mun addresses.</p>
+</section>
+
+<!-- ════════ TECHNICAL MODEL ════════ -->
+<section style="padding: 0 48px; max-width: 860px; margin: 0 auto;">
+  <div class="pipeline">
+    <div class="pipeline-step">
+      <div class="step-label">Input</div>
+      <div class="step-name">Semantic state</div>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step active">
+      <div class="step-label">The missing layer</div>
+      <div class="step-name">Belief state</div>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step">
+      <div class="step-label">Output</div>
+      <div class="step-name">Decision policy</div>
+    </div>
+  </div>
+  <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 56ch; margin: 28px auto 0; text-align: center;">
+    Current LLM pipelines skip or blur this layer. We hypothesize that explicit belief-state representations improve reliability, interpretability, and decision quality.
+  </p>
+</section>
+
+<!-- ════════ FIRST PAPER ════════ -->
+<section class="thesis" style="padding-top: 72px;">
+  <div class="eyebrow">First paper</div>
+  <h2 style="font-size: 38px;">Gentags</h2>
+  <p class="lead">Gentags are not the final contribution. They are a candidate semantic state representation that tests the hypothesis that structured semantic units improve decision behavior.</p>
+  <p>We introduce a representation that compresses source text into short, evidence-grounded semantic units — discrete, individually addressable units that fit within the context window of a downstream model. Gentags improve agreement with full-evidence decisions to 79.5% (vs. 52.3&ndash;61.6% for lexical baselines) and raise hard-constraint satisfaction to 97.3%.</p>
+  <div style="display: flex; gap: 12px; margin-top: 28px;">
     <a href="papers/gentags-pre.pdf" class="btn-primary">Read the paper</a>
   </div>
-  <div style="margin-top: 20px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);">
+  <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);">
     ACL 2026 submission &middot; Pre-print
   </div>
 </section>
 
-<!-- ════════ RESEARCH DIRECTIONS ════════ -->
-<section class="experiments" id="experiments">
-  <div class="experiments-header">
-    <h3>What we're exploring</h3>
+<!-- ════════ HYPOTHESES ════════ -->
+<section class="hypotheses">
+  <div style="max-width: 860px; margin: 0 auto 32px;">
+    <div class="eyebrow" style="font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); margin-bottom: 16px;">Testable hypotheses</div>
+    <h2 style="font-family: var(--font-display); font-size: 36px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink-900); margin-bottom: 8px;">What we're testing</h2>
   </div>
-  <div class="exp-grid">
-    <!-- Gentags — the real paper -->
-    <div class="exp-card">
-      <div class="exp-card-img" style="background: linear-gradient(135deg, var(--huginn-800), var(--huginn-600));">
-        <i data-lucide="tags" style="width: 48px; height: 48px; color: var(--huginn-200); opacity: .7;"></i>
-      </div>
-      <div class="exp-card-body">
-        <span class="badge badge-huginn">Paper</span>
-        <h4>Gentags</h4>
-        <p>Discrete semantic units that compress text into individually addressable, evidence-grounded state. 79.5% decision agreement vs. 52-62% for lexical baselines.</p>
-      </div>
+  <div class="hyp-grid">
+    <div class="hyp-card">
+      <div class="hyp-id">H1</div>
+      <p>Structured semantic state improves decision stability.</p>
     </div>
-
-    <!-- Semantic compression — research direction -->
-    <div class="exp-card">
-      <div class="exp-card-img" style="background: linear-gradient(135deg, var(--muninn-800), var(--muninn-600));">
-        <img src="Hug&Mun Labs Design System/assets/pixel-crow-huginn.svg" alt="" style="width: 64px; image-rendering: pixelated; opacity: .8;">
-      </div>
-      <div class="exp-card-body">
-        <span class="badge badge-muninn">Direction</span>
-        <h4>Semantic compression</h4>
-        <p>Intermediate representations for LLM pipelines. Compressing by meaning, not by token boundaries or document structure.</p>
-      </div>
+    <div class="hyp-card">
+      <div class="hyp-id">H2</div>
+      <p>Belief-state representations improve multi-step reasoning.</p>
     </div>
-
-    <!-- Constraint-sensitive decision-making — research direction -->
-    <div class="exp-card">
-      <div class="exp-card-img" style="background: linear-gradient(135deg, var(--ink-800), var(--ink-700));">
-        <img src="Hug&Mun Labs Design System/assets/pixel-crow-muninn.svg" alt="" style="width: 64px; image-rendering: pixelated; opacity: .8;">
-      </div>
-      <div class="exp-card-body">
-        <span class="badge badge-cream">Direction</span>
-        <h4>Constraint-sensitive decisions</h4>
-        <p>When explicit requirements must be checked against evidence, producing binary, auditable outcomes. Our evaluation testbed.</p>
-      </div>
+    <div class="hyp-card">
+      <div class="hyp-id">H3</div>
+      <p>Explicit belief revision improves adaptability to new evidence.</p>
+    </div>
+    <div class="hyp-card">
+      <div class="hyp-id">H4</div>
+      <p>Decision policies grounded in belief states are more consistent than token-level reasoning alone.</p>
     </div>
   </div>
 </section>
 
-<!-- ════════ DUALITY SECTION ════════ -->
+<!-- ════════ WHAT MAKES THIS DISTINCT ════════ -->
 <section class="duality">
   <div class="duality-panel duality-left">
     <img src="Hug&Mun Labs Design System/assets/logo-muninn.svg" alt="">
-    <div class="eyebrow">Huginn &middot; thought</div>
-    <h3>The reasoning bird.</h3>
-    <p>Fast, structured, willing to be wrong in public. Hugr is our playground for reasoning traces you can step through, one thought at a time.</p>
-    <a class="btn-ghost" href="#">Open Hugr &#8594;</a>
+    <div class="eyebrow">What most research focuses on</div>
+    <h3>Better embeddings, larger models, better corpora, tool use, prompt engineering.</h3>
+    <p>Few programs focus explicitly on belief as computational object.</p>
   </div>
   <div class="duality-panel duality-right">
     <img src="Hug&Mun Labs Design System/assets/logo-huginn.svg" alt="">
-    <div class="eyebrow">Muninn &middot; memory</div>
-    <h3>The remembering bird.</h3>
-    <p>Episodic, persistent, patient. Munr keeps what mattered, so the next thought doesn't begin from zero.</p>
-    <a class="btn-ghost" href="#">Learn about Munr &#8594;</a>
+    <div class="eyebrow">What hug&mun focuses on</div>
+    <h3>Belief as computational object.</h3>
+    <p>Representations that let machines form, revise, and act on structured beliefs derived from language and experience.</p>
+    <a class="btn-ghost" href="#about">Read the thesis &#8594;</a>
+  </div>
+</section>
+
+<!-- ════════ LONG-TERM VISION ════════ -->
+<section class="vision">
+  <div class="vision-inner">
+    <div class="eyebrow">Long-term vision</div>
+    <h2>AI systems that do more than produce plausible text.</h2>
+    <ul class="vision-list">
+      <li>Track commitments</li>
+      <li>Revise beliefs</li>
+      <li>Justify decisions</li>
+      <li>Adapt to evidence</li>
+    </ul>
+    <p class="honest">This is an ambitious thesis but not unrealistic. It sits between machine learning, cognitive science, and decision theory. Our first paper addresses the representation layer. Future work must address state dynamics, uncertainty modeling, and policy learning.</p>
   </div>
 </section>
 
@@ -520,7 +712,7 @@
   </div>
   <div class="footer-bottom">
     <div>&copy; 2026 Hug&Mun Labs</div>
-    <div class="footer-rune">&#5765; &#5963; &#5767;</div>
+    <div class="footer-rune">ᚺ ᛫ ᛗ</div>
     <div class="footer-legal">
       <a href="#">Privacy</a>
       <a href="#">Terms</a>
@@ -530,5 +722,93 @@
 </footer>
 
 <script>lucide.createIcons();</script>
+
+<script>
+(function () {
+  const canvas = document.getElementById('raven-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const RAVEN_COLORS = ['#3F1F73', '#8E1C24'];
+  const NUM_RAVENS  = 2;
+  const SIZES       = [4, 3];
+
+  const FRAMES = [
+    [[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
+    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0]]
+  ];
+  const SW = 16, SH = 10;
+  const FLAP = [0, 1, 2, 1];
+
+  let W, H;
+  function resize(){
+    const dpr = window.devicePixelRatio || 1;
+    W = canvas.clientWidth;
+    H = canvas.clientHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    ctx.imageSmoothingEnabled = false;
+  }
+  resize();
+  window.addEventListener('resize', resize);
+
+  function makeRaven(scale, startOffset, color){
+    return {
+      x: -SW * scale - startOffset,
+      y: 30 + Math.random() * (H - 100),
+      scale, color,
+      speed: 0.6 + scale * 0.25 + Math.random() * 0.4,
+      seqIdx: Math.floor(Math.random() * 4),
+      flapTimer: Math.floor(Math.random() * 6),
+      flapDelay: 5 + Math.floor(Math.random() * 3),
+      bobPhase: Math.random() * Math.PI * 2,
+    };
+  }
+
+  const ravens = [];
+  for (let i = 0; i < NUM_RAVENS; i++){
+    ravens.push(makeRaven(SIZES[i % SIZES.length], i * 250, RAVEN_COLORS[i % RAVEN_COLORS.length]));
+  }
+
+  function drawSprite(frame, x, y, scale){
+    for (let sy = 0; sy < SH; sy++){
+      for (let sx = 0; sx < SW; sx++){
+        if (frame[sy][sx]){
+          ctx.fillRect(x + sx*scale, y + sy*scale, scale, scale);
+        }
+      }
+    }
+  }
+
+  function render(){
+    ctx.clearRect(0, 0, W, H);
+
+    for (const r of ravens){
+      ctx.fillStyle = r.color;
+      r.flapTimer++;
+      if (r.flapTimer >= r.flapDelay){
+        r.flapTimer = 0;
+        r.seqIdx = (r.seqIdx + 1) % FLAP.length;
+      }
+      r.x += r.speed * r.scale;
+      r.bobPhase += 0.07;
+
+      if (r.x > W + 20){
+        r.x = -SW * r.scale - 40;
+        r.y = 30 + Math.random() * (H - 100);
+        r.speed = 0.6 + r.scale * 0.25 + Math.random() * 0.4;
+      }
+
+      const bobY = Math.sin(r.bobPhase) * 2;
+      const frame = FRAMES[FLAP[r.seqIdx]];
+      drawSprite(frame, Math.round(r.x), Math.round(r.y + bobY), r.scale);
+    }
+    requestAnimationFrame(render);
+  }
+  render();
+})();
+</script>
 </body>
 </html>
