@@ -26,35 +26,35 @@
   --cream-300: #E0D3B5;   /* divider / muted fill */
   --cream-400: #C9B994;   /* strong divider */
 
-  /* Ink / brown — Princeton-adjacent, not too orange */
-  --ink-900:   #1F1510;   /* deepest ink */
-  --ink-800:   #2E2018;   /* body text on cream */
-  --ink-700:   #4A3527;   /* secondary text */
-  --ink-600:   #6B4E39;   /* warm brown */
-  --ink-500:   #8B6B4F;   /* tertiary / meta */
-  --ink-400:   #A88868;   /* muted brown */
+  /* Ink — clean dark neutrals */
+  --ink-900:   #141414;   /* deepest ink */
+  --ink-800:   #222222;   /* body text on cream */
+  --ink-700:   #444444;   /* secondary text */
+  --ink-600:   #666666;   /* medium gray */
+  --ink-500:   #888888;   /* tertiary / meta */
+  --ink-400:   #AAAAAA;   /* muted gray */
 
-  /* Muninn — memory — deep purple (UW-adjacent, slightly warmed) */
-  --muninn-900: #1E0E3A;
-  --muninn-800: #2D1654;
-  --muninn-700: #3F1F73;   /* primary purple */
-  --muninn-600: #5A2EA0;
-  --muninn-500: #7A47C9;
-  --muninn-400: #A074E0;
-  --muninn-300: #C9ACEF;
-  --muninn-200: #E5D5F7;
-  --muninn-100: #F1E7FA;
+  /* Huginn — thought — deep purple */
+  --huginn-900: #1E0E3A;
+  --huginn-800: #2D1654;
+  --huginn-700: #3F1F73;   /* primary purple */
+  --huginn-600: #5A2EA0;
+  --huginn-500: #7A47C9;
+  --huginn-400: #A074E0;
+  --huginn-300: #C9ACEF;
+  --huginn-200: #E5D5F7;
+  --huginn-100: #F1E7FA;
 
-  /* Huginn — thought — oxblood red (warmer than logo's pure red) */
-  --huginn-900: #4A0E12;
-  --huginn-800: #6B1218;
-  --huginn-700: #8E1C24;   /* primary red */
-  --huginn-600: #B3262F;
-  --huginn-500: #D13640;
-  --huginn-400: #E26770;
-  --huginn-300: #EE9EA4;
-  --huginn-200: #F6D0D3;
-  --huginn-100: #FBE8EA;
+  /* Muninn — memory — oxblood red */
+  --muninn-900: #4A0E12;
+  --muninn-800: #6B1218;
+  --muninn-700: #8E1C24;   /* primary red */
+  --muninn-600: #B3262F;
+  --muninn-500: #D13640;
+  --muninn-400: #E26770;
+  --muninn-300: #EE9EA4;
+  --muninn-200: #F6D0D3;
+  --muninn-100: #FBE8EA;
 
   /* Accent — aged gold, for seals / runes / highlights (used sparingly) */
   --gold-700:  #8A6A1F;
@@ -77,29 +77,29 @@
   --fg-subtle:     var(--ink-500);
   --fg-faint:      var(--ink-400);
   --fg-on-dark:    var(--cream-50);
-  --fg-on-muninn:  var(--cream-50);
+  --fg-on-huginn:  var(--cream-50);
 
   /* Brand */
-  --brand:         var(--muninn-700);   /* default brand = Muninn purple */
-  --brand-hover:   var(--muninn-800);
-  --brand-press:   var(--muninn-900);
-  --brand-soft:    var(--muninn-100);
+  --brand:         var(--huginn-700);   /* default brand = Huginn purple */
+  --brand-hover:   var(--huginn-800);
+  --brand-press:   var(--huginn-900);
+  --brand-soft:    var(--huginn-100);
 
-  --accent:        var(--huginn-700);   /* Huginn red, for emphasis */
-  --accent-hover:  var(--huginn-800);
-  --accent-soft:   var(--huginn-100);
+  --accent:        var(--muninn-700);   /* Muninn red, for emphasis */
+  --accent-hover:  var(--muninn-800);
+  --accent-soft:   var(--muninn-100);
 
   /* Borders */
   --border:        var(--cream-300);
   --border-strong: var(--cream-400);
   --border-ink:    var(--ink-600);
-  --border-focus:  var(--muninn-600);
+  --border-focus:  var(--huginn-600);
 
   /* Status (kept within warm palette) */
   --success:       #4A6B3A;
   --warning:       #B3720F;
-  --danger:        var(--huginn-700);
-  --info:          var(--muninn-600);
+  --danger:        var(--muninn-700);
+  --info:          var(--huginn-600);
 
   /* =========================================================
      TYPOGRAPHY
@@ -174,15 +174,15 @@
   /* =========================================================
      SHADOWS — warm, paper-like; never blue/cold
      ========================================================= */
-  --shadow-xs: 0 1px 0 rgba(46, 32, 24, 0.06);
-  --shadow-sm: 0 1px 2px rgba(46, 32, 24, 0.08), 0 1px 1px rgba(46, 32, 24, 0.04);
-  --shadow-md: 0 2px 6px rgba(46, 32, 24, 0.10), 0 1px 2px rgba(46, 32, 24, 0.06);
-  --shadow-lg: 0 10px 24px rgba(46, 32, 24, 0.12), 0 2px 6px rgba(46, 32, 24, 0.06);
-  --shadow-xl: 0 20px 50px rgba(46, 32, 24, 0.18), 0 6px 12px rgba(46, 32, 24, 0.08);
-  --shadow-inset: inset 0 1px 2px rgba(46, 32, 24, 0.10);
+  --shadow-xs: 0 1px 0 rgba(20, 20, 20, 0.06);
+  --shadow-sm: 0 1px 2px rgba(20, 20, 20, 0.08), 0 1px 1px rgba(20, 20, 20, 0.04);
+  --shadow-md: 0 2px 6px rgba(20, 20, 20, 0.10), 0 1px 2px rgba(20, 20, 20, 0.06);
+  --shadow-lg: 0 10px 24px rgba(20, 20, 20, 0.12), 0 2px 6px rgba(20, 20, 20, 0.06);
+  --shadow-xl: 0 20px 50px rgba(20, 20, 20, 0.18), 0 6px 12px rgba(20, 20, 20, 0.08);
+  --shadow-inset: inset 0 1px 2px rgba(20, 20, 20, 0.10);
 
-  /* Elevation for dark/muninn surfaces */
-  --shadow-muninn: 0 10px 30px rgba(30, 14, 58, 0.30);
+  /* Elevation for dark/huginn surfaces */
+  --shadow-huginn: 0 10px 30px rgba(30, 14, 58, 0.30);
 
   /* =========================================================
      MOTION
@@ -292,22 +292,22 @@ code {
   line-height: 0.9;
   float: left;
   padding: 0.08em 0.12em 0 0;
-  color: var(--huginn-700);
+  color: var(--muninn-700);
   font-feature-settings: "ss01";
 }
 
 /* Links */
 a {
-  color: var(--muninn-700);
+  color: var(--huginn-700);
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
   transition: color var(--dur-fast) var(--ease-out);
 }
-a:hover { color: var(--muninn-800); text-decoration-thickness: 2px; }
+a:hover { color: var(--huginn-800); text-decoration-thickness: 2px; }
 
 /* Selection */
-::selection { background: var(--muninn-200); color: var(--muninn-900); }
+::selection { background: var(--huginn-200); color: var(--huginn-900); }
 
 /* Horizontal rule — a subtle hairline, with an optional rune */
 hr {
