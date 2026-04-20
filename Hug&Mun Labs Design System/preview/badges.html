@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Badges & tags</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--cream-100);font-family:var(--font-sans);}
+  .wrap{padding:24px 28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center;}
+  .badge{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:4px 10px;border-radius:var(--r-pill);display:inline-flex;align-items:center;gap:6px;}
+  .b-muninn{background:var(--muninn-100);color:var(--muninn-800);}
+  .b-huginn{background:var(--huginn-100);color:var(--huginn-800);}
+  .b-cream{background:var(--cream-200);color:var(--ink-800);}
+  .b-ink{background:var(--ink-900);color:var(--cream-50);}
+  .b-outline{background:transparent;color:var(--ink-800);border:1px solid var(--border-strong);}
+  .b-gold{background:#F3E4BE;color:#6A4E15;}
+  .dot{width:6px;height:6px;border-radius:50%;background:currentColor;}
+  .chip{font-family:var(--font-serif);font-size:13px;padding:5px 12px;background:var(--cream-50);border:1px solid var(--border);border-radius:var(--r-pill);color:var(--ink-800);}
+</style>
+</head><body>
+<div class="wrap">
+  <span class="badge b-muninn"><span class="dot"></span>Memory</span>
+  <span class="badge b-huginn"><span class="dot"></span>Thought</span>
+  <span class="badge b-cream">Draft</span>
+  <span class="badge b-ink">v1.2</span>
+  <span class="badge b-outline">Research</span>
+  <span class="badge b-gold">Featured</span>
+  <span class="chip">long-context</span>
+  <span class="chip">reasoning</span>
+  <span class="chip">retrieval</span>
+</div>
+</body></html>

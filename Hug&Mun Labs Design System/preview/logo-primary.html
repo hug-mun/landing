@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Logo — primary</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--cream-100);height:100%;}
+  .wrap{display:flex;gap:24px;align-items:center;justify-content:center;padding:24px 32px;height:100%;box-sizing:border-box;}
+  .cell{flex:1;display:flex;flex-direction:column;align-items:center;gap:10px;padding:16px;border:1px solid var(--border);border-radius:var(--r-lg);background:var(--cream-50);min-height:170px;justify-content:center;}
+  .cell.dark{background:var(--ink-900);border-color:var(--ink-800);}
+  .cell img{max-height:100px;width:auto;}
+  .lab{font-family:var(--font-sans);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--fg-subtle);}
+  .cell.dark .lab{color:var(--cream-300);}
+</style>
+</head><body>
+<div class="wrap">
+  <div class="cell"><img src="../assets/logo-full-color.png" alt=""><div class="lab">Full-color · hero</div></div>
+  <div class="cell"><img src="../assets/logo-mark-mono.svg" alt=""><div class="lab">Mono · default</div></div>
+  <div class="cell dark"><img src="../assets/logo-mark-duo.svg" alt=""><div class="lab">Duo on ink</div></div>
+</div>
+</body></html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Surfaces</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--cream-100);font-family:var(--font-sans);}
+  .wrap{padding:18px 24px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  .panel{height:160px;border-radius:var(--r-lg);padding:14px;display:flex;flex-direction:column;justify-content:space-between;border:1px solid var(--border);}
+  .panel.bg{background:var(--cream-100);}
+  .panel.raised{background:var(--cream-50);box-shadow:var(--shadow-sm);}
+  .panel.ink{background:var(--ink-900);color:var(--cream-50);border-color:var(--ink-800);}
+  .panel.muninn{background:var(--muninn-900);color:var(--cream-50);border-color:var(--muninn-800);}
+  .name{font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;opacity:.75;}
+  .title{font-family:var(--font-display);font-size:22px;font-weight:600;}
+</style>
+</head><body>
+<div class="wrap">
+  <div class="panel bg"><div class="name" style="color:var(--ink-600)">bg · default</div><div class="title" style="color:var(--ink-900)">Cream paper</div></div>
+  <div class="panel raised"><div class="name" style="color:var(--ink-600)">bg-raised</div><div class="title" style="color:var(--ink-900)">Slight lift</div></div>
+  <div class="panel ink"><div class="name">bg-inverse</div><div class="title">Ink night</div></div>
+</div>
+</body></html>

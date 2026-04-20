@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html><head><meta charset="utf-8"><title>Form inputs</title>
+<link rel="stylesheet" href="../colors_and_type.css">
+<style>
+  html,body{margin:0;padding:0;background:var(--cream-100);font-family:var(--font-sans);}
+  .wrap{padding:22px 28px;display:grid;grid-template-columns:1fr 1fr;gap:22px;}
+  label{display:block;font-size:12px;font-weight:600;color:var(--ink-800);letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
+  input,select,textarea{font-family:var(--font-serif);font-size:15px;width:100%;padding:10px 12px;background:var(--cream-50);border:1px solid var(--border-strong);border-radius:var(--r-md);color:var(--ink-900);box-sizing:border-box;transition:border-color 120ms, box-shadow 120ms;}
+  input:focus{outline:none;border-color:var(--muninn-600);box-shadow:0 0 0 3px rgba(90,46,160,.18);}
+  .hint{font-size:11px;color:var(--fg-subtle);margin-top:4px;font-family:var(--font-sans);}
+  .check{display:flex;align-items:center;gap:10px;font-family:var(--font-serif);font-size:14px;color:var(--ink-800);}
+  .check input{width:auto;accent-color:var(--muninn-700);}
+</style>
+</head><body>
+<div class="wrap">
+  <div>
+    <label>Your name</label>
+    <input type="text" value="Odin Borson" />
+    <div class="hint">Appears on published papers.</div>
+  </div>
+  <div>
+    <label>Model preference</label>
+    <select><option>Hugr · thought</option><option>Munr · memory</option></select>
+    <div class="check" style="margin-top:14px;"><input type="checkbox" checked> Share anonymized traces</div>
+  </div>
+</div>
+</body></html>

@@ -1,0 +1,338 @@
+/* =========================================================
+   HUG&MUN LABS — Color & Type Foundations
+   Huginn (thought) + Muninn (memory) — a warm, literary AI lab
+   ========================================================= */
+
+/* ---------- FONTS (Google Fonts fallbacks noted) ---------- */
+/* Display: Fraunces (free — inspired by literary/academic serifs)
+   Body:    Source Serif 4 (readable long-form serif)
+   UI:      Inter (neutral sans for UI + small caps)
+   Mono:    JetBrains Mono (technical / runic-feeling mono)
+   Runic:   Noto Runic (for actual Younger Futhark glyphs, used sparingly)
+*/
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600;8..60,700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+Runic&display=swap');
+
+:root {
+  /* =========================================================
+     CORE PALETTE — "Thought & Memory"
+     Warm, bookish, slightly faded. Cream paper + ink brown +
+     two mythic accents (Muninn purple, Huginn red).
+     ========================================================= */
+
+  /* Cream / parchment — the dominant background family */
+  --cream-50:  #FBF6EC;   /* lightest paper */
+  --cream-100: #F5EEDC;   /* default bg */
+  --cream-200: #EDE3CC;   /* raised surface */
+  --cream-300: #E0D3B5;   /* divider / muted fill */
+  --cream-400: #C9B994;   /* strong divider */
+
+  /* Ink / brown — Princeton-adjacent, not too orange */
+  --ink-900:   #1F1510;   /* deepest ink */
+  --ink-800:   #2E2018;   /* body text on cream */
+  --ink-700:   #4A3527;   /* secondary text */
+  --ink-600:   #6B4E39;   /* warm brown */
+  --ink-500:   #8B6B4F;   /* tertiary / meta */
+  --ink-400:   #A88868;   /* muted brown */
+
+  /* Muninn — memory — deep purple (UW-adjacent, slightly warmed) */
+  --muninn-900: #1E0E3A;
+  --muninn-800: #2D1654;
+  --muninn-700: #3F1F73;   /* primary purple */
+  --muninn-600: #5A2EA0;
+  --muninn-500: #7A47C9;
+  --muninn-400: #A074E0;
+  --muninn-300: #C9ACEF;
+  --muninn-200: #E5D5F7;
+  --muninn-100: #F1E7FA;
+
+  /* Huginn — thought — oxblood red (warmer than logo's pure red) */
+  --huginn-900: #4A0E12;
+  --huginn-800: #6B1218;
+  --huginn-700: #8E1C24;   /* primary red */
+  --huginn-600: #B3262F;
+  --huginn-500: #D13640;
+  --huginn-400: #E26770;
+  --huginn-300: #EE9EA4;
+  --huginn-200: #F6D0D3;
+  --huginn-100: #FBE8EA;
+
+  /* Accent — aged gold, for seals / runes / highlights (used sparingly) */
+  --gold-700:  #8A6A1F;
+  --gold-500:  #C79A36;
+  --gold-300:  #E6C97A;
+
+  /* =========================================================
+     SEMANTIC TOKENS
+     ========================================================= */
+
+  /* Surfaces */
+  --bg:            var(--cream-100);
+  --bg-raised:     var(--cream-50);
+  --bg-sunken:     var(--cream-200);
+  --bg-inverse:    var(--ink-900);
+
+  /* Foreground text */
+  --fg:            var(--ink-800);
+  --fg-muted:      var(--ink-700);
+  --fg-subtle:     var(--ink-500);
+  --fg-faint:      var(--ink-400);
+  --fg-on-dark:    var(--cream-50);
+  --fg-on-muninn:  var(--cream-50);
+
+  /* Brand */
+  --brand:         var(--muninn-700);   /* default brand = Muninn purple */
+  --brand-hover:   var(--muninn-800);
+  --brand-press:   var(--muninn-900);
+  --brand-soft:    var(--muninn-100);
+
+  --accent:        var(--huginn-700);   /* Huginn red, for emphasis */
+  --accent-hover:  var(--huginn-800);
+  --accent-soft:   var(--huginn-100);
+
+  /* Borders */
+  --border:        var(--cream-300);
+  --border-strong: var(--cream-400);
+  --border-ink:    var(--ink-600);
+  --border-focus:  var(--muninn-600);
+
+  /* Status (kept within warm palette) */
+  --success:       #4A6B3A;
+  --warning:       #B3720F;
+  --danger:        var(--huginn-700);
+  --info:          var(--muninn-600);
+
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
+
+  --font-display: 'Fraunces', 'Iowan Old Style', 'Palatino', Georgia, serif;
+  --font-serif:   'Source Serif 4', 'Source Serif Pro', 'Iowan Old Style', Georgia, serif;
+  --font-sans:    'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono:    'JetBrains Mono', 'SF Mono', Menlo, Consolas, monospace;
+  --font-runic:   'Noto Sans Runic', 'Segoe UI Historic', serif;
+
+  /* Type scale — modular, 1.25 */
+  --fs-xs:   0.75rem;     /*  12 */
+  --fs-sm:   0.875rem;    /*  14 */
+  --fs-base: 1rem;        /*  16 */
+  --fs-md:   1.125rem;    /*  18 */
+  --fs-lg:   1.25rem;     /*  20 */
+  --fs-xl:   1.5rem;      /*  24 */
+  --fs-2xl:  1.875rem;    /*  30 */
+  --fs-3xl:  2.375rem;    /*  38 */
+  --fs-4xl:  3rem;        /*  48 */
+  --fs-5xl:  3.75rem;     /*  60 */
+  --fs-6xl:  4.75rem;     /*  76 */
+
+  /* Line heights */
+  --lh-tight:   1.1;
+  --lh-snug:    1.25;
+  --lh-normal:  1.5;
+  --lh-relaxed: 1.65;
+  --lh-loose:   1.8;
+
+  /* Letter spacing */
+  --tracking-tight:  -0.02em;
+  --tracking-snug:   -0.01em;
+  --tracking-normal: 0;
+  --tracking-wide:   0.04em;
+  --tracking-wider:  0.12em;   /* for small caps & labels */
+
+  /* Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  /* =========================================================
+     SPACING (4px base)
+     ========================================================= */
+  --sp-0:  0;
+  --sp-1:  0.25rem;   /*  4 */
+  --sp-2:  0.5rem;    /*  8 */
+  --sp-3:  0.75rem;   /* 12 */
+  --sp-4:  1rem;      /* 16 */
+  --sp-5:  1.5rem;    /* 24 */
+  --sp-6:  2rem;      /* 32 */
+  --sp-7:  3rem;      /* 48 */
+  --sp-8:  4rem;      /* 64 */
+  --sp-9:  6rem;      /* 96 */
+  --sp-10: 8rem;      /* 128 */
+
+  /* =========================================================
+     RADII — slightly soft; we avoid heavy rounding (too webby)
+     ========================================================= */
+  --r-none: 0;
+  --r-sm:   2px;
+  --r-md:   4px;      /* default */
+  --r-lg:   8px;
+  --r-xl:   12px;
+  --r-2xl:  16px;
+  --r-pill: 999px;
+
+  /* =========================================================
+     SHADOWS — warm, paper-like; never blue/cold
+     ========================================================= */
+  --shadow-xs: 0 1px 0 rgba(46, 32, 24, 0.06);
+  --shadow-sm: 0 1px 2px rgba(46, 32, 24, 0.08), 0 1px 1px rgba(46, 32, 24, 0.04);
+  --shadow-md: 0 2px 6px rgba(46, 32, 24, 0.10), 0 1px 2px rgba(46, 32, 24, 0.06);
+  --shadow-lg: 0 10px 24px rgba(46, 32, 24, 0.12), 0 2px 6px rgba(46, 32, 24, 0.06);
+  --shadow-xl: 0 20px 50px rgba(46, 32, 24, 0.18), 0 6px 12px rgba(46, 32, 24, 0.08);
+  --shadow-inset: inset 0 1px 2px rgba(46, 32, 24, 0.10);
+
+  /* Elevation for dark/muninn surfaces */
+  --shadow-muninn: 0 10px 30px rgba(30, 14, 58, 0.30);
+
+  /* =========================================================
+     MOTION
+     ========================================================= */
+  --dur-fast:   120ms;
+  --dur-base:   200ms;
+  --dur-slow:   360ms;
+  --ease-out:   cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* =========================================================
+   BASE ELEMENTS — semantic defaults
+   ========================================================= */
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-serif);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  font-feature-settings: "kern", "liga", "onum";
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Headings — display serif with tighter tracking */
+h1, .h1 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-5xl);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-tight);
+  font-variation-settings: "opsz" 96, "SOFT" 50;
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+h2, .h2 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-3xl);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--tracking-snug);
+  font-variation-settings: "opsz" 60, "SOFT" 50;
+  color: var(--ink-900);
+  text-wrap: balance;
+}
+h3, .h3 {
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-xl);
+  line-height: var(--lh-snug);
+  color: var(--ink-800);
+}
+h4, .h4 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-semibold);
+  font-size: var(--fs-lg);
+  line-height: var(--lh-snug);
+  color: var(--ink-800);
+}
+
+/* Paragraphs — serif body, pretty-wrapped */
+p, .p {
+  font-family: var(--font-serif);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--fg);
+  text-wrap: pretty;
+  max-width: 68ch;
+}
+
+/* Eyebrow / label — small-caps Inter, wide tracking */
+.eyebrow, .label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  color: var(--fg-subtle);
+}
+
+/* Code / mono */
+code, pre, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.92em;
+}
+code {
+  background: var(--cream-200);
+  padding: 0.1em 0.35em;
+  border-radius: var(--r-sm);
+  color: var(--ink-800);
+}
+
+/* Runic accent — decorative only, never functional text */
+.runic {
+  font-family: var(--font-runic);
+  font-feature-settings: normal;
+  letter-spacing: 0.2em;
+}
+
+/* Drop cap — for editorial moments */
+.dropcap::first-letter {
+  font-family: var(--font-display);
+  font-weight: var(--fw-bold);
+  font-size: 4.2em;
+  line-height: 0.9;
+  float: left;
+  padding: 0.08em 0.12em 0 0;
+  color: var(--huginn-700);
+  font-feature-settings: "ss01";
+}
+
+/* Links */
+a {
+  color: var(--muninn-700);
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+a:hover { color: var(--muninn-800); text-decoration-thickness: 2px; }
+
+/* Selection */
+::selection { background: var(--muninn-200); color: var(--muninn-900); }
+
+/* Horizontal rule — a subtle hairline, with an optional rune */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: var(--sp-6) 0;
+}
+hr.rune::after {
+  content: "ᚺᚢᚷ";               /* H-U-G in Younger Futhark-ish */
+  font-family: var(--font-runic);
+  display: block;
+  text-align: center;
+  color: var(--ink-400);
+  letter-spacing: 0.5em;
+  margin-top: -0.8em;
+  background: var(--bg);
+  width: fit-content;
+  margin-left: auto; margin-right: auto;
+  padding: 0 var(--sp-4);
+  font-size: var(--fs-sm);
+}
+
+/* Focus ring — visible, warm */
+:focus-visible {
+  outline: 2px solid var(--border-focus);
+  outline-offset: 2px;
+  border-radius: var(--r-sm);
+}
