@@ -11,12 +11,28 @@
   html { scroll-behavior: smooth; }
   body { background: var(--cream-100); overflow-x: hidden; }
 
+  /* ── RAVEN BACKGROUND ── */
+  #raven-canvas {
+    position: fixed; inset: 0;
+    width: 100vw; height: 100vh;
+    z-index: 0;
+    pointer-events: none;
+    background: transparent;
+    image-rendering: pixelated;
+  }
+  .page-content {
+    position: relative;
+    z-index: 1;
+  }
+
   /* ── NAV ── */
   .nav {
     position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center;
     padding: 0 48px; height: 60px;
-    background: var(--cream-100);
+    background: rgba(245, 238, 220, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
   .nav-links { display: flex; gap: 4px; }
@@ -51,10 +67,11 @@
 
   /* ── HERO ── */
   .hero {
-    background: var(--cream-100);
+    background: transparent;
     padding: 40px 48px 0;
     position: relative;
     overflow: hidden;
+    z-index: 1;
   }
   .hero-tagline {
     text-align: center;
@@ -486,10 +503,13 @@
   </div>
 </nav>
 
-<!-- ════════ RAVEN LOOP ════════ -->
-<section style="position: relative; overflow: hidden; background: var(--cream-100);">
-  <p class="hero-tagline" style="padding-top: 40px; padding-bottom: 0; margin: 0;">The home for AI experiments at Hug&Mun Labs</p>
-  <canvas id="raven-canvas" style="display:block; width:100%; height:240px; background:var(--cream-100); image-rendering:pixelated;"></canvas>
+<!-- ════════ RAVEN BACKGROUND (fixed, behind everything) ════════ -->
+<canvas id="raven-canvas"></canvas>
+
+<div class="page-content">
+<!-- ════════ TAGLINE ════════ -->
+<section style="background: transparent; padding: 48px 48px 0;">
+  <p class="hero-tagline" style="margin: 0;">The home for AI experiments at Hug&Mun Labs</p>
 </section>
 
 <!-- ════════ HERO ════════ -->
@@ -546,63 +566,110 @@
 <!-- ════════ CORE THESIS ════════ -->
 <section class="thesis" id="about">
   <div class="eyebrow">Core thesis</div>
-  <h2>Intelligence requires structured internal belief states. Current AI systems lack them.</h2>
-  <p class="lead">We design representations and learning dynamics that allow machines to form, update, and act on beliefs derived from semantic information.</p>
-  <p>Most modern AI systems operate as next-token predictors or pattern generators. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria.</p>
-
-  <div class="thesis-cols">
-    <div class="thesis-col">
-      <h4 style="color: var(--muninn-700);">What current systems lack</h4>
-      <ul>
-        <li style="--dot: var(--muninn-500);">Stable internal states</li>
-        <li style="--dot: var(--muninn-500);">Explicit commitments</li>
-        <li style="--dot: var(--muninn-500);">Traceable uncertainty</li>
-        <li style="--dot: var(--muninn-500);">Consistent decision criteria</li>
-      </ul>
-    </div>
-    <div class="thesis-col">
-      <h4 style="color: var(--huginn-700);">Where they break down</h4>
-      <ul>
-        <li style="--dot: var(--huginn-500);">Multi-step reasoning</li>
-        <li style="--dot: var(--huginn-500);">Decision consistency</li>
-        <li style="--dot: var(--huginn-500);">Evidence accumulation</li>
-        <li style="--dot: var(--huginn-500);">Adaptive planning</li>
-      </ul>
-    </div>
-  </div>
-
-  <p>LLMs represent meaning implicitly in high-dimensional activations. But implicit representations are hard to update incrementally, cannot easily track uncertainty, do not persist commitments over time, and are difficult to verify against constraints. Decision systems require persistent structure, revisable commitments, and explicit conditions. This is the gap hug&mun addresses.</p>
+  <h2>Intelligent systems require interaction between semantic interpretation, structured memory dynamics, and belief-driven decision policies.</h2>
+  <p class="lead">Current AI systems largely collapse these components into a single neural representation, limiting their ability to maintain stable beliefs across time. hug&mun studies architectures that separate and integrate these functions explicitly.</p>
+  <p>Most modern AI systems operate as next-token predictors. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria. The result: they are weak at multi-step reasoning, decision consistency, evidence accumulation, and adaptive planning.</p>
+  <p>We believe the problem is representational, not one of scale. LLMs represent meaning implicitly in high-dimensional activations&thinsp;&mdash;&thinsp;representations that are hard to update incrementally, cannot track uncertainty, and do not persist commitments over time. Decision systems require persistent structure, revisable commitments, and explicit conditions.</p>
 </section>
 
-<!-- ════════ TECHNICAL MODEL ════════ -->
-<section style="padding: 0 48px; max-width: 860px; margin: 0 auto;">
+<!-- ════════ ARCHITECTURE: HUGINN → MUNINN → ODIN ════════ -->
+<section style="padding: 0 48px; max-width: 920px; margin: 0 auto;">
   <div class="pipeline">
-    <div class="pipeline-step">
-      <div class="step-label">Input</div>
-      <div class="step-name">Semantic state</div>
+    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);">
+      <div class="step-label" style="color: var(--huginn-600);">Huginn</div>
+      <div class="step-name" style="color: var(--huginn-800);">Semantic state</div>
+      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">S<sub>t</sub></div>
+    </div>
+    <div class="pipeline-arrow">&rarr;</div>
+    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);">
+      <div class="step-label" style="color: var(--muninn-600);">Muninn</div>
+      <div class="step-name" style="color: var(--muninn-800);">Context state</div>
+      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">C<sub>t</sub></div>
     </div>
     <div class="pipeline-arrow">&rarr;</div>
     <div class="pipeline-step active">
-      <div class="step-label">The missing layer</div>
-      <div class="step-name">Belief state</div>
-    </div>
-    <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step">
-      <div class="step-label">Output</div>
-      <div class="step-name">Decision policy</div>
+      <div class="step-label">Odin</div>
+      <div class="step-name">Belief &amp; decision</div>
+      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">B<sub>t</sub> &rarr; &pi;(B<sub>t</sub>)</div>
     </div>
   </div>
-  <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 56ch; margin: 28px auto 0; text-align: center;">
-    Current LLM pipelines skip or blur this layer. We hypothesize that explicit belief-state representations improve reliability, interpretability, and decision quality.
+  <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 60ch; margin: 28px auto 0; text-align: center;">
+    Current LLM pipelines collapse or skip these layers. We hypothesize that separating semantic interpretation, memory dynamics, and belief integration produces more reliable, interpretable decisions.
   </p>
 </section>
 
+<!-- ════════ THREE LAYERS ════════ -->
+<section style="padding: 80px 48px 0; max-width: 920px; margin: 0 auto;">
+  <!-- HUGINN -->
+  <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 56px;">
+    <img src="Hug&Mun Labs Design System/assets/logo-huginn.svg" alt="" style="width: 56px; height: 56px; margin-top: 4px;">
+    <div>
+      <div class="eyebrow" style="font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--huginn-700); margin-bottom: 8px;">Huginn &middot; Semantic interpretation</div>
+      <h3 style="font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--ink-900); margin-bottom: 12px; letter-spacing: -0.01em;">How machines interpret meaning.</h3>
+      <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch;">Transforms language, perception, or data into structured semantic elements. Huginn extracts structured meaning from raw input&thinsp;&mdash;&thinsp;not embeddings, not token sequences, but discrete semantic units that isolate individual conditions from evidence.</p>
+      <p style="font-family: var(--font-serif); font-size: 15px; line-height: 1.6; color: var(--fg-subtle); max-width: 52ch; margin-top: 12px;">Our Gentags paper addresses this layer: a candidate implementation of Huginn.</p>
+    </div>
+  </div>
+
+  <!-- MUNINN -->
+  <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 56px;">
+    <img src="Hug&Mun Labs Design System/assets/logo-muninn.svg" alt="" style="width: 56px; height: 56px; margin-top: 4px;">
+    <div>
+      <div class="eyebrow" style="font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muninn-700); margin-bottom: 8px;">Muninn &middot; Memory dynamics</div>
+      <h3 style="font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--ink-900); margin-bottom: 12px; letter-spacing: -0.01em;">How machines accumulate experience.</h3>
+      <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch;">Muninn is not a database. Muninn is structured, evolving context. Grounded in Retrieved Context Models (Lohnas &amp; Daw), we treat memory as a dynamic latent state&thinsp;&mdash;&thinsp;a context vector that drifts over time and is updated by experience.</p>
+      <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch; margin-top: 12px;">RCM shows that context determines what is retrieved, what is weighted, and what is predicted. This produces recency effects, semantic clustering, and temporal structure&thinsp;&mdash;&thinsp;phenomena that demonstrate memory is structured, not passive.</p>
+
+      <div style="margin-top: 24px; padding: 20px 24px; background: var(--cream-50); border: 1px solid var(--border); border-radius: var(--r-lg);">
+        <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-700); line-height: 1.8;">
+          <span style="color: var(--fg-subtle);">// Context evolution</span><br>
+          c<sub>t</sub> = f(c<sub>t-1</sub>, input<sub>t</sub>)<br><br>
+          <span style="color: var(--fg-subtle);">// Retrieval depends on context similarity</span><br>
+          P(recall) &prop; sim(c<sub>current</sub>, c<sub>stored</sub>)
+        </div>
+      </div>
+
+      <div class="thesis-cols" style="margin-top: 24px;">
+        <div class="thesis-col">
+          <h4 style="color: var(--fg-subtle);">Standard AI memory</h4>
+          <ul>
+            <li style="--dot: var(--fg-subtle);">Vector database</li>
+            <li style="--dot: var(--fg-subtle);">Attention cache</li>
+            <li style="--dot: var(--fg-subtle);">Document retrieval</li>
+          </ul>
+        </div>
+        <div class="thesis-col">
+          <h4 style="color: var(--muninn-700);">RCM-inspired memory</h4>
+          <ul>
+            <li style="--dot: var(--muninn-500);">Dynamic</li>
+            <li style="--dot: var(--muninn-500);">Stateful</li>
+            <li style="--dot: var(--muninn-500);">Context-sensitive</li>
+            <li style="--dot: var(--muninn-500);">Time-dependent</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ODIN -->
+  <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 24px;">
+    <img src="Hug&Mun Labs Design System/assets/odin-eye.svg" alt="" style="width: 48px; height: 48px; margin-top: 8px; margin-left: 4px;">
+    <div>
+      <div class="eyebrow" style="font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--ink-600); margin-bottom: 8px;">Odin &middot; Belief &amp; decision</div>
+      <h3 style="font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--ink-900); margin-bottom: 12px; letter-spacing: -0.01em;">How machines maintain internal position.</h3>
+      <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch;">Odin does not directly observe the world&thinsp;&mdash;&thinsp;he depends on internal representations. This is exactly the structure of model-based cognition. The Odin layer integrates semantic evidence (Huginn) with evolving context (Muninn) to form belief states and generate decision policies.</p>
+      <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch; margin-top: 12px;">Belief is not identical to memory. Memory provides structure, recall bias, weighting, and temporal ordering. Belief provides commitment, uncertainty, and decision relevance. The distinction matters.</p>
+    </div>
+  </div>
+</section>
+
 <!-- ════════ FIRST PAPER ════════ -->
-<section class="thesis" style="padding-top: 72px;">
-  <div class="eyebrow">First paper</div>
+<section class="thesis" style="padding-top: 72px; border-top: 1px solid var(--border);">
+  <div class="eyebrow">First paper &middot; Huginn layer</div>
   <h2 style="font-size: 38px;">Gentags</h2>
-  <p class="lead">Gentags are not the final contribution. They are a candidate semantic state representation that tests the hypothesis that structured semantic units improve decision behavior.</p>
-  <p>We introduce a representation that compresses source text into short, evidence-grounded semantic units — discrete, individually addressable units that fit within the context window of a downstream model. Gentags improve agreement with full-evidence decisions to 79.5% (vs. 52.3&ndash;61.6% for lexical baselines) and raise hard-constraint satisfaction to 97.3%.</p>
+  <p class="lead">Gentags are not the final contribution. They are a candidate semantic state representation&thinsp;&mdash;&thinsp;the first implementation of the Huginn layer&thinsp;&mdash;&thinsp;testing whether structured semantic units improve decision behavior.</p>
+  <p>We introduce a representation that compresses source text into short, evidence-grounded semantic units&thinsp;&mdash;&thinsp;discrete, individually addressable units that fit within the context window of a downstream model. Gentags improve agreement with full-evidence decisions to 79.5% (vs. 52.3&ndash;61.6% for lexical baselines) and raise hard-constraint satisfaction to 97.3%.</p>
+  <p>The next step: demonstrating context dynamics over multiple steps&thinsp;&mdash;&thinsp;the Muninn layer.</p>
   <div style="display: flex; gap: 12px; margin-top: 28px;">
     <a href="papers/gentags-pre.pdf" class="btn-primary">Read the paper</a>
   </div>
@@ -640,16 +707,14 @@
 <!-- ════════ WHAT MAKES THIS DISTINCT ════════ -->
 <section class="duality">
   <div class="duality-panel duality-left">
-    <img src="Hug&Mun Labs Design System/assets/logo-muninn.svg" alt="">
     <div class="eyebrow">What most research focuses on</div>
     <h3>Better embeddings, larger models, better corpora, tool use, prompt engineering.</h3>
-    <p>Few programs focus explicitly on belief as computational object.</p>
+    <p>Few programs focus explicitly on belief as a computational object. Most treat memory as retrieval, not as evolving context that shapes cognition.</p>
   </div>
   <div class="duality-panel duality-right">
-    <img src="Hug&Mun Labs Design System/assets/logo-huginn.svg" alt="">
     <div class="eyebrow">What hug&mun focuses on</div>
-    <h3>Belief as computational object.</h3>
-    <p>Representations that let machines form, revise, and act on structured beliefs derived from language and experience.</p>
+    <h3>Cognitive architecture principles.</h3>
+    <p>Three layers&thinsp;&mdash;&thinsp;semantic representation, context dynamics, belief updating&thinsp;&mdash;&thinsp;explicitly integrated. Grounded in computational cognitive neuroscience, not just scaling.</p>
     <a class="btn-ghost" href="#about">Read the thesis &#8594;</a>
   </div>
 </section>
@@ -665,7 +730,7 @@
       <li>Justify decisions</li>
       <li>Adapt to evidence</li>
     </ul>
-    <p class="honest">This is an ambitious thesis but not unrealistic. It sits between machine learning, cognitive science, and decision theory. Our first paper addresses the representation layer. Future work must address state dynamics, uncertainty modeling, and policy learning.</p>
+    <p class="honest">This is an ambitious thesis but not unrealistic. It sits between machine learning, cognitive science, and decision theory. Our first paper addresses the semantic representation layer (Huginn). Future work addresses context dynamics (Muninn) and belief integration (Odin)&thinsp;&mdash;&thinsp;each layer must produce measurable differences in behavior, or it remains metaphor.</p>
   </div>
 </section>
 
@@ -721,6 +786,8 @@
   </div>
 </footer>
 
+</div><!-- /.page-content -->
+
 <script>lucide.createIcons();</script>
 
 <script>
@@ -730,8 +797,7 @@
   const ctx = canvas.getContext('2d');
 
   const RAVEN_COLORS = ['#3F1F73', '#8E1C24'];
-  const NUM_RAVENS  = 2;
-  const SIZES       = [4, 3];
+  const SIZES = [4, 3];
 
   const FRAMES = [
     [[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
@@ -744,10 +810,8 @@
   let W, H;
   function resize(){
     const dpr = window.devicePixelRatio || 1;
-    W = canvas.clientWidth;
-    H = canvas.clientHeight;
-    canvas.width  = W * dpr;
-    canvas.height = H * dpr;
+    W = canvas.clientWidth; H = canvas.clientHeight;
+    canvas.width = W * dpr; canvas.height = H * dpr;
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.imageSmoothingEnabled = false;
   }
@@ -757,57 +821,69 @@
   function makeRaven(scale, startOffset, color){
     return {
       x: -SW * scale - startOffset,
-      y: 30 + Math.random() * (H - 100),
+      y: 40 + Math.random() * (H - 120),
       scale, color,
-      speed: 0.6 + scale * 0.25 + Math.random() * 0.4,
+      baseSpeed: 0.05 + scale * 0.02,
       seqIdx: Math.floor(Math.random() * 4),
       flapTimer: Math.floor(Math.random() * 6),
-      flapDelay: 5 + Math.floor(Math.random() * 3),
+      baseFlapDelay: 14,
       bobPhase: Math.random() * Math.PI * 2,
     };
   }
+  const ravens = SIZES.map((s, i) => makeRaven(s, i * 320, RAVEN_COLORS[i % RAVEN_COLORS.length]));
 
-  const ravens = [];
-  for (let i = 0; i < NUM_RAVENS; i++){
-    ravens.push(makeRaven(SIZES[i % SIZES.length], i * 250, RAVEN_COLORS[i % RAVEN_COLORS.length]));
+  let lastScroll = window.scrollY;
+  let scrollVel = 0;
+  window.addEventListener('scroll', () => {
+    const now = window.scrollY;
+    scrollVel += (now - lastScroll);
+    lastScroll = now;
+  }, { passive: true });
+
+  function drawSprite(frame, x, y, s){
+    for (let sy = 0; sy < SH; sy++)
+      for (let sx = 0; sx < SW; sx++)
+        if (frame[sy][sx]) ctx.fillRect(x + sx*s, y + sy*s, s, s);
   }
 
-  function drawSprite(frame, x, y, scale){
-    for (let sy = 0; sy < SH; sy++){
-      for (let sx = 0; sx < SW; sx++){
-        if (frame[sy][sx]){
-          ctx.fillRect(x + sx*scale, y + sy*scale, scale, scale);
-        }
-      }
-    }
-  }
-
-  function render(){
+  function tick(){
     ctx.clearRect(0, 0, W, H);
+
+    scrollVel *= 0.93;
+    const clampedVel = Math.max(-30, Math.min(30, scrollVel));
+    const energy = Math.min(Math.abs(clampedVel) * 0.1, 3);
 
     for (const r of ravens){
       ctx.fillStyle = r.color;
+      const depth = r.scale / 4;
+
+      const flapDelay = Math.max(5, r.baseFlapDelay - Math.floor(energy));
       r.flapTimer++;
-      if (r.flapTimer >= r.flapDelay){
+      if (r.flapTimer >= flapDelay){
         r.flapTimer = 0;
         r.seqIdx = (r.seqIdx + 1) % FLAP.length;
       }
-      r.x += r.speed * r.scale;
-      r.bobPhase += 0.07;
+
+      const boost = Math.abs(clampedVel) * 0.05 * depth;
+      r.x += (r.baseSpeed + boost) * r.scale;
+
+      r.y += clampedVel * 0.05 * depth;
+      if (r.y < 10) r.y = 10;
+      if (r.y > H - 40) r.y = H - 40;
+
+      r.bobPhase += 0.03 + energy * 0.008;
 
       if (r.x > W + 20){
         r.x = -SW * r.scale - 40;
-        r.y = 30 + Math.random() * (H - 100);
-        r.speed = 0.6 + r.scale * 0.25 + Math.random() * 0.4;
+        r.y = 40 + Math.random() * (H - 120);
       }
 
-      const bobY = Math.sin(r.bobPhase) * 2;
-      const frame = FRAMES[FLAP[r.seqIdx]];
-      drawSprite(frame, Math.round(r.x), Math.round(r.y + bobY), r.scale);
+      const bob = Math.sin(r.bobPhase) * 1.5;
+      drawSprite(FRAMES[FLAP[r.seqIdx]], Math.round(r.x), Math.round(r.y + bob), r.scale);
     }
-    requestAnimationFrame(render);
+    requestAnimationFrame(tick);
   }
-  render();
+  tick();
 })();
 </script>
 </body>
