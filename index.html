@@ -8,7 +8,7 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
+  html { scroll-behavior: auto; }
   body { background: var(--cream-100); overflow-x: hidden; }
 
   /* ── RAVEN BACKGROUND ── */
@@ -53,430 +53,264 @@
     font-family: var(--font-display); font-size: 18px; font-weight: 700;
     color: var(--ink-900);
   }
-  .nav-logo span em {
-    color: var(--muninn-500); font-style: normal;
-  }
-  .nav-right {
-    margin-left: auto; display: flex; align-items: center; gap: 16px;
-  }
-  .nav-right a {
-    color: var(--fg-subtle); text-decoration: none;
-    transition: color var(--dur-fast);
-  }
+  .nav-logo span em { color: var(--muninn-500); font-style: normal; }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
+  .nav-right a { color: var(--fg-subtle); text-decoration: none; transition: color var(--dur-fast); }
   .nav-right a:hover { color: var(--ink-900); }
 
-  /* ── HERO ── */
-  .hero {
-    background: transparent;
-    padding: 40px 48px 0;
+  /* ── SCROLL-SCRUBBED HERO ── */
+  .scroll-hero {
     position: relative;
-    overflow: hidden;
-    z-index: 1;
-  }
-  .hero-tagline {
-    text-align: center;
-    font-family: var(--font-serif); font-size: 18px;
-    color: var(--fg-muted);
-    padding-bottom: 40px;
-  }
-
-  /* ── CARD SCATTER ── */
-  .card-scatter {
-    position: relative;
-    width: 100%; max-width: 1100px;
-    margin: 0 auto;
-    height: 360px;
-  }
-  .scatter-card {
-    position: absolute;
-    border-radius: var(--r-xl);
-    overflow: hidden;
-    box-shadow: 0 12px 40px rgba(20,20,20,.15), 0 2px 8px rgba(20,20,20,.08);
-    transition: transform 0.4s var(--ease-out), box-shadow 0.3s var(--ease-out);
-    cursor: pointer;
-  }
-  .scatter-card:hover {
-    transform: var(--hover-transform) scale(1.04) !important;
-    box-shadow: 0 20px 60px rgba(20,20,20,.2), 0 4px 12px rgba(20,20,20,.1);
-    z-index: 5;
-  }
-  .scatter-card-inner {
-    width: 100%; height: 100%;
-    display: flex; flex-direction: column;
-    justify-content: flex-end;
-    padding: 18px 20px;
-    position: relative;
-  }
-  .scatter-card-inner .card-icon {
-    position: absolute; top: 16px; right: 16px;
-    width: 32px; height: 32px;
-    background: rgba(255,255,255,.12);
-    border-radius: var(--r-md);
-    display: flex; align-items: center; justify-content: center;
-    color: rgba(255,255,255,.7);
-  }
-  .scatter-card-inner .card-title {
-    font-family: var(--font-sans); font-size: 13px; font-weight: 600;
-    color: #fff; margin-bottom: 3px;
-  }
-  .scatter-card-inner .card-sub {
-    font-family: var(--font-sans); font-size: 11px;
-    color: rgba(255,255,255,.6);
-  }
-
-  /* Individual card positions & rotations */
-  .sc-1 {
-    width: 220px; height: 160px; top: 20px; left: 0;
-    --hover-transform: rotate(-6deg);
-    transform: rotate(-6deg);
-  }
-  .sc-2 {
-    width: 200px; height: 240px; top: 60px; left: 200px;
-    --hover-transform: rotate(-2deg);
-    transform: rotate(-2deg);
-  }
-  .sc-3 {
-    width: 260px; height: 180px; top: 0; left: 50%; margin-left: -130px;
-    --hover-transform: rotate(1deg);
-    transform: rotate(1deg);
-  }
-  .sc-4 {
-    width: 200px; height: 200px; top: 80px; right: 220px;
-    --hover-transform: rotate(3deg);
-    transform: rotate(3deg);
-  }
-  .sc-5 {
-    width: 220px; height: 170px; top: 10px; right: 0;
-    --hover-transform: rotate(5deg);
-    transform: rotate(5deg);
-  }
-
-  /* ── FEATURED ── */
-  .featured {
     background: var(--cream-100);
-    text-align: center;
-    padding: 80px 48px 72px;
   }
-  .featured-eyebrow {
-    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--fg-subtle); margin-bottom: 16px;
+  .scroll-hero-track {
+    position: relative;
+    height: 400vh;
   }
-  .featured h2 {
-    font-family: var(--font-display); font-size: 52px; font-weight: 600;
-    letter-spacing: -0.025em; line-height: 1.08;
-    color: var(--ink-900); margin-bottom: 16px;
+  .scroll-hero-stage {
+    position: sticky;
+    top: 60px;
+    height: calc(100vh - 60px);
+    display: grid;
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+    gap: 40px;
+    padding: 0 64px;
+    overflow: hidden;
   }
-  .featured p {
-    font-family: var(--font-serif); font-size: 18px; line-height: 1.6;
-    color: var(--fg-muted); max-width: 48ch;
-    margin: 0 auto 28px;
+  .scroll-hero-stage::before,
+  .scroll-hero-stage::after {
+    content: "ᚺ ᛫ ᛗ";
+    position: absolute;
+    font-family: var(--font-runic), serif;
+    font-size: 14px;
+    letter-spacing: 0.6em;
+    color: var(--fg-subtle);
+    opacity: 0.35;
   }
-  .btn-primary {
+  .scroll-hero-stage::before { top: 32px; left: 64px; }
+  .scroll-hero-stage::after  { bottom: 80px; right: 64px; }
+
+  .stage-text {
+    max-width: 540px;
+    position: relative;
+  }
+  .stage-text .eyebrow {
+    display: inline-flex; align-items: center; gap: 10px;
+    font-family: var(--font-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--fg-subtle);
+    margin-bottom: 28px;
+  }
+  .stage-text .eyebrow .dot {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--huginn-500);
+    animation: pulse 2.4s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 0.4; transform: scale(1); }
+    50%      { opacity: 1;   transform: scale(1.3); }
+  }
+
+  .stage-text h1 {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 6.2vw, 88px);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    line-height: 0.98;
+    color: var(--ink-900);
+    margin-bottom: 28px;
+    text-wrap: balance;
+  }
+  .stage-text h1 em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--muninn-700);
+  }
+
+  .stage-caption {
+    position: relative;
+    height: 108px;
+    margin-bottom: 36px;
+    border-left: 2px solid var(--border);
+    padding-left: 20px;
+  }
+  .stage-caption p {
+    position: absolute;
+    left: 20px; right: 0; top: 0;
+    font-family: var(--font-serif);
+    font-size: 17px; line-height: 1.55;
+    color: var(--fg-muted);
+    opacity: 0;
+    transform: translateY(8px);
+    transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
+    margin: 0;
+  }
+  .stage-caption p.active { opacity: 1; transform: translateY(0); }
+  .stage-caption p strong { font-weight: 600; color: var(--ink-900); font-style: normal; }
+  .stage-caption p .huginn-mark { color: var(--huginn-700); font-weight: 600; }
+  .stage-caption p .muninn-mark { color: var(--muninn-700); font-weight: 600; }
+
+  .stage-ctas {
+    display: flex; gap: 12px; align-items: center;
+    margin-bottom: 40px;
+  }
+  .stage-ctas .btn-primary {
     display: inline-block;
     font-family: var(--font-sans); font-size: 14px; font-weight: 600;
-    color: var(--cream-50); background: var(--huginn-700);
-    padding: 12px 28px; border-radius: var(--r-md);
+    color: var(--cream-50); background: var(--ink-900);
+    padding: 12px 22px; border-radius: var(--r-md);
     text-decoration: none; border: none; cursor: pointer;
     transition: background var(--dur-fast);
   }
-  .btn-primary:hover { background: var(--huginn-800); color: var(--cream-50); }
-  .btn-secondary {
-    display: inline-block;
+  .stage-ctas .btn-primary:hover { background: var(--huginn-800); }
+  .stage-ctas .btn-link {
     font-family: var(--font-sans); font-size: 14px; font-weight: 600;
-    color: var(--ink-800); background: transparent;
-    padding: 12px 28px; border-radius: var(--r-md);
-    border: 1px solid var(--border-strong); text-decoration: none; cursor: pointer;
-    transition: background var(--dur-fast), border-color var(--dur-fast);
+    color: var(--ink-700); text-decoration: none;
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 12px 14px;
   }
+  .stage-ctas .btn-link:hover { color: var(--huginn-800); }
+
+  .stage-progress {
+    position: absolute; left: 64px; bottom: 24px;
+    width: calc(50% - 96px); max-width: 420px;
+    pointer-events: none;
+  }
+  .stage-progress-meta {
+    display: flex; justify-content: space-between;
+    font-family: var(--font-mono); font-size: 10px;
+    color: var(--fg-subtle); letter-spacing: 0.08em;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+  .stage-progress-act { color: var(--ink-800); font-weight: 600; }
+  .stage-progress-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
+  .stage-progress-fill { height: 100%; background: linear-gradient(90deg, var(--huginn-700), var(--muninn-700)); width: 0%; }
+  .stage-scroll-hint {
+    position: absolute; right: 64px; bottom: 32px;
+    font-family: var(--font-mono); font-size: 10px;
+    letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--fg-subtle);
+    display: flex; align-items: center; gap: 8px;
+    transition: opacity 0.3s;
+  }
+  .stage-scroll-hint .chev { display: inline-block; animation: nudge 1.8s ease-in-out infinite; }
+  @keyframes nudge {
+    0%, 100% { transform: translateY(0); opacity: 0.5; }
+    50%      { transform: translateY(3px); opacity: 1; }
+  }
+
+  .stage-scene { display: flex; align-items: center; justify-content: center; height: 100%; }
+  .scene { width: 100%; max-width: 620px; height: auto; image-rendering: pixelated; image-rendering: crisp-edges; }
+
+  @media (max-width: 900px) {
+    .scroll-hero-track { height: 500vh; }
+    .scroll-hero-stage { grid-template-columns: 1fr; padding: 24px 24px 60px; gap: 0; }
+    .stage-text { max-width: none; }
+    .stage-text h1 { font-size: clamp(40px, 9vw, 56px); }
+    .stage-scene { height: auto; }
+    .scene { max-width: 380px; }
+    .stage-progress, .stage-scroll-hint { display: none; }
+    .scroll-hero-stage::before, .scroll-hero-stage::after { display: none; }
+  }
+
+  /* ── HERO ── */
+  .hero { background: transparent; padding: 40px 48px 0; position: relative; overflow: hidden; z-index: 1; }
+  .hero-tagline { text-align: center; font-family: var(--font-serif); font-size: 18px; color: var(--fg-muted); padding-bottom: 40px; }
+
+  /* ── CARD SCATTER ── */
+  .card-scatter { position: relative; width: 100%; max-width: 1100px; margin: 0 auto; height: 360px; }
+  .scatter-card { position: absolute; border-radius: var(--r-xl); overflow: hidden; box-shadow: 0 12px 40px rgba(20,20,20,.15), 0 2px 8px rgba(20,20,20,.08); transition: transform 0.4s var(--ease-out), box-shadow 0.3s var(--ease-out); cursor: pointer; }
+  .scatter-card:hover { transform: var(--hover-transform) scale(1.04) !important; box-shadow: 0 20px 60px rgba(20,20,20,.2), 0 4px 12px rgba(20,20,20,.1); z-index: 5; }
+  .scatter-card-inner { width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 18px 20px; position: relative; }
+  .scatter-card-inner .card-icon { position: absolute; top: 16px; right: 16px; width: 32px; height: 32px; background: rgba(255,255,255,.12); border-radius: var(--r-md); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,.7); }
+  .scatter-card-inner .card-title { font-family: var(--font-sans); font-size: 13px; font-weight: 600; color: #fff; margin-bottom: 3px; }
+  .scatter-card-inner .card-sub { font-family: var(--font-sans); font-size: 11px; color: rgba(255,255,255,.6); }
+  .sc-1 { width: 220px; height: 160px; top: 20px; left: 0; --hover-transform: rotate(-6deg); transform: rotate(-6deg); }
+  .sc-2 { width: 200px; height: 240px; top: 60px; left: 200px; --hover-transform: rotate(-2deg); transform: rotate(-2deg); }
+  .sc-3 { width: 260px; height: 180px; top: 0; left: 50%; margin-left: -130px; --hover-transform: rotate(1deg); transform: rotate(1deg); }
+  .sc-4 { width: 200px; height: 200px; top: 80px; right: 220px; --hover-transform: rotate(3deg); transform: rotate(3deg); }
+  .sc-5 { width: 220px; height: 170px; top: 10px; right: 0; --hover-transform: rotate(5deg); transform: rotate(5deg); }
+
+  /* ── BUTTONS ── */
+  .btn-primary { display: inline-block; font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--cream-50); background: var(--huginn-700); padding: 12px 28px; border-radius: var(--r-md); text-decoration: none; border: none; cursor: pointer; transition: background var(--dur-fast); }
+  .btn-primary:hover { background: var(--huginn-800); color: var(--cream-50); }
+  .btn-secondary { display: inline-block; font-family: var(--font-sans); font-size: 14px; font-weight: 600; color: var(--ink-800); background: transparent; padding: 12px 28px; border-radius: var(--r-md); border: 1px solid var(--border-strong); text-decoration: none; cursor: pointer; transition: background var(--dur-fast), border-color var(--dur-fast); }
   .btn-secondary:hover { background: var(--cream-200); border-color: var(--ink-500); color: var(--ink-900); }
 
-  /* ── EXPERIMENTS GRID ── */
-  .experiments {
-    padding: 0 48px 80px;
-  }
-  .experiments-header {
-    display: flex; align-items: baseline; justify-content: space-between;
-    margin-bottom: 32px;
-  }
-  .experiments-header h3 {
-    font-family: var(--font-display); font-size: 32px; font-weight: 600;
-    color: var(--ink-900); letter-spacing: -0.015em;
-  }
-  .experiments-header a {
-    font-family: var(--font-sans); font-size: 14px; font-weight: 600;
-    color: var(--huginn-700); text-decoration: none;
-  }
-  .experiments-header a:hover { color: var(--huginn-800); text-decoration: underline; }
-  .exp-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 20px;
-  }
-  .exp-card {
-    background: var(--cream-50);
-    border: 1px solid var(--border);
-    border-radius: var(--r-lg);
-    overflow: hidden;
-    transition: box-shadow var(--dur-base), transform var(--dur-base);
-    cursor: pointer;
-  }
-  .exp-card:hover {
-    box-shadow: var(--shadow-md);
-    transform: translateY(-2px);
-  }
-  .exp-card-img {
-    height: 180px;
-    display: flex; align-items: center; justify-content: center;
-    position: relative; overflow: hidden;
-  }
-  .exp-card-body {
-    padding: 20px 22px;
-  }
-  .exp-card-body .badge {
-    display: inline-block;
-    font-family: var(--font-sans); font-size: 11px; font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    padding: 4px 10px; border-radius: var(--r-pill);
-    margin-bottom: 10px;
-  }
-  .badge-huginn { background: var(--huginn-100); color: var(--huginn-700); }
-  .badge-muninn { background: var(--muninn-100); color: var(--muninn-700); }
-  .badge-cream  { background: var(--cream-200); color: var(--ink-700); }
-  .exp-card-body h4 {
-    font-family: var(--font-display); font-size: 20px; font-weight: 600;
-    color: var(--ink-900); margin-bottom: 8px; line-height: 1.25;
-  }
-  .exp-card-body p {
-    font-family: var(--font-serif); font-size: 14px; line-height: 1.55;
-    color: var(--fg-muted); margin: 0;
-  }
-
   /* ── THESIS ── */
-  .thesis {
-    padding: 96px 48px 72px;
-    max-width: 860px; margin: 0 auto;
-  }
-  .thesis .eyebrow {
-    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--fg-subtle); margin-bottom: 16px;
-  }
-  .thesis h2 {
-    font-family: var(--font-display); font-size: 44px; font-weight: 600;
-    letter-spacing: -0.02em; line-height: 1.1;
-    color: var(--ink-900); margin-bottom: 24px;
-    text-wrap: balance;
-  }
-  .thesis p {
-    font-family: var(--font-serif); font-size: 18px; line-height: 1.65;
-    color: var(--fg-muted); max-width: 60ch; margin-bottom: 20px;
-  }
-  .thesis p.lead {
-    font-size: 20px; color: var(--fg); margin-bottom: 28px;
-  }
-  .thesis-cols {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 32px; margin: 32px 0;
-  }
-  .thesis-col h4 {
-    font-family: var(--font-sans); font-size: 13px; font-weight: 600;
-    letter-spacing: 0.06em; text-transform: uppercase;
-    margin-bottom: 12px;
-  }
-  .thesis-col ul {
-    list-style: none; padding: 0; margin: 0;
-    display: flex; flex-direction: column; gap: 8px;
-  }
-  .thesis-col li {
-    font-family: var(--font-serif); font-size: 15px; line-height: 1.5;
-    color: var(--fg-muted); padding-left: 16px; position: relative;
-  }
-  .thesis-col li::before {
-    content: ""; position: absolute; left: 0; top: 8px;
-    width: 6px; height: 6px; border-radius: 50%;
-    background: var(--dot, var(--fg-subtle));
-  }
+  .thesis { padding: 96px 48px 72px; max-width: 860px; margin: 0 auto; }
+  .thesis .eyebrow { font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--fg-subtle); margin-bottom: 16px; }
+  .thesis h2 { font-family: var(--font-display); font-size: 44px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.1; color: var(--ink-900); margin-bottom: 24px; text-wrap: balance; }
+  .thesis p { font-family: var(--font-serif); font-size: 18px; line-height: 1.65; color: var(--fg-muted); max-width: 60ch; margin-bottom: 20px; }
+  .thesis p.lead { font-size: 20px; color: var(--fg); margin-bottom: 28px; }
+  .thesis-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; margin: 32px 0; }
+  .thesis-col h4 { font-family: var(--font-sans); font-size: 13px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 12px; }
+  .thesis-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 8px; }
+  .thesis-col li { font-family: var(--font-serif); font-size: 15px; line-height: 1.5; color: var(--fg-muted); padding-left: 16px; position: relative; }
+  .thesis-col li::before { content: ""; position: absolute; left: 0; top: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--dot, var(--fg-subtle)); }
 
   /* ── PIPELINE ── */
-  .pipeline {
-    display: flex; align-items: center; justify-content: center;
-    gap: 0; padding: 48px 0; margin: 40px 0;
-    border-top: 1px solid var(--border);
-    border-bottom: 1px solid var(--border);
-  }
-  .pipeline-step {
-    text-align: center; padding: 20px 28px;
-    flex: 1; max-width: 220px;
-  }
-  .pipeline-step .step-label {
-    font-family: var(--font-mono); font-size: 11px;
-    color: var(--fg-subtle); letter-spacing: 0.05em;
-    text-transform: uppercase; margin-bottom: 6px;
-  }
-  .pipeline-step .step-name {
-    font-family: var(--font-display); font-size: 22px; font-weight: 600;
-    color: var(--ink-900);
-  }
-  .pipeline-arrow {
-    font-family: var(--font-mono); font-size: 20px;
-    color: var(--fg-subtle); flex-shrink: 0;
-  }
-  .pipeline-step.active {
-    background: var(--huginn-100); border-radius: var(--r-lg);
-  }
+  .pipeline { display: flex; align-items: center; justify-content: center; gap: 0; padding: 48px 0; margin: 40px 0; border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .pipeline-step { text-align: center; padding: 20px 28px; flex: 1; max-width: 220px; }
+  .pipeline-step .step-label { font-family: var(--font-mono); font-size: 11px; color: var(--fg-subtle); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 6px; }
+  .pipeline-step .step-name { font-family: var(--font-display); font-size: 22px; font-weight: 600; color: var(--ink-900); }
+  .pipeline-arrow { font-family: var(--font-mono); font-size: 20px; color: var(--fg-subtle); flex-shrink: 0; }
+  .pipeline-step.active { background: var(--huginn-100); border-radius: var(--r-lg); }
   .pipeline-step.active .step-name { color: var(--huginn-700); }
 
   /* ── HYPOTHESES ── */
-  .hypotheses {
-    padding: 72px 48px 80px;
-  }
-  .hyp-grid {
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 20px; max-width: 860px; margin: 0 auto;
-  }
-  .hyp-card {
-    background: var(--cream-50); border: 1px solid var(--border);
-    border-radius: var(--r-lg); padding: 28px 28px 24px;
-  }
-  .hyp-card .hyp-id {
-    font-family: var(--font-mono); font-size: 13px; font-weight: 600;
-    color: var(--huginn-600); margin-bottom: 10px;
-  }
-  .hyp-card p {
-    font-family: var(--font-serif); font-size: 15px; line-height: 1.55;
-    color: var(--fg); margin: 0;
-  }
+  .hypotheses { padding: 72px 48px 80px; }
+  .hyp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; max-width: 860px; margin: 0 auto; }
+  .hyp-card { background: var(--cream-50); border: 1px solid var(--border); border-radius: var(--r-lg); padding: 28px 28px 24px; }
+  .hyp-card .hyp-id { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--huginn-600); margin-bottom: 10px; }
+  .hyp-card p { font-family: var(--font-serif); font-size: 15px; line-height: 1.55; color: var(--fg); margin: 0; }
 
   /* ── VISION ── */
-  .vision {
-    padding: 80px 48px;
-    background: var(--ink-900);
-    color: var(--cream-50);
-  }
-  .vision-inner {
-    max-width: 860px; margin: 0 auto;
-  }
-  .vision .eyebrow {
-    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    color: var(--cream-400); margin-bottom: 16px;
-  }
-  .vision h2 {
-    font-family: var(--font-display); font-size: 40px; font-weight: 600;
-    letter-spacing: -0.02em; line-height: 1.12;
-    color: var(--cream-50); margin-bottom: 28px;
-    text-wrap: balance;
-  }
-  .vision-list {
-    list-style: none; padding: 0; margin: 0;
-    display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px;
-  }
-  .vision-list li {
-    font-family: var(--font-serif); font-size: 17px; line-height: 1.5;
-    color: var(--cream-200); padding-left: 20px; position: relative;
-  }
-  .vision-list li::before {
-    content: ""; position: absolute; left: 0; top: 9px;
-    width: 8px; height: 8px; border-radius: 50%;
-    background: var(--huginn-500);
-  }
-  .vision p.honest {
-    font-family: var(--font-serif); font-size: 16px; line-height: 1.6;
-    color: var(--cream-300); max-width: 56ch;
-    margin-top: 32px; padding-top: 28px;
-    border-top: 1px solid rgba(224,211,181,.12);
-  }
+  .vision { padding: 80px 48px; background: var(--ink-900); color: var(--cream-50); }
+  .vision-inner { max-width: 860px; margin: 0 auto; }
+  .vision .eyebrow { font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-400); margin-bottom: 16px; }
+  .vision h2 { font-family: var(--font-display); font-size: 40px; font-weight: 600; letter-spacing: -0.02em; line-height: 1.12; color: var(--cream-50); margin-bottom: 28px; text-wrap: balance; }
+  .vision-list { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 16px 40px; }
+  .vision-list li { font-family: var(--font-serif); font-size: 17px; line-height: 1.5; color: var(--cream-200); padding-left: 20px; position: relative; }
+  .vision-list li::before { content: ""; position: absolute; left: 0; top: 9px; width: 8px; height: 8px; border-radius: 50%; background: var(--huginn-500); }
+  .vision p.honest { font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--cream-300); max-width: 56ch; margin-top: 32px; padding-top: 28px; border-top: 1px solid rgba(224,211,181,.12); }
 
-  /* ── DUALITY SECTION ── */
-  .duality {
-    display: grid; grid-template-columns: 1fr 1fr;
-    border-top: 1px solid var(--border);
-  }
-  .duality-panel {
-    padding: 72px 48px;
-  }
-  .duality-left {
-    background: var(--huginn-900);
-    color: var(--cream-50);
-  }
-  .duality-right {
-    background: var(--cream-100);
-    border-left: 1px solid var(--border);
-  }
-  .duality-panel img { height: 52px; margin-bottom: 20px; }
-  .duality-panel .eyebrow {
-    font-family: var(--font-sans); font-size: 12px; font-weight: 600;
-    letter-spacing: 0.14em; text-transform: uppercase;
-    margin-bottom: 8px;
-  }
+  /* ── DUALITY ── */
+  .duality { display: grid; grid-template-columns: 1fr 1fr; border-top: 1px solid var(--border); }
+  .duality-panel { padding: 72px 48px; }
+  .duality-left { background: var(--huginn-900); color: var(--cream-50); }
+  .duality-right { background: var(--cream-100); border-left: 1px solid var(--border); }
+  .duality-panel .eyebrow { font-family: var(--font-sans); font-size: 12px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; margin-bottom: 8px; }
   .duality-left .eyebrow { color: var(--huginn-300); }
   .duality-right .eyebrow { color: var(--muninn-700); }
-  .duality-panel h3 {
-    font-family: var(--font-display); font-size: 30px; font-weight: 600;
-    letter-spacing: -0.015em; margin-bottom: 14px;
-  }
+  .duality-panel h3 { font-family: var(--font-display); font-size: 30px; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 14px; }
   .duality-left h3 { color: var(--cream-50); }
   .duality-right h3 { color: var(--ink-900); }
-  .duality-panel p {
-    font-family: var(--font-serif); font-size: 16px; line-height: 1.6;
-    max-width: 40ch;
-  }
+  .duality-panel p { font-family: var(--font-serif); font-size: 16px; line-height: 1.6; max-width: 40ch; }
   .duality-left p { color: var(--huginn-200); }
   .duality-right p { color: var(--fg-muted); }
-  .duality-panel .btn-ghost {
-    display: inline-block; margin-top: 24px;
-    font-family: var(--font-sans); font-size: 14px; font-weight: 600;
-    text-decoration: none; padding: 10px 0;
-    transition: color var(--dur-fast);
-  }
-  .duality-left .btn-ghost {
-    color: var(--cream-50);
-    border: 1px solid var(--huginn-500);
-    padding: 10px 18px; border-radius: var(--r-md);
-  }
+  .duality-panel .btn-ghost { display: inline-block; margin-top: 24px; font-family: var(--font-sans); font-size: 14px; font-weight: 600; text-decoration: none; padding: 10px 0; transition: color var(--dur-fast); }
+  .duality-left .btn-ghost { color: var(--cream-50); border: 1px solid var(--huginn-500); padding: 10px 18px; border-radius: var(--r-md); }
   .duality-left .btn-ghost:hover { background: rgba(255,255,255,.05); }
   .duality-right .btn-ghost { color: var(--muninn-700); }
   .duality-right .btn-ghost:hover { color: var(--muninn-800); }
 
   /* ── FOOTER ── */
-  .footer {
-    background: var(--ink-900);
-    color: var(--cream-200);
-    padding: 64px 48px 32px;
-    font-family: var(--font-sans);
-  }
-  .footer-grid {
-    display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr;
-    gap: 48;
-  }
+  .footer { background: var(--ink-900); color: var(--cream-200); padding: 64px 48px 32px; font-family: var(--font-sans); }
+  .footer-grid { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 48px; }
   .footer-brand { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
   .footer-brand img { height: 32px; }
-  .footer-brand span {
-    font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--cream-50);
-  }
+  .footer-brand span { font-family: var(--font-display); font-size: 20px; font-weight: 700; color: var(--cream-50); }
   .footer-brand em { color: var(--muninn-500); font-style: normal; }
-  .footer-desc {
-    font-family: var(--font-serif); font-size: 13px; line-height: 1.6;
-    color: var(--cream-300); max-width: 36ch;
-  }
-  .footer-col h5 {
-    font-size: 11px; font-weight: 600; letter-spacing: 0.14em;
-    text-transform: uppercase; color: var(--cream-400); margin-bottom: 12px;
-  }
+  .footer-desc { font-family: var(--font-serif); font-size: 13px; line-height: 1.6; color: var(--cream-300); max-width: 36ch; }
+  .footer-col h5 { font-size: 11px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; color: var(--cream-400); margin-bottom: 12px; }
   .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
   .footer-col li { font-size: 14px; color: var(--cream-200); }
   .footer-col a { color: var(--cream-200); text-decoration: none; }
   .footer-col a:hover { color: var(--cream-50); }
-  .footer-bottom {
-    border-top: 1px solid rgba(224,211,181,.15);
-    margin-top: 48px; padding-top: 22px;
-    display: flex; align-items: center; justify-content: space-between;
-    font-size: 12px; color: var(--cream-400);
-  }
-  .footer-rune {
-    font-family: var(--font-runic); letter-spacing: 0.5em; color: var(--cream-300);
-  }
+  .footer-bottom { border-top: 1px solid rgba(224,211,181,.15); margin-top: 48px; padding-top: 22px; display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--cream-400); }
+  .footer-rune { font-family: var(--font-runic); letter-spacing: 0.5em; color: var(--cream-300); }
   .footer-legal { display: flex; gap: 20px; }
   .footer-legal a { color: var(--cream-400); text-decoration: none; }
   .footer-legal a:hover { color: var(--cream-50); }
@@ -503,63 +337,141 @@
   </div>
 </nav>
 
-<!-- ════════ RAVEN BACKGROUND (fixed, behind everything) ════════ -->
+<!-- ════════ RAVEN BACKGROUND ════════ -->
 <canvas id="raven-canvas"></canvas>
 
 <div class="page-content">
-<!-- ════════ TAGLINE ════════ -->
-<section style="background: transparent; padding: 48px 48px 0;">
-  <p class="hero-tagline" style="margin: 0;">The home for AI experiments at Hug&Mun Labs</p>
+
+<!-- ════════ SCROLL-SCRUBBED HERO ════════ -->
+<section class="scroll-hero" id="hero">
+  <div class="scroll-hero-track" id="scrollTrack">
+    <div class="scroll-hero-stage">
+
+      <div class="stage-text">
+        <div class="eyebrow"><span class="dot"></span> hug&amp;mun labs &middot; ai research</div>
+        <h1>Thought <em>&amp;</em> memory,<br>carried back to Odin.</h1>
+
+        <div class="stage-caption">
+          <p data-act="0" class="active">Odin cannot see the world directly. He waits, eye closed, for his ravens to return.</p>
+          <p data-act="1"><span class="huginn-mark">Huginn</span> — <strong>thought</strong> — flies out, structuring raw language into discrete semantic units.</p>
+          <p data-act="2"><span class="muninn-mark">Muninn</span> — <strong>memory</strong> — weaves moments into a continuous thread of evolving context.</p>
+          <p data-act="3">Together, they form <strong>belief</strong>. The eye opens. A decision can be made.</p>
+        </div>
+
+        <div class="stage-ctas">
+          <a href="#about" class="btn-primary">Read the thesis</a>
+          <a href="papers/gentags-pre.pdf" class="btn-link">Read the paper &rarr;</a>
+        </div>
+
+      </div>
+
+      <div class="stage-scene">
+        <svg class="scene" viewBox="0 0 640 600" shape-rendering="crispEdges" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="320" cy="300" r="240" fill="none" stroke="#2B241D" stroke-width="1" stroke-dasharray="2 10" opacity="0.1"/>
+          <circle cx="320" cy="300" r="180" fill="none" stroke="#2B241D" stroke-width="1" opacity="0.05"/>
+          <line x1="60" y1="450" x2="580" y2="450" stroke="#2B241D" stroke-width="1" stroke-dasharray="2 8" opacity="0.18"/>
+
+          <g id="language-fragments" opacity="0.35">
+            <rect x="40" y="200" width="18" height="2" fill="#6E6455"/><rect x="62" y="204" width="26" height="2" fill="#6E6455"/><rect x="95" y="200" width="14" height="2" fill="#6E6455"/>
+            <rect x="30" y="260" width="22" height="2" fill="#6E6455"/><rect x="58" y="264" width="18" height="2" fill="#6E6455"/><rect x="82" y="260" width="30" height="2" fill="#6E6455"/><rect x="116" y="264" width="12" height="2" fill="#6E6455"/>
+            <rect x="50" y="330" width="24" height="2" fill="#6E6455"/><rect x="80" y="334" width="16" height="2" fill="#6E6455"/><rect x="100" y="330" width="28" height="2" fill="#6E6455"/>
+            <rect x="140" y="200" width="20" height="2" fill="#6E6455"/><rect x="145" y="290" width="18" height="2" fill="#6E6455"/><rect x="125" y="370" width="26" height="2" fill="#6E6455"/>
+          </g>
+
+          <g id="particles">
+            <circle cx="410" cy="180" r="2.5" fill="#8E1C24" opacity="0.25"/><circle cx="460" cy="210" r="2" fill="#8E1C24" opacity="0.25"/><circle cx="520" cy="190" r="2.5" fill="#8E1C24" opacity="0.25"/>
+            <circle cx="550" cy="260" r="2" fill="#8E1C24" opacity="0.25"/><circle cx="510" cy="310" r="2.5" fill="#8E1C24" opacity="0.25"/><circle cx="450" cy="340" r="2" fill="#8E1C24" opacity="0.25"/>
+            <circle cx="420" cy="280" r="2" fill="#8E1C24" opacity="0.25"/><circle cx="490" cy="370" r="2.5" fill="#8E1C24" opacity="0.25"/><circle cx="560" cy="340" r="2" fill="#8E1C24" opacity="0.25"/>
+          </g>
+
+          <path id="ribbon" d="M 376 270 C 440 210, 540 220, 535 290 C 530 360, 440 370, 430 310 C 420 260, 480 250, 520 320 C 545 370, 500 400, 440 380" fill="none" stroke="#8E1C24" stroke-width="2.5" stroke-linecap="round" opacity="0"/>
+
+          <g id="tags">
+            <g class="tag" transform="translate(30,185)"><rect width="52" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="8" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="42" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="28" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+            <g class="tag" transform="translate(20,248)"><rect width="48" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="10" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="38" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="22" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+            <g class="tag" transform="translate(90,225)"><rect width="56" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="6" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="46" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="32" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+            <g class="tag" transform="translate(40,315)"><rect width="54" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="12" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="44" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="26" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+            <g class="tag" transform="translate(110,295)"><rect width="46" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="8" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="36" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="20" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+            <g class="tag" transform="translate(80,360)"><rect width="50" height="14" rx="2" fill="#3F1F73"/><rect x="4" y="3" width="10" height="2" fill="#FBF6EC" opacity="0.85"/><rect x="4" y="7" width="40" height="1" fill="#FBF6EC" opacity="0.4"/><rect x="4" y="10" width="24" height="1" fill="#FBF6EC" opacity="0.3"/></g>
+          </g>
+
+          <!-- ODIN -->
+          <g id="odin-group" transform="translate(224,172) scale(4)">
+            <g fill="#1F1510"><rect x="41" y="1" width="1" height="1"/><rect x="40" y="2" width="3" height="1"/><rect x="39" y="3" width="5" height="2"/><rect x="40" y="5" width="3" height="1"/><rect x="41" y="6" width="1" height="1"/></g>
+            <rect x="41" y="3" width="1" height="1" fill="#FBF6EC"/><rect x="41" y="7" width="1" height="56" fill="#4A3527"/><rect x="42" y="7" width="1" height="56" fill="#2E2018"/><rect x="40" y="8" width="3" height="2" fill="#8E1C24"/>
+            <g fill="#1F1510"><rect x="22" y="3" width="4" height="1"/><rect x="21" y="4" width="6" height="1"/><rect x="20" y="5" width="8" height="1"/><rect x="19" y="6" width="10" height="1"/><rect x="18" y="7" width="12" height="1"/><rect x="18" y="8" width="12" height="1"/><rect x="18" y="9" width="12" height="1"/><rect x="17" y="10" width="14" height="1"/><rect x="14" y="11" width="20" height="1"/><rect x="11" y="12" width="26" height="1"/><rect x="10" y="13" width="28" height="1"/></g>
+            <rect x="19" y="8" width="10" height="1" fill="#2E2018"/>
+            <g fill="#8B6F4E"><rect x="19" y="14" width="10" height="1"/><rect x="18" y="15" width="12" height="1"/><rect x="18" y="16" width="12" height="1"/><rect x="18" y="17" width="12" height="1"/><rect x="19" y="18" width="10" height="1"/><rect x="20" y="19" width="8" height="1"/></g>
+            <rect x="18" y="14" width="1" height="1" fill="#2E2018"/><rect x="29" y="14" width="1" height="1" fill="#2E2018"/>
+            <g id="odin-eye-closed" fill="#1F1510"><rect x="22" y="16" width="5" height="1"/></g>
+            <g id="odin-eye-open" opacity="0"><rect x="22" y="15" width="5" height="3" fill="#3F1F73"/><rect x="23" y="16" width="3" height="2" fill="#8E1C24"/><rect x="24" y="16" width="1" height="1" fill="#1F1510"/><rect x="23" y="16" width="1" height="1" fill="#FBF6EC"/></g>
+            <rect x="24" y="18" width="1" height="1" fill="#2E2018"/>
+            <g fill="#A89B80"><rect x="19" y="20" width="10" height="1"/><rect x="18" y="21" width="12" height="1"/><rect x="17" y="22" width="14" height="1"/><rect x="17" y="23" width="14" height="1"/><rect x="17" y="24" width="14" height="1"/><rect x="18" y="25" width="12" height="1"/><rect x="19" y="26" width="10" height="1"/><rect x="20" y="27" width="8" height="1"/><rect x="21" y="28" width="6" height="1"/><rect x="22" y="29" width="4" height="1"/><rect x="23" y="30" width="2" height="1"/></g>
+            <g fill="#E0D3B5"><rect x="20" y="22" width="2" height="1"/><rect x="26" y="23" width="2" height="1"/><rect x="21" y="25" width="1" height="1"/></g>
+            <rect x="22" y="20" width="4" height="1" fill="#1F1510"/>
+            <g fill="#1F1510"><rect x="11" y="24" width="7" height="1"/><rect x="10" y="25" width="9" height="1"/><rect x="9" y="26" width="10" height="1"/><rect x="30" y="24" width="8" height="1"/><rect x="29" y="25" width="10" height="1"/><rect x="29" y="26" width="11" height="1"/><rect x="19" y="27" width="10" height="1"/><rect x="9" y="27" width="10" height="1"/><rect x="29" y="27" width="11" height="1"/><rect x="8" y="28" width="32" height="1"/><rect x="8" y="29" width="32" height="1"/><rect x="8" y="30" width="32" height="1"/><rect x="7" y="31" width="33" height="1"/><rect x="7" y="32" width="33" height="1"/><rect x="7" y="33" width="33" height="1"/><rect x="7" y="34" width="33" height="1"/><rect x="7" y="35" width="33" height="1"/><rect x="6" y="36" width="34" height="1"/><rect x="6" y="37" width="34" height="1"/><rect x="6" y="38" width="34" height="1"/><rect x="6" y="39" width="34" height="1"/><rect x="6" y="40" width="34" height="1"/><rect x="6" y="41" width="34" height="1"/><rect x="6" y="42" width="34" height="1"/><rect x="6" y="43" width="34" height="1"/><rect x="5" y="44" width="35" height="1"/><rect x="5" y="45" width="35" height="1"/><rect x="5" y="46" width="35" height="1"/><rect x="5" y="47" width="35" height="1"/><rect x="5" y="48" width="35" height="1"/><rect x="5" y="49" width="35" height="1"/><rect x="5" y="50" width="35" height="1"/><rect x="4" y="51" width="36" height="1"/><rect x="4" y="52" width="36" height="1"/><rect x="4" y="53" width="36" height="1"/><rect x="4" y="54" width="36" height="1"/><rect x="4" y="55" width="36" height="1"/><rect x="4" y="56" width="36" height="1"/><rect x="3" y="57" width="37" height="1"/><rect x="3" y="58" width="37" height="1"/><rect x="3" y="59" width="37" height="1"/><rect x="3" y="60" width="37" height="1"/><rect x="2" y="61" width="38" height="1"/><rect x="2" y="62" width="38" height="1"/><rect x="1" y="63" width="40" height="1"/></g>
+            <rect x="23" y="28" width="2" height="35" fill="#2E2018"/>
+            <rect x="23" y="29" width="2" height="2" fill="#3F1F73"/><rect x="23" y="29" width="1" height="1" fill="#FBF6EC"/>
+            <rect x="38" y="40" width="3" height="4" fill="#8B6F4E"/><rect x="38" y="44" width="3" height="1" fill="#2E2018"/><rect x="38" y="39" width="3" height="1" fill="#2E2018"/>
+          </g>
+
+          <!-- HUGINN (purple) -->
+          <g id="huginn" transform="translate(258,228) scale(2)">
+            <g transform="translate(32,0) scale(-1,1)">
+              <g fill="#3F1F73"><rect x="8" y="4" width="2" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="9" y="5" width="6" height="1"/><rect x="7" y="6" width="9" height="1"/><rect x="6" y="7" width="11" height="1"/><rect x="5" y="8" width="13" height="1"/><rect x="5" y="9" width="14" height="1"/><rect x="18" y="10" width="5" height="1"/><rect x="20" y="11" width="5" height="1"/><rect x="22" y="12" width="3" height="1"/><rect x="5" y="10" width="13" height="1"/><rect x="5" y="11" width="15" height="1"/><rect x="4" y="12" width="16" height="1"/><rect x="4" y="13" width="2" height="1"/><rect x="7" y="13" width="11" height="1"/><rect x="6" y="14" width="14" height="1"/><rect x="5" y="15" width="16" height="1"/><rect x="4" y="16" width="18" height="1"/><rect x="4" y="17" width="19" height="1"/><rect x="5" y="18" width="18" height="1"/><rect x="6" y="19" width="17" height="1"/><rect x="8" y="20" width="15" height="1"/><rect x="10" y="21" width="12" height="1"/><rect x="18" y="22" width="5" height="1"/><rect x="20" y="23" width="3" height="1"/><rect x="10" y="20" width="1" height="2"/><rect x="13" y="20" width="1" height="2"/></g>
+              <g fill="#1E0E3A"><rect x="10" y="5" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="11" y="14" width="6" height="1"/><rect x="10" y="15" width="8" height="1"/><rect x="12" y="16" width="7" height="1"/><rect x="15" y="21" width="1" height="1"/><rect x="19" y="22" width="1" height="1"/></g>
+              <rect x="24" y="12" width="1" height="1" fill="#1E0E3A"/>
+            </g>
+            <g fill="#1F1510"><rect x="18" y="9" width="4" height="3"/><rect x="15" y="8" width="8" height="1"/><rect x="22" y="9" width="1" height="1"/></g>
+            <rect x="19" y="10" width="1" height="1" fill="#4A3527"/>
+          </g>
+
+          <!-- MUNINN (red) -->
+          <g id="muninn" transform="translate(334,228) scale(2)">
+            <g fill="#8E1C24"><rect x="8" y="4" width="2" height="1"/><rect x="11" y="3" width="1" height="1"/><rect x="9" y="5" width="6" height="1"/><rect x="7" y="6" width="9" height="1"/><rect x="6" y="7" width="11" height="1"/><rect x="5" y="8" width="13" height="1"/><rect x="5" y="9" width="14" height="1"/><rect x="18" y="10" width="5" height="1"/><rect x="20" y="11" width="5" height="1"/><rect x="22" y="12" width="3" height="1"/><rect x="5" y="10" width="13" height="1"/><rect x="5" y="11" width="15" height="1"/><rect x="4" y="12" width="16" height="1"/><rect x="4" y="13" width="2" height="1"/><rect x="7" y="13" width="11" height="1"/><rect x="6" y="14" width="14" height="1"/><rect x="5" y="15" width="16" height="1"/><rect x="4" y="16" width="18" height="1"/><rect x="4" y="17" width="19" height="1"/><rect x="5" y="18" width="18" height="1"/><rect x="6" y="19" width="17" height="1"/><rect x="8" y="20" width="15" height="1"/><rect x="10" y="21" width="12" height="1"/><rect x="18" y="22" width="5" height="1"/><rect x="20" y="23" width="3" height="1"/><rect x="10" y="20" width="1" height="2"/><rect x="13" y="20" width="1" height="2"/></g>
+            <g fill="#4A0E12"><rect x="10" y="5" width="1" height="1"/><rect x="13" y="5" width="1" height="1"/><rect x="8" y="7" width="1" height="1"/><rect x="11" y="14" width="6" height="1"/><rect x="10" y="15" width="8" height="1"/><rect x="12" y="16" width="7" height="1"/><rect x="15" y="21" width="1" height="1"/><rect x="19" y="22" width="1" height="1"/></g>
+            <rect x="24" y="12" width="1" height="1" fill="#4A0E12"/><rect x="11" y="9" width="2" height="2" fill="#FBF6EC"/><rect x="12" y="10" width="1" height="1" fill="#1F1510"/>
+          </g>
+
+          <!-- BELIEF CONSTELLATION -->
+          <g id="constellation" opacity="0">
+            <line x1="320" y1="236" x2="290" y2="218" stroke="#8E1C24" stroke-width="1.2" opacity="0.7"/><line x1="320" y1="236" x2="354" y2="218" stroke="#8E1C24" stroke-width="1.2" opacity="0.7"/><line x1="320" y1="236" x2="280" y2="250" stroke="#8E1C24" stroke-width="1.2" opacity="0.7"/><line x1="320" y1="236" x2="362" y2="254" stroke="#8E1C24" stroke-width="1.2" opacity="0.7"/>
+            <line x1="290" y1="218" x2="354" y2="218" stroke="#8E1C24" stroke-width="1" opacity="0.4"/><line x1="280" y1="250" x2="362" y2="254" stroke="#8E1C24" stroke-width="1" opacity="0.4"/>
+            <circle cx="320" cy="236" r="3" fill="#3F1F73"/><circle cx="290" cy="218" r="2.5" fill="#3F1F73"/><circle cx="354" cy="218" r="2.5" fill="#3F1F73"/><circle cx="280" cy="250" r="2.5" fill="#3F1F73"/><circle cx="362" cy="254" r="2.5" fill="#3F1F73"/>
+            <circle cx="320" cy="236" r="6" fill="none" stroke="#FBF6EC" stroke-width="1" opacity="0.5"/>
+          </g>
+
+          <circle id="impact" cx="388" cy="424" r="0" fill="none" stroke="#3F1F73" stroke-width="2" opacity="0"/>
+          <text id="rune" x="320" y="512" text-anchor="middle" font-family="var(--font-runic), 'Noto Sans Runic', serif" font-size="52" font-weight="600" fill="#3F1F73" opacity="0">ᚨ</text>
+        </svg>
+      </div>
+
+      <div class="stage-scroll-hint">Scroll to summon <span class="chev">&darr;</span></div>
+
+      <div class="stage-progress">
+        <div class="stage-progress-meta">
+          <span class="stage-progress-act">Act 1 &middot; Rest</span>
+          <span class="stage-progress-pct">0%</span>
+        </div>
+        <div class="stage-progress-bar"><div class="stage-progress-fill"></div></div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<!-- ════════ HERO ════════ -->
+<!-- ════════ TAGLINE ════════ -->
+<section style="background: transparent; padding: 64px 48px 0;">
+  <p class="hero-tagline" style="margin: 0;">Experiments, research, and notes from the lab.</p>
+</section>
+
+<!-- ════════ CARD SCATTER ════════ -->
 <section class="hero">
-
   <div class="card-scatter">
-    <!-- Card 1: Gentags paper -->
-    <div class="scatter-card sc-1" style="background: linear-gradient(135deg, var(--huginn-800), var(--huginn-600));">
-      <div class="scatter-card-inner">
-        <div class="card-icon"><i data-lucide="tags" style="width:18px;height:18px"></i></div>
-        <div class="card-title">Gentags</div>
-        <div class="card-sub">Discrete semantic state</div>
-      </div>
-    </div>
-
-    <!-- Card 2: Semantic compression -->
-    <div class="scatter-card sc-2" style="background: linear-gradient(160deg, var(--muninn-800), var(--muninn-600));">
-      <div class="scatter-card-inner">
-        <div class="card-icon"><i data-lucide="brain" style="width:18px;height:18px"></i></div>
-        <div class="card-title">Semantic compression</div>
-        <div class="card-sub">Meaning, not tokens</div>
-      </div>
-    </div>
-
-    <!-- Card 3: Lab logo -->
-    <div class="scatter-card sc-3" style="background: linear-gradient(140deg, var(--ink-800), var(--ink-700));">
-      <div class="scatter-card-inner" style="align-items: center; justify-content: center; text-align: center;">
-        <img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt="" style="width: 64px; margin-bottom: 12px; opacity: .9;">
-        <div class="card-title">hug&mun labs</div>
-        <div class="card-sub">Thought & memory</div>
-      </div>
-    </div>
-
-    <!-- Card 4: Decision pipelines -->
-    <div class="scatter-card sc-4" style="background: linear-gradient(135deg, var(--ink-900), var(--ink-700));">
-      <div class="scatter-card-inner">
-        <div class="card-icon"><i data-lucide="git-branch" style="width:18px;height:18px"></i></div>
-        <div class="card-title">Decision pipelines</div>
-        <div class="card-sub">Constraint-sensitive LLM flows</div>
-      </div>
-    </div>
-
-    <!-- Card 5: Research -->
-    <div class="scatter-card sc-5" style="background: linear-gradient(135deg, var(--huginn-900), var(--huginn-700));">
-      <div class="scatter-card-inner">
-        <div class="card-icon"><i data-lucide="file-text" style="width:18px;height:18px"></i></div>
-        <div class="card-title">ACL 2026</div>
-        <div class="card-sub">Pre-print available</div>
-      </div>
-    </div>
+    <div class="scatter-card sc-1" style="background: linear-gradient(135deg, var(--huginn-800), var(--huginn-600));"><div class="scatter-card-inner"><div class="card-icon"><i data-lucide="tags" style="width:18px;height:18px"></i></div><div class="card-title">Gentags</div><div class="card-sub">Discrete semantic state</div></div></div>
+    <div class="scatter-card sc-2" style="background: linear-gradient(160deg, var(--muninn-800), var(--muninn-600));"><div class="scatter-card-inner"><div class="card-icon"><i data-lucide="brain" style="width:18px;height:18px"></i></div><div class="card-title">Semantic compression</div><div class="card-sub">Meaning, not tokens</div></div></div>
+    <div class="scatter-card sc-3" style="background: linear-gradient(140deg, var(--ink-800), var(--ink-700));"><div class="scatter-card-inner" style="align-items: center; justify-content: center; text-align: center;"><img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt="" style="width: 64px; margin-bottom: 12px; opacity: .9;"><div class="card-title">hug&amp;mun labs</div><div class="card-sub">Thought &amp; memory</div></div></div>
+    <div class="scatter-card sc-4" style="background: linear-gradient(135deg, var(--ink-900), var(--ink-700));"><div class="scatter-card-inner"><div class="card-icon"><i data-lucide="git-branch" style="width:18px;height:18px"></i></div><div class="card-title">Decision pipelines</div><div class="card-sub">Constraint-sensitive LLM flows</div></div></div>
+    <div class="scatter-card sc-5" style="background: linear-gradient(135deg, var(--huginn-900), var(--huginn-700));"><div class="scatter-card-inner"><div class="card-icon"><i data-lucide="file-text" style="width:18px;height:18px"></i></div><div class="card-title">ACL 2026</div><div class="card-sub">Pre-print available</div></div></div>
   </div>
 </section>
 
@@ -568,39 +480,24 @@
   <div class="eyebrow">Core thesis</div>
   <h2>Intelligent systems require interaction between semantic interpretation, structured memory dynamics, and belief-driven decision policies.</h2>
   <p class="lead">Current AI systems largely collapse these components into a single neural representation, limiting their ability to maintain stable beliefs across time. hug&mun studies architectures that separate and integrate these functions explicitly.</p>
-  <p>Most modern AI systems operate as next-token predictors. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria. The result: they are weak at multi-step reasoning, decision consistency, evidence accumulation, and adaptive planning.</p>
+  <p>Most modern AI systems operate as next-token predictors. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria. The result: they are weak at multi-step reasoning, decision consistency, evidence accumulation, and adaptive planning. Without structured internal states, these systems also resist controllability — there is no stable lever to adjust, verify, or constrain their behavior. Control requires structure, and structure is what they lack.</p>
   <p>We believe the problem is representational, not one of scale. LLMs represent meaning implicitly in high-dimensional activations&thinsp;&mdash;&thinsp;representations that are hard to update incrementally, cannot track uncertainty, and do not persist commitments over time. Decision systems require persistent structure, revisable commitments, and explicit conditions.</p>
 </section>
 
-<!-- ════════ ARCHITECTURE: HUGINN → MUNINN → ODIN ════════ -->
+<!-- ════════ ARCHITECTURE PIPELINE ════════ -->
 <section style="padding: 0 48px; max-width: 920px; margin: 0 auto;">
   <div class="pipeline">
-    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);">
-      <div class="step-label" style="color: var(--huginn-600);">Huginn</div>
-      <div class="step-name" style="color: var(--huginn-800);">Semantic state</div>
-      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">S<sub>t</sub></div>
-    </div>
+    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--huginn-600);">Huginn</div><div class="step-name" style="color: var(--huginn-800);">Semantic state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">S<sub>t</sub></div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);">
-      <div class="step-label" style="color: var(--muninn-600);">Muninn</div>
-      <div class="step-name" style="color: var(--muninn-800);">Context state</div>
-      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">C<sub>t</sub></div>
-    </div>
+    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--muninn-600);">Muninn</div><div class="step-name" style="color: var(--muninn-800);">Context state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">C<sub>t</sub></div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step active">
-      <div class="step-label">Odin</div>
-      <div class="step-name">Belief &amp; decision</div>
-      <div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">B<sub>t</sub> &rarr; &pi;(B<sub>t</sub>)</div>
-    </div>
+    <div class="pipeline-step active"><div class="step-label">Odin</div><div class="step-name">Belief &amp; decision</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">B<sub>t</sub> &rarr; &pi;(B<sub>t</sub>)</div></div>
   </div>
-  <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 60ch; margin: 28px auto 0; text-align: center;">
-    Current LLM pipelines collapse or skip these layers. We hypothesize that separating semantic interpretation, memory dynamics, and belief integration produces more reliable, interpretable decisions.
-  </p>
+  <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); max-width: 60ch; margin: 28px auto 0; text-align: center;">Current LLM pipelines collapse or skip these layers. We hypothesize that separating semantic interpretation, memory dynamics, and belief integration produces more reliable, interpretable decisions.</p>
 </section>
 
 <!-- ════════ THREE LAYERS ════════ -->
 <section style="padding: 80px 48px 0; max-width: 920px; margin: 0 auto;">
-  <!-- HUGINN -->
   <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 56px;">
     <img src="Hug&Mun Labs Design System/assets/logo-huginn.svg" alt="" style="width: 56px; height: 56px; margin-top: 4px;">
     <div>
@@ -611,7 +508,6 @@
     </div>
   </div>
 
-  <!-- MUNINN -->
   <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 56px;">
     <img src="Hug&Mun Labs Design System/assets/logo-muninn.svg" alt="" style="width: 56px; height: 56px; margin-top: 4px;">
     <div>
@@ -619,7 +515,6 @@
       <h3 style="font-family: var(--font-display); font-size: 28px; font-weight: 600; color: var(--ink-900); margin-bottom: 12px; letter-spacing: -0.01em;">How machines accumulate experience.</h3>
       <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch;">Muninn is not a database. Muninn is structured, evolving context. Grounded in Retrieved Context Models (Lohnas &amp; Daw), we treat memory as a dynamic latent state&thinsp;&mdash;&thinsp;a context vector that drifts over time and is updated by experience.</p>
       <p style="font-family: var(--font-serif); font-size: 16px; line-height: 1.65; color: var(--fg-muted); max-width: 52ch; margin-top: 12px;">RCM shows that context determines what is retrieved, what is weighted, and what is predicted. This produces recency effects, semantic clustering, and temporal structure&thinsp;&mdash;&thinsp;phenomena that demonstrate memory is structured, not passive.</p>
-
       <div style="margin-top: 24px; padding: 20px 24px; background: var(--cream-50); border: 1px solid var(--border); border-radius: var(--r-lg);">
         <div style="font-family: var(--font-mono); font-size: 13px; color: var(--ink-700); line-height: 1.8;">
           <span style="color: var(--fg-subtle);">// Context evolution</span><br>
@@ -628,30 +523,13 @@
           P(recall) &prop; sim(c<sub>current</sub>, c<sub>stored</sub>)
         </div>
       </div>
-
       <div class="thesis-cols" style="margin-top: 24px;">
-        <div class="thesis-col">
-          <h4 style="color: var(--fg-subtle);">Standard AI memory</h4>
-          <ul>
-            <li style="--dot: var(--fg-subtle);">Vector database</li>
-            <li style="--dot: var(--fg-subtle);">Attention cache</li>
-            <li style="--dot: var(--fg-subtle);">Document retrieval</li>
-          </ul>
-        </div>
-        <div class="thesis-col">
-          <h4 style="color: var(--muninn-700);">RCM-inspired memory</h4>
-          <ul>
-            <li style="--dot: var(--muninn-500);">Dynamic</li>
-            <li style="--dot: var(--muninn-500);">Stateful</li>
-            <li style="--dot: var(--muninn-500);">Context-sensitive</li>
-            <li style="--dot: var(--muninn-500);">Time-dependent</li>
-          </ul>
-        </div>
+        <div class="thesis-col"><h4 style="color: var(--fg-subtle);">Standard AI memory</h4><ul><li style="--dot: var(--fg-subtle);">Vector database</li><li style="--dot: var(--fg-subtle);">Attention cache</li><li style="--dot: var(--fg-subtle);">Document retrieval</li></ul></div>
+        <div class="thesis-col"><h4 style="color: var(--muninn-700);">RCM-inspired memory</h4><ul><li style="--dot: var(--muninn-500);">Dynamic</li><li style="--dot: var(--muninn-500);">Stateful</li><li style="--dot: var(--muninn-500);">Context-sensitive</li><li style="--dot: var(--muninn-500);">Time-dependent</li></ul></div>
       </div>
     </div>
   </div>
 
-  <!-- ODIN -->
   <div style="display: grid; grid-template-columns: 56px 1fr; gap: 24px; margin-bottom: 24px;">
     <img src="Hug&Mun Labs Design System/assets/odin-eye.svg" alt="" style="width: 48px; height: 48px; margin-top: 8px; margin-left: 4px;">
     <div>
@@ -670,12 +548,8 @@
   <p class="lead">Gentags are not the final contribution. They are a candidate semantic state representation&thinsp;&mdash;&thinsp;the first implementation of the Huginn layer&thinsp;&mdash;&thinsp;testing whether structured semantic units improve decision behavior.</p>
   <p>We introduce a representation that compresses source text into short, evidence-grounded semantic units&thinsp;&mdash;&thinsp;discrete, individually addressable units that fit within the context window of a downstream model. Gentags improve agreement with full-evidence decisions to 79.5% (vs. 52.3&ndash;61.6% for lexical baselines) and raise hard-constraint satisfaction to 97.3%.</p>
   <p>The next step: demonstrating context dynamics over multiple steps&thinsp;&mdash;&thinsp;the Muninn layer.</p>
-  <div style="display: flex; gap: 12px; margin-top: 28px;">
-    <a href="papers/gentags-pre.pdf" class="btn-primary">Read the paper</a>
-  </div>
-  <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);">
-    ACL 2026 submission &middot; Pre-print
-  </div>
+  <div style="display: flex; gap: 12px; margin-top: 28px;"><a href="papers/gentags-pre.pdf" class="btn-primary">Read the paper</a></div>
+  <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);">ACL 2026 submission &middot; Pre-print</div>
 </section>
 
 <!-- ════════ HYPOTHESES ════════ -->
@@ -685,26 +559,14 @@
     <h2 style="font-family: var(--font-display); font-size: 36px; font-weight: 600; letter-spacing: -0.015em; color: var(--ink-900); margin-bottom: 8px;">What we're testing</h2>
   </div>
   <div class="hyp-grid">
-    <div class="hyp-card">
-      <div class="hyp-id">H1</div>
-      <p>Structured semantic state improves decision stability.</p>
-    </div>
-    <div class="hyp-card">
-      <div class="hyp-id">H2</div>
-      <p>Belief-state representations improve multi-step reasoning.</p>
-    </div>
-    <div class="hyp-card">
-      <div class="hyp-id">H3</div>
-      <p>Explicit belief revision improves adaptability to new evidence.</p>
-    </div>
-    <div class="hyp-card">
-      <div class="hyp-id">H4</div>
-      <p>Decision policies grounded in belief states are more consistent than token-level reasoning alone.</p>
-    </div>
+    <div class="hyp-card"><div class="hyp-id">H1</div><p>Structured semantic state improves decision stability.</p></div>
+    <div class="hyp-card"><div class="hyp-id">H2</div><p>Belief-state representations improve multi-step reasoning.</p></div>
+    <div class="hyp-card"><div class="hyp-id">H3</div><p>Explicit belief revision improves adaptability to new evidence.</p></div>
+    <div class="hyp-card"><div class="hyp-id">H4</div><p>Decision policies grounded in belief states are more consistent than token-level reasoning alone.</p></div>
   </div>
 </section>
 
-<!-- ════════ WHAT MAKES THIS DISTINCT ════════ -->
+<!-- ════════ DUALITY ════════ -->
 <section class="duality">
   <div class="duality-panel duality-left">
     <div class="eyebrow">What most research focuses on</div>
@@ -715,11 +577,11 @@
     <div class="eyebrow">What hug&mun focuses on</div>
     <h3>Cognitive architecture principles.</h3>
     <p>Three layers&thinsp;&mdash;&thinsp;semantic representation, context dynamics, belief updating&thinsp;&mdash;&thinsp;explicitly integrated. Grounded in computational cognitive neuroscience, not just scaling.</p>
-    <a class="btn-ghost" href="#about">Read the thesis &#8594;</a>
+    <a class="btn-ghost" href="#about">Read the thesis &rarr;</a>
   </div>
 </section>
 
-<!-- ════════ LONG-TERM VISION ════════ -->
+<!-- ════════ VISION ════════ -->
 <section class="vision">
   <div class="vision-inner">
     <div class="eyebrow">Long-term vision</div>
@@ -743,46 +605,17 @@
 <footer class="footer">
   <div class="footer-grid">
     <div>
-      <div class="footer-brand">
-        <img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt="">
-        <span>hug<em>&</em>mun</span>
-      </div>
+      <div class="footer-brand"><img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt=""><span>hug<em>&</em>mun</span></div>
       <p class="footer-desc">Two ravens, one mind. An independent AI research lab building for the space between thought and memory.</p>
     </div>
-    <div class="footer-col">
-      <h5>Research</h5>
-      <ul>
-        <li><a href="#">Papers</a></li>
-        <li><a href="#">Notebooks</a></li>
-        <li><a href="#">Open models</a></li>
-        <li><a href="#">Datasets</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Lab</h5>
-      <ul>
-        <li><a href="#">About</a></li>
-        <li><a href="#">Team</a></li>
-        <li><a href="#">Careers</a></li>
-        <li><a href="#">Press</a></li>
-      </ul>
-    </div>
-    <div class="footer-col">
-      <h5>Contact</h5>
-      <ul>
-        <li>hello@hugmun.ai</li>
-        <li>Monterrey, NL, Mexico</li>
-      </ul>
-    </div>
+    <div class="footer-col"><h5>Research</h5><ul><li><a href="#">Papers</a></li><li><a href="#">Notebooks</a></li><li><a href="#">Open models</a></li><li><a href="#">Datasets</a></li></ul></div>
+    <div class="footer-col"><h5>Lab</h5><ul><li><a href="#">About</a></li><li><a href="#">Team</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h5>Contact</h5><ul><li>hello@hugmun.ai</li><li>Monterrey, NL, Mexico</li></ul></div>
   </div>
   <div class="footer-bottom">
     <div>&copy; 2026 Hug&Mun Labs</div>
     <div class="footer-rune">ᚺ ᛫ ᛗ</div>
-    <div class="footer-legal">
-      <a href="#">Privacy</a>
-      <a href="#">Terms</a>
-      <a href="#">RSS</a>
-    </div>
+    <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">RSS</a></div>
   </div>
 </footer>
 
@@ -790,101 +623,17 @@
 
 <script>lucide.createIcons();</script>
 
+<!-- AMBIENT RAVEN BACKGROUND -->
 <script>
-(function () {
-  const canvas = document.getElementById('raven-canvas');
-  if (!canvas) return;
-  const ctx = canvas.getContext('2d');
-
-  const RAVEN_COLORS = ['#3F1F73', '#8E1C24'];
-  const SIZES = [4, 3];
-
-  const FRAMES = [
-    [[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
-    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],
-    [[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0]]
-  ];
-  const SW = 16, SH = 10;
-  const FLAP = [0, 1, 2, 1];
-
-  let W, H;
-  function resize(){
-    const dpr = window.devicePixelRatio || 1;
-    W = canvas.clientWidth; H = canvas.clientHeight;
-    canvas.width = W * dpr; canvas.height = H * dpr;
-    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    ctx.imageSmoothingEnabled = false;
-  }
-  resize();
-  window.addEventListener('resize', resize);
-
-  function makeRaven(scale, startOffset, color){
-    return {
-      x: -SW * scale - startOffset,
-      y: 40 + Math.random() * (H - 120),
-      scale, color,
-      baseSpeed: 0.05 + scale * 0.02,
-      seqIdx: Math.floor(Math.random() * 4),
-      flapTimer: Math.floor(Math.random() * 6),
-      baseFlapDelay: 14,
-      bobPhase: Math.random() * Math.PI * 2,
-    };
-  }
-  const ravens = SIZES.map((s, i) => makeRaven(s, i * 320, RAVEN_COLORS[i % RAVEN_COLORS.length]));
-
-  let lastScroll = window.scrollY;
-  let scrollVel = 0;
-  window.addEventListener('scroll', () => {
-    const now = window.scrollY;
-    scrollVel += (now - lastScroll);
-    lastScroll = now;
-  }, { passive: true });
-
-  function drawSprite(frame, x, y, s){
-    for (let sy = 0; sy < SH; sy++)
-      for (let sx = 0; sx < SW; sx++)
-        if (frame[sy][sx]) ctx.fillRect(x + sx*s, y + sy*s, s, s);
-  }
-
-  function tick(){
-    ctx.clearRect(0, 0, W, H);
-
-    scrollVel *= 0.93;
-    const clampedVel = Math.max(-30, Math.min(30, scrollVel));
-    const energy = Math.min(Math.abs(clampedVel) * 0.1, 3);
-
-    for (const r of ravens){
-      ctx.fillStyle = r.color;
-      const depth = r.scale / 4;
-
-      const flapDelay = Math.max(5, r.baseFlapDelay - Math.floor(energy));
-      r.flapTimer++;
-      if (r.flapTimer >= flapDelay){
-        r.flapTimer = 0;
-        r.seqIdx = (r.seqIdx + 1) % FLAP.length;
-      }
-
-      const boost = Math.abs(clampedVel) * 0.05 * depth;
-      r.x += (r.baseSpeed + boost) * r.scale;
-
-      r.y += clampedVel * 0.05 * depth;
-      if (r.y < 10) r.y = 10;
-      if (r.y > H - 40) r.y = H - 40;
-
-      r.bobPhase += 0.03 + energy * 0.008;
-
-      if (r.x > W + 20){
-        r.x = -SW * r.scale - 40;
-        r.y = 40 + Math.random() * (H - 120);
-      }
-
-      const bob = Math.sin(r.bobPhase) * 1.5;
-      drawSprite(FRAMES[FLAP[r.seqIdx]], Math.round(r.x), Math.round(r.y + bob), r.scale);
-    }
-    requestAnimationFrame(tick);
-  }
-  tick();
+(function(){const canvas=document.getElementById('raven-canvas');if(!canvas)return;const ctx=canvas.getContext('2d');const RAVEN_COLORS=['#3F1F73','#8E1C24'];const SIZES=[4,3];const FRAMES=[[[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0]]];const SW=16,SH=10;const FLAP=[0,1,2,1];let W,H;function resize(){const dpr=window.devicePixelRatio||1;W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false}resize();window.addEventListener('resize',resize);function makeRaven(scale,startOffset,color){return{x:-SW*scale-startOffset,y:40+Math.random()*(H-120),scale,color,baseSpeed:0.05+scale*0.02,seqIdx:Math.floor(Math.random()*4),flapTimer:Math.floor(Math.random()*6),baseFlapDelay:14,bobPhase:Math.random()*Math.PI*2}}const ravens=SIZES.map((s,i)=>makeRaven(s,i*320,RAVEN_COLORS[i%RAVEN_COLORS.length]));let lastScroll=window.scrollY;let scrollVel=0;window.addEventListener('scroll',()=>{const now=window.scrollY;scrollVel+=(now-lastScroll);lastScroll=now},{passive:true});function drawSprite(frame,x,y,s){for(let sy=0;sy<SH;sy++)for(let sx=0;sx<SW;sx++)if(frame[sy][sx])ctx.fillRect(x+sx*s,y+sy*s,s,s)}function tick(){ctx.clearRect(0,0,W,H);scrollVel*=0.93;const clampedVel=Math.max(-30,Math.min(30,scrollVel));const energy=Math.min(Math.abs(clampedVel)*0.1,3);for(const r of ravens){ctx.fillStyle=r.color;const depth=r.scale/4;const flapDelay=Math.max(5,r.baseFlapDelay-Math.floor(energy));r.flapTimer++;if(r.flapTimer>=flapDelay){r.flapTimer=0;r.seqIdx=(r.seqIdx+1)%FLAP.length}const boost=Math.abs(clampedVel)*0.05*depth;r.x+=(r.baseSpeed+boost)*r.scale;r.y+=clampedVel*0.05*depth;if(r.y<10)r.y=10;if(r.y>H-40)r.y=H-40;r.bobPhase+=0.03+energy*0.008;if(r.x>W+20){r.x=-SW*r.scale-40;r.y=40+Math.random()*(H-120)}const bob=Math.sin(r.bobPhase)*1.5;drawSprite(FRAMES[FLAP[r.seqIdx]],Math.round(r.x),Math.round(r.y+bob),r.scale)}requestAnimationFrame(tick)}tick()
 })();
 </script>
+
+<!-- SCROLL-SCRUBBED HERO ANIMATION -->
+<script>
+(function(){const track=document.getElementById('scrollTrack');if(!track)return;const scene=track.querySelector('.scene');const huginn=scene.querySelector('#huginn');const muninn=scene.querySelector('#muninn');const tagEls=scene.querySelectorAll('.tag');const ribbon=scene.querySelector('#ribbon');const particleEls=scene.querySelectorAll('#particles circle');const fragmentsEl=scene.querySelector('#language-fragments');const eyeClosed=scene.querySelector('#odin-eye-closed');const eyeOpen=scene.querySelector('#odin-eye-open');const odinGroup=scene.querySelector('#odin-group');const constellation=scene.querySelector('#constellation');const impact=scene.querySelector('#impact');const rune=scene.querySelector('#rune');const captions=document.querySelectorAll('.stage-caption p');const progFill=document.querySelector('.stage-progress-fill');const progPct=document.querySelector('.stage-progress-pct');const progAct=document.querySelector('.stage-progress-act');const scrollHint=document.querySelector('.stage-scroll-hint');const ribbonLen=ribbon.getTotalLength();ribbon.setAttribute('stroke-dasharray',ribbonLen);ribbon.setAttribute('stroke-dashoffset',ribbonLen);const clamp=(v,a=0,b=1)=>Math.max(a,Math.min(b,v));const lerp=(a,b,t)=>a+(b-a)*t;const ease=t=>t<0.5?2*t*t:1-Math.pow(-2*t+2,2)/2;const range=(p,a,b)=>clamp((p-a)/(b-a));const bez=(p0,p1,p2,t)=>(1-t)*(1-t)*p0+2*(1-t)*t*p1+t*t*p2;const H_PERCH={x:258,y:228};const H_ARC_PEAK={x:140,y:130};const H_OUT={x:50,y:210};const M_PERCH={x:334,y:228};const M_ARC_PEAK={x:470,y:130};const M_OUT={x:540,y:210};const ACTS=[{name:'Rest',min:0},{name:'Huginn flight \xb7 tags crystallize',min:0.12},{name:'Muninn flight \xb7 ribbon weaves',min:0.35},{name:'Return \xb7 belief integrates',min:0.55},{name:'Decision',min:0.72},{name:'Reset',min:0.92}];function captionIndex(p){if(p<0.15)return 0;if(p<0.40)return 1;if(p<0.65)return 2;return 3}function update(p){if(progFill)progFill.style.width=(p*100)+'%';if(progPct)progPct.textContent=Math.round(p*100)+'%';if(progAct){let label=ACTS[0].name;for(const a of ACTS)if(p>=a.min)label=a.name;progAct.textContent=label}if(scrollHint)scrollHint.style.opacity=clamp(1-p*6,0,1);const ci=captionIndex(p);captions.forEach((c,i)=>c.classList.toggle('active',i===ci));let hx,hy,hTilt=0;if(p<0.12){hx=H_PERCH.x;hy=H_PERCH.y}else if(p<0.35){const t=ease(range(p,0.12,0.35));hx=bez(H_PERCH.x,H_ARC_PEAK.x,H_OUT.x,t);hy=bez(H_PERCH.y,H_ARC_PEAK.y,H_OUT.y,t)+Math.sin(p*60)*2;hTilt=-10*t}else if(p<0.55){hx=H_OUT.x;hy=H_OUT.y+Math.sin(p*40)*3;hTilt=-10}else if(p<0.72){const t=ease(range(p,0.55,0.72));hx=lerp(H_OUT.x,H_PERCH.x,t);hy=lerp(H_OUT.y,H_PERCH.y,t);hTilt=lerp(-10,0,t)}else{hx=H_PERCH.x;hy=H_PERCH.y}huginn.setAttribute('transform',`translate(${hx.toFixed(1)},${hy.toFixed(1)}) scale(2) rotate(${hTilt.toFixed(1)} 16 14)`);let mx,my,mTilt=0;if(p<0.35){mx=M_PERCH.x;my=M_PERCH.y}else if(p<0.55){const t=ease(range(p,0.35,0.55));mx=bez(M_PERCH.x,M_ARC_PEAK.x,M_OUT.x,t);my=bez(M_PERCH.y,M_ARC_PEAK.y,M_OUT.y,t)+Math.sin(p*60)*2;mTilt=10*t}else if(p<0.72){if(p<0.58){mx=M_OUT.x;my=M_OUT.y+Math.sin(p*40)*3;mTilt=10}else{const t=ease(range(p,0.58,0.72));mx=lerp(M_OUT.x,M_PERCH.x,t);my=lerp(M_OUT.y,M_PERCH.y,t);mTilt=lerp(10,0,t)}}else{mx=M_PERCH.x;my=M_PERCH.y}muninn.setAttribute('transform',`translate(${mx.toFixed(1)},${my.toFixed(1)}) scale(2) rotate(${mTilt.toFixed(1)} 16 14)`);const fragDim=1-range(p,0.15,0.35)*0.6;if(fragmentsEl)fragmentsEl.setAttribute('opacity',(0.35*fragDim).toFixed(3));const tagFadeOnReturn=1-range(p,0.62,0.75);tagEls.forEach((tag,i)=>{const tagStart=0.15+i*0.028;const tagEnd=tagStart+0.05;const t=ease(range(p,tagStart,tagEnd));const op=t*tagFadeOnReturn;tag.setAttribute('opacity',op.toFixed(3));const s=lerp(0.4,1,t);const existing=tag.getAttribute('data-base-transform')||tag.getAttribute('transform');if(!tag.getAttribute('data-base-transform'))tag.setAttribute('data-base-transform',existing);tag.setAttribute('transform',`${tag.getAttribute('data-base-transform')} scale(${s.toFixed(3)})`)});const ribbonDraw=ease(range(p,0.35,0.55));const ribbonFade=1-range(p,0.62,0.75);ribbon.setAttribute('stroke-dashoffset',(ribbonLen*(1-ribbonDraw)).toFixed(2));ribbon.setAttribute('opacity',(ribbonDraw*ribbonFade*0.9).toFixed(3));const partBright=range(p,0.35,0.55);const partFade=1-range(p,0.62,0.75);particleEls.forEach(c=>{c.setAttribute('opacity',(0.2+partBright*0.7*partFade).toFixed(3))});const eyeOpenP=range(p,0.70,0.78)*(1-range(p,0.92,0.98));eyeOpen.setAttribute('opacity',eyeOpenP.toFixed(3));eyeClosed.setAttribute('opacity',(1-eyeOpenP).toFixed(3));const cIn=ease(range(p,0.72,0.82));const cOut=1-range(p,0.92,0.98);const pulse=1+Math.sin(p*80)*0.06*(p>0.72&&p<0.92?1:0);constellation.setAttribute('opacity',(cIn*cOut).toFixed(3));constellation.setAttribute('transform',`translate(320 236) scale(${pulse.toFixed(3)}) translate(-320 -236)`);const strike=range(p,0.82,0.88);let bob=0;if(strike>0&&strike<1){if(strike<0.4)bob=-strike/0.4;else if(strike<0.7)bob=((strike-0.4)/0.3)*2-1;else bob=1-(strike-0.7)/0.3}odinGroup.setAttribute('transform',`translate(224,${(172+bob*3).toFixed(1)}) scale(4)`);if(strike>0.5&&strike<1){const ip=(strike-0.5)/0.5;impact.setAttribute('r',(ip*70).toFixed(1));impact.setAttribute('opacity',((1-ip)*0.65).toFixed(3));impact.setAttribute('stroke-width',((1-ip)*3).toFixed(2))}else{impact.setAttribute('opacity',0)}const runeIn=ease(range(p,0.85,0.90));const runeOut=1-range(p,0.94,0.99);rune.setAttribute('opacity',(runeIn*runeOut).toFixed(3))}let ticking=false;function onScroll(){const rect=track.getBoundingClientRect();const denom=rect.height-window.innerHeight;const p=denom>0?clamp(-rect.top/denom,0,1):0;update(p);ticking=false}function requestUpdate(){if(!ticking){requestAnimationFrame(onScroll);ticking=true}}window.addEventListener('scroll',requestUpdate,{passive:true});window.addEventListener('resize',requestUpdate,{passive:true});onScroll()
+})();
+</script>
+
 </body>
 </html>
