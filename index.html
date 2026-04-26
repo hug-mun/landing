@@ -173,7 +173,7 @@
   .stage-ctas .btn-link:hover { color: var(--huginn-800); }
 
   .stage-progress {
-    position: absolute; left: 64px; bottom: 24px;
+    position: absolute; right: 64px; bottom: 24px;
     width: calc(50% - 96px); max-width: 420px;
     pointer-events: none;
   }
@@ -187,7 +187,7 @@
   .stage-progress-bar { height: 2px; background: var(--border); border-radius: 1px; overflow: hidden; }
   .stage-progress-fill { height: 100%; background: linear-gradient(90deg, var(--huginn-700), var(--muninn-700)); width: 0%; }
   .stage-scroll-hint {
-    position: absolute; right: 64px; bottom: 32px;
+    position: absolute; left: 64px; bottom: 32px;
     font-family: var(--font-mono); font-size: 10px;
     letter-spacing: 0.14em; text-transform: uppercase;
     color: var(--fg-subtle);
@@ -337,7 +337,6 @@
     <a href="#experiments">Experiments</a>
     <a href="#research">Research</a>
     <a href="#about">About</a>
-    <a href="#community">Community</a>
   </div>
   <a class="nav-logo" href="#">
     <img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt="hug&mun">
@@ -478,18 +477,11 @@
   <p class="hero-tagline" style="margin: 0;">Experiments, research, and notes from the lab.</p>
 </section>
 
-<!-- ════════ LAB VIDEO ════════ -->
-<section class="lab-video" id="experiments" aria-label="Lab video">
-  <div class="lab-video-frame">
-    <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
-  </div>
-</section>
-
 <!-- ════════ CORE IDEA ════════ -->
 <section class="thesis" id="about">
   <div class="eyebrow">Core idea</div>
-  <h2>Most AI systems collapse reasoning, memory, and decision-making into a single neural representation.</h2>
-  <p class="lead">We study whether separating these functions into explicit components improves:</p>
+  <h2>AI systems generate outputs from implicit context, but reliable decisions require explicit state.</h2>
+  <p class="lead">We study whether making semantic representation, memory dynamics, and belief explicit improves:</p>
   <ul style="list-style: none; padding: 0; margin: 0 0 32px;">
     <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Decision consistency</li>
     <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Interpretability</li>
@@ -500,13 +492,13 @@
 <!-- ════════ PIPELINE ════════ -->
 <section style="padding: 0 48px; max-width: 920px; margin: 0 auto;">
   <div class="pipeline">
-    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--huginn-600);">1</div><div class="step-name" style="color: var(--huginn-800);">Semantic state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Structured meaning from input</div></div>
+    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--huginn-600);">1</div><div class="step-name" style="color: var(--huginn-800);">Semantic state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Structured meaning extracted from input</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--muninn-600);">2</div><div class="step-name" style="color: var(--muninn-800);">Context state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">Evolving memory that conditions interpretation</div></div>
+    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--muninn-600);">2</div><div class="step-name" style="color: var(--muninn-800);">Context state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">Evolving memory that shapes interpretation</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step active"><div class="step-label">3</div><div class="step-name">Belief</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Internal position used for decisions</div></div>
+    <div class="pipeline-step active"><div class="step-label">3</div><div class="step-name">Belief state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Uncertainty-bearing position used for decisions</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step"><div class="step-label">4</div><div class="step-name">Decision</div></div>
+    <div class="pipeline-step"><div class="step-label">4</div><div class="step-name">Decision</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--fg-subtle); margin-top: 6px;">Action or judgment based on belief</div></div>
   </div>
 </section>
 
@@ -543,9 +535,14 @@
   <p style="color: var(--fg-subtle);">These are treated as testable approximations, not assumptions about how memory fundamentally works.</p>
 </section>
 
-<!-- ════════ LOGO SHOWCASE ════════ -->
-<section style="padding: 80px 48px; text-align: center; background: var(--cream-100); border-top: 1px solid var(--border);">
-  <img src="Hug&Mun Labs Design System/uploads/hugymun.png" alt="Hug&Mun Labs" style="max-width: 420px; width: 100%; margin: 0 auto; display: block;">
+<!-- ════════ VIDEO + LOGO ════════ -->
+<section id="experiments" style="padding: 72px 48px; background: var(--cream-100); border-top: 1px solid var(--border);">
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 380px; margin: 0 auto;">
+    <div class="lab-video-frame" style="width: 100%;">
+      <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
+    </div>
+    <img src="Hug&Mun Labs Design System/uploads/hugmun_black.PNG" alt="Hug&Mun Labs" style="width: 200px;">
+  </div>
 </section>
 
 <!-- ════════ FOOTER ════════ -->

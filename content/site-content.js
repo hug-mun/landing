@@ -29,8 +29,8 @@ const SITE = {
   // ── CORE THESIS ──
   thesis: {
     eyebrow: "Core thesis",
-    headline: "Current AI systems generate text but do not maintain stable internal state. We study how to fix that.",
-    lead: "Intelligent systems require interaction between semantic interpretation, structured memory dynamics, and belief-driven decision policies. Current systems collapse these into a single neural representation, limiting their ability to maintain stable beliefs across time. hug&mun studies architectures that separate and integrate these functions explicitly.",
+    headline: "AI systems generate outputs from implicit context, but reliable decisions require explicit state.",
+    lead: "We study whether making semantic representation, memory dynamics, and belief explicit improves decision consistency, interpretability, and controllability.",
     paragraphs: [
       "Most modern AI systems operate as next-token predictors. They produce fluent outputs, but they do not reliably maintain stable internal states, explicit commitments, traceable uncertainty, or consistent decision criteria. The result: they are weak at multi-step reasoning, decision consistency, evidence accumulation, and adaptive planning. Without structured internal states, these systems also resist controllability — there is no stable lever to adjust, verify, or constrain their behavior.",
       "We believe a key limitation is representational, not only one of scale. LLMs represent meaning implicitly in high-dimensional activations\u2009—\u2009representations that are hard to update incrementally, cannot track uncertainty, and do not persist commitments over time. Decision systems require persistent structure, revisable commitments, and explicit conditions.",
