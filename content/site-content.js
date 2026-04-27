@@ -95,7 +95,7 @@ const SITE = {
 
   // ── FOOTER ──
   footer: {
-    tagline: "Two processes: thought and memory. One goal: reliable decisions.",
+    tagline: "Thought and memory, structured into state for reliable decisions.",
     columns: [
       { title: "Research", items: ["Papers", "Notebooks", "Open models", "Datasets"] },
       { title: "Lab", items: ["About", "Team", "Careers", "Press"] },
