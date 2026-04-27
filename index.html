@@ -30,33 +30,44 @@
     position: sticky; top: 0; z-index: 100;
     display: flex; align-items: center;
     padding: 0 48px; height: 60px;
-    background: rgba(245, 238, 220, 0.85);
+    background: rgba(30, 14, 58, 0.85);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border-bottom: 1px solid var(--border);
+    border-bottom: 1px solid rgba(201, 172, 239, 0.12);
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .nav.nav-light {
+    background: rgba(245, 238, 220, 0.85);
+    border-bottom-color: var(--border);
   }
   .nav-links { display: flex; gap: 4px; }
   .nav-links a {
     font-family: var(--font-sans); font-size: 14px; font-weight: 500;
-    color: var(--fg-muted); text-decoration: none;
+    color: var(--huginn-300); text-decoration: none;
     padding: 8px 14px; border-radius: var(--r-md);
-    transition: color var(--dur-fast), background var(--dur-fast);
+    transition: color 0.3s, background 0.3s;
   }
-  .nav-links a:hover { color: var(--ink-900); background: var(--cream-200); }
+  .nav-links a:hover { color: var(--cream-50); background: rgba(255,255,255,.08); }
+  .nav-light .nav-links a { color: var(--fg-muted); }
+  .nav-light .nav-links a:hover { color: var(--ink-900); background: var(--cream-200); }
   .nav-logo {
     position: absolute; left: 50%; transform: translateX(-50%);
     display: flex; align-items: center; gap: 10px;
     text-decoration: none;
   }
-  .nav-logo img { height: 28px; }
+  .nav-logo img { height: 28px; transition: filter 0.3s; }
   .nav-logo span {
     font-family: var(--font-display); font-size: 18px; font-weight: 700;
-    color: var(--ink-900);
+    color: var(--cream-50); transition: color 0.3s;
   }
-  .nav-logo span em { color: var(--muninn-500); font-style: normal; }
+  .nav-logo span em { color: var(--huginn-300); font-style: normal; transition: color 0.3s; }
+  .nav-light .nav-logo span { color: var(--ink-900); }
+  .nav-light .nav-logo span em { color: var(--muninn-500); }
   .nav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; }
-  .nav-right a { color: var(--fg-subtle); text-decoration: none; transition: color var(--dur-fast); }
-  .nav-right a:hover { color: var(--ink-900); }
+  .nav-right a { color: var(--huginn-300); text-decoration: none; transition: color 0.3s; }
+  .nav-right a:hover { color: var(--cream-50); }
+  .nav-light .nav-right a { color: var(--fg-subtle); }
+  .nav-light .nav-right a:hover { color: var(--ink-900); }
 
   /* ── MISSION & VISION ── */
   .mv-page {
@@ -64,14 +75,29 @@
     min-height: 100vh; padding: 64px 32px;
     background: var(--huginn-900);
   }
+  .mv-page-grid {
+    width: 100%; max-width: 1400px;
+    display: grid; grid-template-columns: 1fr 380px;
+    gap: 40px; align-items: center;
+  }
   .mv-section {
-    width: 100%; max-width: 1200px;
+    width: 100%;
     background: var(--huginn-900);
     padding: 80px 64px 88px;
     position: relative; overflow: hidden;
-    border: 1px solid rgba(201, 172, 239, 0.18);
+    border: none;
     border-radius: var(--r-lg);
   }
+  .mv-video-side {
+    display: flex; flex-direction: column; align-items: center; gap: 24px;
+  }
+  .mv-video-side .lab-video-frame {
+    width: 100%; border-radius: var(--r-lg); overflow: hidden;
+    border: 1px solid rgba(201, 172, 239, 0.18);
+    background: var(--huginn-900);
+  }
+  .mv-video-side .lab-video-frame video { display: block; width: 100%; height: auto; }
+  .mv-video-side .mv-logo-img { width: 160px; }
   .mv-section::before {
     content: ""; position: absolute; inset: 0;
     background-image: radial-gradient(circle at 1px 1px, rgba(245, 238, 220, 0.05) 1px, transparent 0);
@@ -112,7 +138,7 @@
     color: var(--huginn-300); margin-bottom: 20px;
   }
   .mv-statement {
-    font-family: var(--font-sans); font-size: 22px; line-height: 1.45;
+    font-family: var(--font-serif); font-size: 22px; line-height: 1.45;
     font-weight: 500; letter-spacing: -0.005em;
     color: var(--cream-50); margin: 0; text-wrap: balance;
   }
@@ -125,11 +151,16 @@
     letter-spacing: 0.22em; text-transform: uppercase; color: var(--huginn-300);
   }
   .mv-desc {
-    font-family: var(--font-sans); font-size: 16px; line-height: 1.7;
+    font-family: var(--font-serif); font-size: 16px; line-height: 1.7;
     color: var(--huginn-200); margin: 0 auto; text-wrap: pretty;
     max-width: 62ch; font-weight: 400;
   }
   .mv-desc strong { color: var(--cream-50); font-weight: 700; }
+  @media (max-width: 1024px) {
+    .mv-page-grid { grid-template-columns: 1fr; }
+    .mv-video-side { flex-direction: row; justify-content: center; padding: 0 32px; }
+    .mv-video-side .lab-video-frame { max-width: 320px; }
+  }
   @media (max-width: 820px) {
     .mv-page { padding: 32px 16px; }
     .mv-section { padding: 56px 28px 64px; }
@@ -138,6 +169,8 @@
     .mv-col-left, .mv-col-right { padding: 0; }
     .mv-divider { width: 100%; height: 1px; }
     .mv-statement { font-size: 19px; }
+    .mv-video-side { flex-direction: column; }
+    .mv-video-side .lab-video-frame { max-width: 280px; }
   }
 
   /* ── SCROLL-SCRUBBED HERO ── */
@@ -414,10 +447,10 @@
 <body>
 
 <!-- ════════ NAV ════════ -->
-<nav class="nav">
+<nav class="nav" id="main-nav">
   <div class="nav-links">
-    <a href="#experiments">Experiments</a>
-    <a href="#research">Research</a>
+    <a href="#first-result">Experiments</a>
+    <a href="#hero">Research</a>
     <a href="#about">About</a>
   </div>
   <a class="nav-logo" href="#">
@@ -437,7 +470,8 @@
 <div class="page-content">
 
 <!-- ════════ MISSION & VISION ════════ -->
-<section class="mv-page">
+<section class="mv-page" id="experiments">
+  <div class="mv-page-grid">
   <div class="mv-section">
     <div class="mv-inner">
 
@@ -453,14 +487,14 @@
         <div class="mv-col-left">
           <div class="mv-label">Mission</div>
           <p class="mv-statement">
-            Advance how AI systems use <span class="accent">representation</span> and <span class="accent">state</span> to make reliable and controllable decisions.
+            Advance how <span class="accent">representation</span> and <span class="accent">state</span> are used in AI systems to produce more reliable and controllable decisions.
           </p>
         </div>
         <div class="mv-divider"></div>
         <div class="mv-col-right">
           <div class="mv-label">Vision</div>
           <p class="mv-statement">
-            Enable AI systems that maintain <span class="accent">internal state</span> and make consistent, controllable decisions <span class="accent">over time</span>.
+            AI systems that make decisions from <span class="accent">explicit, updatable state</span> rather than implicit text representations.
           </p>
         </div>
       </div>
@@ -472,11 +506,19 @@
           <span class="line"></span>
         </div>
         <p class="mv-desc">
-          We design and test structured representations and state mechanisms to understand how they change decision behavior in AI systems. Our work focuses on how <strong>semantic state</strong>, <strong>memory</strong>, and <strong>belief</strong> interact to produce consistent and controllable decisions over time.
+          We design and evaluate structured representations and intermediate state mechanisms to understand how they shape decision behavior. Our work starts with <strong>semantic state</strong>: making decision-relevant information explicit and addressable. From there, we study how such state can support <strong>revision</strong>, <strong>aggregation</strong>, and <strong>uncertainty</strong>, moving toward systems that can make decisions from consistent, belief-like representations over time.
         </p>
       </div>
 
     </div>
+  </div>
+
+  <div class="mv-video-side">
+    <div class="lab-video-frame">
+      <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
+    </div>
+  </div>
+
   </div>
 </section>
 
@@ -629,7 +671,7 @@
 </section>
 
 <!-- ════════ FIRST RESULT ════════ -->
-<section class="thesis" style="padding-top: 72px; border-top: 1px solid var(--border);">
+<section class="thesis" id="first-result" style="padding-top: 72px; border-top: 1px solid var(--border);">
   <div class="eyebrow">First result</div>
   <h2 style="font-size: 38px;">Gentags</h2>
   <p>A representation that compresses text into discrete semantic units.</p>
@@ -661,14 +703,9 @@
   <p style="color: var(--fg-subtle);">These are treated as testable approximations, not assumptions about how memory fundamentally works.</p>
 </section>
 
-<!-- ════════ VIDEO + LOGO ════════ -->
-<section id="experiments" style="padding: 72px 48px; background: var(--cream-100); border-top: 1px solid var(--border);">
-  <div style="display: flex; flex-direction: column; align-items: center; gap: 32px; max-width: 380px; margin: 0 auto;">
-    <div class="lab-video-frame" style="width: 100%;">
-      <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
-    </div>
-    <img src="Hug&Mun Labs Design System/uploads/hugmun_black.PNG" alt="Hug&Mun Labs" style="width: 200px;">
-  </div>
+<!-- ════════ LOGO ════════ -->
+<section style="padding: 80px 48px; text-align: center; background: var(--cream-100); border-top: 1px solid var(--border);">
+  <img src="Hug&Mun Labs Design System/uploads/hugmun_black.PNG" alt="Hug&Mun Labs" style="width: 200px;">
 </section>
 
 <!-- ════════ FOOTER ════════ -->
@@ -678,8 +715,8 @@
       <div class="footer-brand"><img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt=""><span>hug<em>&</em>mun</span></div>
       <p class="footer-desc">Two processes: thought and memory. One goal: reliable decisions.</p>
     </div>
-    <div class="footer-col"><h5>Research</h5><ul><li><a href="#">Papers</a></li><li><a href="#">Notebooks</a></li><li><a href="#">Open models</a></li><li><a href="#">Datasets</a></li></ul></div>
-    <div class="footer-col"><h5>Lab</h5><ul><li><a href="#">About</a></li><li><a href="#">Team</a></li><li><a href="#">Careers</a></li><li><a href="#">Press</a></li></ul></div>
+    <div class="footer-col"><h5>Research</h5><ul><li><a href="#first-result">Papers</a></li><!-- <li><a href="#">Notebooks</a></li> --><!-- <li><a href="#">Open models</a></li> --><!-- <li><a href="#">Datasets</a></li> --></ul></div>
+    <div class="footer-col"><h5>Lab</h5><ul><li><a href="#about">About</a></li><!-- <li><a href="#">Team</a></li> --><!-- <li><a href="#">Careers</a></li> --><!-- <li><a href="#">Press</a></li> --></ul></div>
     <div class="footer-col"><h5>Contact</h5><ul><li>hello@hugmun.ai</li><li>Monterrey, NL, Mexico</li></ul></div>
   </div>
   <div class="footer-bottom">
@@ -692,6 +729,30 @@
 </div><!-- /.page-content -->
 
 <script src="content/site-content.js"></script>
+
+<!-- NAV THEME SWITCHER -->
+<script>
+(function(){
+  var nav = document.querySelector('.nav');
+  if (!nav) return;
+  var darkSections = document.querySelectorAll('.mv-page, .vision');
+  // Start in dark mode (M&V is first)
+  var isDark = true;
+  function check() {
+    var navBottom = nav.getBoundingClientRect().bottom;
+    var overDark = false;
+    darkSections.forEach(function(sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.top < navBottom && r.bottom > navBottom) overDark = true;
+    });
+    if (overDark && !isDark) { nav.classList.remove('nav-light'); isDark = true; }
+    else if (!overDark && isDark) { nav.classList.add('nav-light'); isDark = false; }
+  }
+  check();
+  window.addEventListener('scroll', function() { requestAnimationFrame(check); }, { passive: true });
+  window.addEventListener('resize', check);
+})();
+</script>
 <script>lucide.createIcons();</script>
 
 <!-- LAB VIDEO: play in view -->
