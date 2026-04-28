@@ -26,6 +26,164 @@
     z-index: 1;
   }
 
+  /* ── MEDIA (fullscreen overlay, toggled via body.media-open) ── */
+  body.media-open {
+    overflow: hidden;
+  }
+  body.media-open .page-content {
+    visibility: hidden;
+    pointer-events: none;
+  }
+  .media-page {
+    position: fixed;
+    inset: 0;
+    z-index: 60;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    padding: 88px 32px 48px;
+    background: var(--huginn-900);
+    overflow-y: auto;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transition: opacity 0.28s ease, visibility 0.28s;
+  }
+  .media-page::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(circle at 1px 1px, rgba(245, 238, 220, 0.05) 1px, transparent 0);
+    background-size: 32px 32px;
+    pointer-events: none;
+  }
+  body.media-open .media-page {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+  }
+  .media-page-inner {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    max-width: 920px;
+    margin: 0 auto;
+  }
+  .media-back {
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--huginn-300);
+    text-decoration: none;
+    margin-bottom: 28px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+  }
+  .media-back:hover { color: var(--cream-50); }
+  .media-grid {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 34px;
+    align-items: start;
+  }
+  .media-col-right {
+    position: sticky;
+    top: 88px;
+    align-self: start;
+  }
+  .media-page .media-video-frame {
+    width: 100%;
+    max-width: 375px; /* ~ phone width */
+    margin: 0;
+    border-radius: var(--r-lg);
+    overflow: hidden;
+    border: 1px solid rgba(201, 172, 239, 0.18);
+    background: var(--huginn-900);
+  }
+  .media-page .media-video-frame video {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .media-section-title {
+    margin: 40px 0 14px;
+    font-family: var(--font-display);
+    font-size: 26px;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    color: var(--cream-50);
+  }
+  .media-section-sub {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.7;
+    color: var(--huginn-200);
+    margin-bottom: 18px;
+    max-width: 70ch;
+  }
+  .media-list {
+    list-style: none;
+    display: grid;
+    gap: 14px;
+    padding: 0;
+    margin: 0;
+  }
+  .media-item {
+    display: grid;
+    grid-template-columns: 72px 1fr;
+    gap: 14px;
+    align-items: center;
+    padding: 16px 16px;
+    border-radius: var(--r-lg);
+    border: 1px solid rgba(201, 172, 239, 0.18);
+    background: rgba(30, 14, 58, 0.35);
+  }
+  .media-item-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: var(--r-md);
+    display: grid;
+    place-items: center;
+    background: rgba(245, 238, 220, 0.04);
+    border: 1px solid rgba(201, 172, 239, 0.12);
+  }
+  .media-item-icon img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+    image-rendering: pixelated;
+  }
+  .media-item-icon img.media-eye { width: 54px; height: 54px; }
+  .media-item-icon img.media-rune { width: 56px; height: 28px; image-rendering: auto; }
+  .media-item-title {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--huginn-300);
+    margin-bottom: 6px;
+  }
+  .media-item-desc {
+    font-family: var(--font-serif);
+    font-size: 15px;
+    line-height: 1.65;
+    color: var(--cream-200);
+    margin: 0;
+  }
+  @media (max-width: 980px) {
+    .media-grid { grid-template-columns: 1fr; }
+    .media-col-right { position: static; top: auto; }
+    .media-page .media-video-frame { margin: 0 auto; }
+  }
+
   /* ── NAV ── */
   .nav {
     position: sticky; top: 0; z-index: 100;
@@ -82,7 +240,8 @@
   }
   .mv-page-grid {
     width: 100%; max-width: 1400px;
-    display: grid; grid-template-columns: 1fr 380px;
+    /* Video column commented out — single column so layout doesn’t reserve empty space */
+    display: grid; grid-template-columns: 1fr;
     gap: 40px; align-items: center;
   }
   .mv-section {
@@ -457,6 +616,7 @@
     <a href="#first-result">Experiments</a>
     <a href="#hero">Research</a>
     <a href="#about">About</a>
+    <a href="#media" id="media-open">Media</a>
   </div>
   <a class="nav-logo" href="#">
     <img src="Hug&Mun Labs Design System/assets/logo-mark-mono.svg" alt="hug&mun">
@@ -518,11 +678,13 @@
     </div>
   </div>
 
+  <!-- Video next to Mission & Vision (temporarily off for layout preview)
   <div class="mv-video-side">
     <div class="lab-video-frame">
-      <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
+      <video src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
     </div>
   </div>
+  -->
 
   </div>
 </section>
@@ -738,6 +900,61 @@
 
 </div><!-- /.page-content -->
 
+<section id="media" class="media-page" aria-hidden="true">
+  <div class="media-page-inner">
+    <button type="button" class="media-back" id="media-close">Back</button>
+    <div class="media-grid">
+      <div class="media-col-left">
+        <h2 class="media-section-title">Symbols &amp; motifs</h2>
+        <p class="media-section-sub">A quick reference for the visual elements we use across the site, and what each one represents.</p>
+        <ul class="media-list">
+          <li class="media-item">
+            <div class="media-item-icon">
+              <img src="Hug&Mun Labs Design System/assets/logo-huginn.svg" alt="Huginn symbol">
+            </div>
+            <div>
+              <div class="media-item-title">Huginn</div>
+              <p class="media-item-desc">Thought — the part that turns raw language into structured, decision-relevant state.</p>
+            </div>
+          </li>
+          <li class="media-item">
+            <div class="media-item-icon">
+              <img src="Hug&Mun Labs Design System/assets/logo-muninn.svg" alt="Muninn symbol">
+            </div>
+            <div>
+              <div class="media-item-title">Muninn</div>
+              <p class="media-item-desc">Memory — the part that carries experience forward, shaping retrieval and consistency over time.</p>
+            </div>
+          </li>
+          <li class="media-item">
+            <div class="media-item-icon">
+              <img class="media-eye" src="Hug&Mun Labs Design System/assets/odin-eye.svg" alt="Odin’s eye symbol">
+            </div>
+            <div>
+              <div class="media-item-title">Odin’s eye</div>
+              <p class="media-item-desc">Attention — seeing what matters, when it matters, so decisions can stay anchored to the right evidence.</p>
+            </div>
+          </li>
+          <li class="media-item">
+            <div class="media-item-icon">
+              <img class="media-rune" src="Hug&Mun Labs Design System/assets/rune-divider.svg" alt="Runes divider">
+            </div>
+            <div>
+              <div class="media-item-title">Runes</div>
+              <p class="media-item-desc">A signature mark for the lab — a small ritual divider that shows up in transitions and footers.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="media-col-right">
+        <div class="media-video-frame">
+          <video id="lab-video-el" src="public/hug-mun-vid.mp4" muted playsinline loop preload="auto"></video>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <script src="content/site-content.js"></script>
 
 <!-- NAV THEME SWITCHER -->
@@ -749,6 +966,10 @@
   // Start in dark mode (M&V is first)
   var isDark = true;
   function check() {
+    if (document.body.classList.contains('media-open')) {
+      if (!isDark) { nav.classList.remove('nav-light'); isDark = true; }
+      return;
+    }
     var navBottom = nav.getBoundingClientRect().bottom;
     var overDark = false;
     darkSections.forEach(function(sec) {
@@ -761,18 +982,89 @@
   check();
   window.addEventListener('scroll', function() { requestAnimationFrame(check); }, { passive: true });
   window.addEventListener('resize', check);
+  window.addEventListener('hugmun-nav-recheck', check);
+})();
+</script>
+
+<!-- MEDIA OVERLAY (body.media-open + history) -->
+<script>
+(function(){
+  var body = document.body;
+  var media = document.getElementById('media');
+  var openLink = document.getElementById('media-open');
+  var closeBtn = document.getElementById('media-close');
+  if (!media) return;
+
+  function playMediaVideo() {
+    var v = document.getElementById('lab-video-el');
+    if (!v || !body.classList.contains('media-open')) return;
+    window.requestAnimationFrame(function() {
+      v.play().catch(function() {});
+    });
+  }
+
+  function openMedia(pushHistory) {
+    body.classList.add('media-open');
+    media.setAttribute('aria-hidden', 'false');
+    window.scrollTo(0, 0);
+    if (pushHistory && location.hash !== '#media') {
+      history.pushState({ hugmunMedia: 1 }, '', '#media');
+    }
+    window.dispatchEvent(new CustomEvent('hugmun-nav-recheck'));
+    playMediaVideo();
+  }
+
+  function closeMedia(fromPopstate) {
+    body.classList.remove('media-open');
+    media.setAttribute('aria-hidden', 'true');
+    var v = document.getElementById('lab-video-el');
+    if (v) v.pause();
+    if (!fromPopstate && location.hash === '#media') {
+      var path = location.pathname + location.search;
+      history.replaceState(null, '', path || '/');
+    }
+    window.dispatchEvent(new CustomEvent('hugmun-nav-recheck'));
+  }
+
+  if (openLink) {
+    openLink.addEventListener('click', function(e) {
+      e.preventDefault();
+      openMedia(true);
+    });
+  }
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      closeMedia(false);
+    });
+  }
+  window.addEventListener('popstate', function() {
+    if (location.hash === '#media') {
+      body.classList.add('media-open');
+      media.setAttribute('aria-hidden', 'false');
+      playMediaVideo();
+    } else {
+      body.classList.remove('media-open');
+      media.setAttribute('aria-hidden', 'true');
+      var v = document.getElementById('lab-video-el');
+      if (v) v.pause();
+    }
+    window.dispatchEvent(new CustomEvent('hugmun-nav-recheck'));
+  });
+  window.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && body.classList.contains('media-open')) {
+      closeMedia(false);
+    }
+  });
+  if (location.hash === '#media') {
+    openMedia(false);
+  }
 })();
 </script>
 <script>lucide.createIcons();</script>
 
-<!-- LAB VIDEO: play in view -->
-<script>
-(function(){var v=document.getElementById('lab-video-el');var sec=document.getElementById('experiments');if(!v||!sec)return;var go=function(){v.play().catch(function(){})};if(!('IntersectionObserver'in window)){go();return}new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting)go();else v.pause()})},{threshold:0.2,rootMargin:'80px 0px'}).observe(sec)})();
-</script>
-
 <!-- AMBIENT RAVEN BACKGROUND -->
 <script>
-(function(){const canvas=document.getElementById('raven-canvas');if(!canvas)return;const ctx=canvas.getContext('2d');const RAVEN_COLORS=['#3F1F73','#8E1C24'];const SIZES=[4,3];const FRAMES=[[[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0]]];const SW=16,SH=10;const FLAP=[0,1,2,1];let W,H;function resize(){const dpr=window.devicePixelRatio||1;W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false}resize();window.addEventListener('resize',resize);function makeRaven(scale,startOffset,color){return{x:-SW*scale-startOffset,y:40+Math.random()*(H-120),scale,color,baseSpeed:0.05+scale*0.02,seqIdx:Math.floor(Math.random()*4),flapTimer:Math.floor(Math.random()*6),baseFlapDelay:14,bobPhase:Math.random()*Math.PI*2}}const ravens=SIZES.map((s,i)=>makeRaven(s,i*320,RAVEN_COLORS[i%RAVEN_COLORS.length]));let lastScroll=window.scrollY;let scrollVel=0;window.addEventListener('scroll',()=>{const now=window.scrollY;scrollVel+=(now-lastScroll);lastScroll=now},{passive:true});function drawSprite(frame,x,y,s){for(let sy=0;sy<SH;sy++)for(let sx=0;sx<SW;sx++)if(frame[sy][sx])ctx.fillRect(x+sx*s,y+sy*s,s,s)}function tick(){ctx.clearRect(0,0,W,H);scrollVel*=0.93;const clampedVel=Math.max(-30,Math.min(30,scrollVel));const energy=Math.min(Math.abs(clampedVel)*0.1,3);for(const r of ravens){ctx.fillStyle=r.color;const depth=r.scale/4;const flapDelay=Math.max(5,r.baseFlapDelay-Math.floor(energy));r.flapTimer++;if(r.flapTimer>=flapDelay){r.flapTimer=0;r.seqIdx=(r.seqIdx+1)%FLAP.length}const boost=Math.abs(clampedVel)*0.05*depth;r.x+=(r.baseSpeed+boost)*r.scale;r.y+=clampedVel*0.05*depth;if(r.y<10)r.y=10;if(r.y>H-40)r.y=H-40;r.bobPhase+=0.03+energy*0.008;if(r.x>W+20){r.x=-SW*r.scale-40;r.y=40+Math.random()*(H-120)}const bob=Math.sin(r.bobPhase)*1.5;drawSprite(FRAMES[FLAP[r.seqIdx]],Math.round(r.x),Math.round(r.y+bob),r.scale)}requestAnimationFrame(tick)}tick()
+(function(){const canvas=document.getElementById('raven-canvas');if(!canvas)return;const ctx=canvas.getContext('2d');const RAVEN_COLORS=['#000000','#000000'];const SIZES=[4,3];const FRAMES=[[[0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0],[0,0,0,0,0,1,1,1,1,0,0,0,0,0,0,0],[0,0,0,0,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,1,0],[0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[1,1,1,1,0,0,0,0,0,0,1,1,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],[[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0],[0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,0],[0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1],[0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0],[0,0,0,0,0,0,1,1,1,1,1,1,1,0,0,0],[0,0,0,1,1,1,1,1,1,1,1,0,0,0,0,0],[0,0,1,1,1,1,1,1,1,1,0,0,0,0,0,0],[0,0,0,1,1,1,1,1,1,0,0,0,0,0,0,0]]];const SW=16,SH=10;const FLAP=[0,1,2,1];let W,H;function resize(){const dpr=window.devicePixelRatio||1;W=canvas.clientWidth;H=canvas.clientHeight;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);ctx.imageSmoothingEnabled=false}resize();window.addEventListener('resize',resize);function makeRaven(scale,startOffset,color){return{x:-SW*scale-startOffset,y:40+Math.random()*(H-120),scale,color,baseSpeed:0.05+scale*0.02,seqIdx:Math.floor(Math.random()*4),flapTimer:Math.floor(Math.random()*6),baseFlapDelay:14,bobPhase:Math.random()*Math.PI*2}}const ravens=SIZES.map((s,i)=>makeRaven(s,i*320,RAVEN_COLORS[i%RAVEN_COLORS.length]));let lastScroll=window.scrollY;let scrollVel=0;window.addEventListener('scroll',()=>{const now=window.scrollY;scrollVel+=(now-lastScroll);lastScroll=now},{passive:true});function drawSprite(frame,x,y,s){for(let sy=0;sy<SH;sy++)for(let sx=0;sx<SW;sx++)if(frame[sy][sx])ctx.fillRect(x+sx*s,y+sy*s,s,s)}function tick(){ctx.clearRect(0,0,W,H);scrollVel*=0.93;const clampedVel=Math.max(-30,Math.min(30,scrollVel));const energy=Math.min(Math.abs(clampedVel)*0.1,3);for(const r of ravens){ctx.fillStyle=r.color;const depth=r.scale/4;const flapDelay=Math.max(5,r.baseFlapDelay-Math.floor(energy));r.flapTimer++;if(r.flapTimer>=flapDelay){r.flapTimer=0;r.seqIdx=(r.seqIdx+1)%FLAP.length}const boost=Math.abs(clampedVel)*0.05*depth;r.x+=(r.baseSpeed+boost)*r.scale;r.y+=clampedVel*0.05*depth;if(r.y<10)r.y=10;if(r.y>H-40)r.y=H-40;r.bobPhase+=0.03+energy*0.008;if(r.x>W+20){r.x=-SW*r.scale-40;r.y=40+Math.random()*(H-120)}const bob=Math.sin(r.bobPhase)*1.5;drawSprite(FRAMES[FLAP[r.seqIdx]],Math.round(r.x),Math.round(r.y+bob),r.scale)}requestAnimationFrame(tick)}tick()
 })();
 </script>
 
