@@ -103,6 +103,18 @@ en: {
     rss: "RSS",
   },
 
+  media: {
+    back: "Back",
+    title: "Symbols &amp; motifs",
+    sub: "A quick reference for the visual elements we use across the site, and what each one represents.",
+    huginn_desc: "Thought — the part that turns raw language into structured, decision-relevant state.",
+    muninn_desc: "Memory — the part that carries experience forward, shaping retrieval and consistency over time.",
+    eye_title: "Odin&rsquo;s eye",
+    eye_desc: "Attention — seeing what matters, when it matters, so decisions can stay anchored to the right evidence.",
+    runes_title: "Runes",
+    runes_desc: "A signature mark for the lab — a small ritual divider that shows up in transitions and footers.",
+  },
+
 },
 
 es: {
@@ -198,6 +210,18 @@ es: {
     privacy: "Privacidad",
     terms: "Términos",
     rss: "RSS",
+  },
+
+  media: {
+    back: "Volver",
+    title: "Símbolos y motivos",
+    sub: "Una referencia rápida de los elementos visuales que usamos en el sitio y lo que cada uno representa.",
+    huginn_desc: "Pensamiento — la parte que transforma el lenguaje crudo en estado estructurado y relevante para la decisión.",
+    muninn_desc: "Memoria — la parte que lleva la experiencia hacia adelante, moldeando la recuperación y la consistencia a lo largo del tiempo.",
+    eye_title: "El ojo de Odín",
+    eye_desc: "Atención — ver lo que importa, cuando importa, para que las decisiones se mantengan ancladas a la evidencia correcta.",
+    runes_title: "Runas",
+    runes_desc: "Una marca distintiva del laboratorio — un pequeño divisor ritual que aparece en transiciones y pies de página.",
   },
 
 },
