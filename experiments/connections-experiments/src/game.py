@@ -54,6 +54,7 @@ class GuessFeedback:
 @dataclass
 class ConnectionsGame:
     groups: tuple[Group, ...]
+    puzzle_id: str = ""
     max_mistakes: int = 4
     one_away_feedback: bool = True
     count_invalid_as_mistake: bool = False
@@ -211,9 +212,21 @@ class ConnectionsGame:
 
     def shuffled_words(self, seed: int | None = None) -> list[str]:
         rng = random.Random(seed)
-        words = list(self.all_words)
+        # sort first — frozenset iteration order varies with PYTHONHASHSEED,
+        # so we need a canonical starting order for the shuffle to be reproducible.
+        words = sorted(self.all_words)
         rng.shuffle(words)
         return words
+
+    def agent_view(self, seed: int) -> dict:
+        """Exact payload the agent is allowed to see — no categories, no colors.
+
+        Use the same seed across methods on the same puzzle for fair comparison.
+        """
+        return {
+            "puzzle_id": self.puzzle_id,
+            "words": self.shuffled_words(seed=seed),
+        }
 
 
 # DEMO PUZZLE — synthetic, public-safe content for smoke tests only.
@@ -245,4 +258,5 @@ DEMO_PUZZLE_GROUPS = (
 
 def demo_puzzle(**kwargs) -> ConnectionsGame:
     """Return a demo game. Not for evaluation — see DEMO_PUZZLE_GROUPS warning."""
+    kwargs.setdefault("puzzle_id", "synthetic-1")
     return ConnectionsGame(groups=DEMO_PUZZLE_GROUPS, **kwargs)

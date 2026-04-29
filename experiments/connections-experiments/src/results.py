@@ -17,7 +17,18 @@ def count_repeated(history: list[dict]) -> int:
     return sum(1 for f in history if f["result"] == GuessResult.REPEATED.value)
 
 
-def export_result(game: ConnectionsGame, method: str, puzzle_id: str) -> dict:
+def export_result(
+    game: ConnectionsGame,
+    method: str,
+    puzzle_id: str,
+    *,
+    agent_view: dict | None = None,
+) -> dict:
+    """Build a result dict.
+
+    `agent_view` should be `{"seed": int, "words": [...]}` — the exact input
+    shown to the agent. Recording it lets you reproduce a run later.
+    """
     history = [
         {
             "guess": sorted(f.guess),
@@ -26,7 +37,7 @@ def export_result(game: ConnectionsGame, method: str, puzzle_id: str) -> dict:
         }
         for f in game.history
     ]
-    return {
+    result = {
         "puzzle_id": puzzle_id,
         "method": method,
         "timestamp": datetime.now(timezone.utc).isoformat(),
@@ -37,6 +48,9 @@ def export_result(game: ConnectionsGame, method: str, puzzle_id: str) -> dict:
         "repeated_errors": count_repeated(history),
         "history": history,
     }
+    if agent_view is not None:
+        result["agent_view"] = agent_view
+    return result
 
 
 def save_result(result: dict, results_dir: Path | str = "results") -> Path:
