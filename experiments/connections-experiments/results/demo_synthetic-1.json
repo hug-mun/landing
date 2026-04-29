@@ -1,0 +1,62 @@
+{
+  "puzzle_id": "synthetic-1",
+  "method": "demo",
+  "timestamp": "2026-04-29T02:13:17.859379+00:00",
+  "is_won": true,
+  "correct_groups": 4,
+  "mistakes": 1,
+  "invalid_count": 0,
+  "repeated_errors": 0,
+  "history": [
+    {
+      "guess": [
+        "APPLE",
+        "JUPITER",
+        "MARS",
+        "VENUS"
+      ],
+      "result": "one_away",
+      "overlap_max": 3
+    },
+    {
+      "guess": [
+        "APPLE",
+        "BANANA",
+        "CHERRY",
+        "GRAPE"
+      ],
+      "result": "correct",
+      "overlap_max": 4
+    },
+    {
+      "guess": [
+        "JUPITER",
+        "MARS",
+        "SATURN",
+        "VENUS"
+      ],
+      "result": "correct",
+      "overlap_max": 4
+    },
+    {
+      "guess": [
+        "CLUB",
+        "DIAMOND",
+        "HEART",
+        "SPADE"
+      ],
+      "result": "correct",
+      "overlap_max": 4
+    },
+    {
+      "guess": [
+        "ALPHA",
+        "BETA",
+        "DELTA",
+        "GAMMA"
+      ],
+      "result": "correct",
+      "overlap_max": 4
+    }
+  ]
+}
