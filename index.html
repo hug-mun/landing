@@ -9,8 +9,8 @@
 <script src="https://unpkg.com/lucide@latest"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: auto; overflow-x: hidden; }
-  body { background: var(--cream-100); overflow-x: hidden; max-width: 100%; }
+  html { scroll-behavior: auto; }
+  body { background: var(--cream-100); overflow-x: hidden; }
 
   /* ── RAVEN BACKGROUND ── */
   #raven-canvas {
@@ -231,6 +231,29 @@
   .nav-right a:hover { color: var(--cream-50); }
   .nav-light .nav-right a { color: var(--fg-subtle); }
   .nav-light .nav-right a:hover { color: var(--ink-900); }
+
+  /* Language toggle */
+  .nav-lang {
+    display: inline-flex; align-items: center; gap: 2px;
+    font-family: var(--font-sans); font-size: 11px; font-weight: 600;
+    letter-spacing: 0.08em;
+    padding-right: 4px;
+    border-right: 1px solid rgba(201, 172, 239, 0.18);
+  }
+  .nav-light .nav-lang { border-right-color: var(--border); }
+  .lang-btn {
+    background: transparent; border: 0; cursor: pointer;
+    padding: 4px 6px; border-radius: var(--r-sm, 4px);
+    color: var(--huginn-300); opacity: 0.55;
+    font: inherit; letter-spacing: inherit;
+    transition: opacity 0.2s, color 0.2s, background 0.2s;
+  }
+  .lang-btn:hover { opacity: 0.9; }
+  .lang-btn.active { opacity: 1; color: var(--cream-50); }
+  .lang-sep { color: var(--huginn-300); opacity: 0.35; user-select: none; }
+  .nav-light .lang-btn { color: var(--fg-subtle); }
+  .nav-light .lang-btn.active { color: var(--ink-900); }
+  .nav-light .lang-sep { color: var(--fg-subtle); }
 
   /* ── MISSION & VISION ── */
   .mv-page {
@@ -643,16 +666,21 @@
 <!-- ════════ NAV ════════ -->
 <nav class="nav" id="main-nav">
   <div class="nav-links">
-    <a href="#first-result">Experiments</a>
-    <a href="#hero">Research</a>
-    <a href="#about">About</a>
-    <a href="#media" id="media-open">Media</a>
+    <a href="#first-result" data-i18n="nav.experiments">Experiments</a>
+    <a href="#hero" data-i18n="nav.research">Research</a>
+    <a href="#about" data-i18n="nav.about">About</a>
+    <a href="#media" id="media-open" data-i18n="nav.media">Media</a>
   </div>
   <a class="nav-logo" href="#">
     <img src="Hug&Mun Labs Design System/assets/logo-mark-mono.svg" alt="hug&mun">
     <span>hug<em>&</em>mun</span>
   </a>
   <div class="nav-right">
+    <div class="nav-lang" role="group" aria-label="Language">
+      <button type="button" class="lang-btn" data-lang-btn="en">EN</button>
+      <span class="lang-sep" aria-hidden="true">/</span>
+      <button type="button" class="lang-btn" data-lang-btn="es">ES</button>
+    </div>
     <a href="#" aria-label="GitHub"><i data-lucide="github" style="width:18px;height:18px"></i></a>
     <a href="#" aria-label="Twitter"><i data-lucide="twitter" style="width:18px;height:18px"></i></a>
     <a href="#" aria-label="RSS"><i data-lucide="rss" style="width:18px;height:18px"></i></a>
@@ -675,20 +703,20 @@
           <img class="mv-logo-mark" src="Hug&Mun Labs Design System/assets/logo-mark-mono.svg" alt="">
           <span class="mv-logo-word">hug<span class="amp">&amp;</span>mun<span class="labs">LABS</span></span>
         </div>
-        <h1 class="mv-title">Mission &amp; vision.</h1>
+        <h1 class="mv-title" data-i18n="mv.title">Mission &amp; vision.</h1>
       </div>
 
       <div class="mv-grid">
         <div class="mv-col-left">
-          <div class="mv-label">Mission</div>
-          <p class="mv-statement">
+          <div class="mv-label" data-i18n="mv.mission_label">Mission</div>
+          <p class="mv-statement" data-i18n="mv.mission_statement">
             Advance how <span class="accent">representation</span> and <span class="accent">state</span> are used in AI systems to produce more reliable and controllable decisions.
           </p>
         </div>
         <div class="mv-divider"></div>
         <div class="mv-col-right">
-          <div class="mv-label">Vision</div>
-          <p class="mv-statement">
+          <div class="mv-label" data-i18n="mv.vision_label">Vision</div>
+          <p class="mv-statement" data-i18n="mv.vision_statement">
             AI systems that make decisions from <span class="accent">explicit, updatable state</span> rather than implicit text representations.
           </p>
         </div>
@@ -697,10 +725,10 @@
       <div class="mv-bottom">
         <div class="mv-bottom-rule">
           <span class="line"></span>
-          <span class="mv-bottom-label">How we work</span>
+          <span class="mv-bottom-label" data-i18n="mv.how_label">How we work</span>
           <span class="line"></span>
         </div>
-        <p class="mv-desc">
+        <p class="mv-desc" data-i18n="mv.how_body">
           We design and evaluate structured representations and intermediate state mechanisms to understand how they shape decision behavior. Our work starts with <strong>semantic state</strong>: making decision-relevant information explicit and addressable. From there, we study how such state can support <strong>revision</strong>, <strong>aggregation</strong>, and <strong>uncertainty</strong>, moving toward systems that can make decisions from consistent, belief-like representations over time.
         </p>
       </div>
@@ -725,20 +753,20 @@
     <div class="scroll-hero-stage">
 
       <div class="stage-text">
-        <div class="eyebrow"><span class="dot"></span> hug&amp;mun labs &middot; ai research</div>
-        <h1>AI systems that make consistent decisions.</h1>
-        <p style="font-family: var(--font-serif); font-size: 17px; line-height: 1.55; color: var(--fg-muted); margin-bottom: 28px; max-width: 46ch;">AI systems today generate fluent text but do not maintain stable internal state. We study how structured representations and memory dynamics improve decision behavior.</p>
+        <div class="eyebrow"><span class="dot"></span> <span data-i18n="hero.eyebrow">hug&amp;mun labs &middot; ai research</span></div>
+        <h1 data-i18n="hero.headline">AI systems that make consistent decisions.</h1>
+        <p data-i18n="hero.subline" style="font-family: var(--font-serif); font-size: 17px; line-height: 1.55; color: var(--fg-muted); margin-bottom: 28px; max-width: 46ch;">AI systems today generate fluent text but do not maintain stable internal state. We study how structured representations and memory dynamics improve decision behavior.</p>
 
         <div class="stage-caption">
-          <p data-act="0" class="active">We design and test representations that help AI make <strong>consistent decisions</strong>, not just plausible outputs.</p>
-          <p data-act="1"><span class="huginn-mark">Huginn</span> — <strong>thought</strong> — structures raw language into discrete semantic units.</p>
-          <p data-act="2"><span class="muninn-mark">Muninn</span> — <strong>memory</strong> — weaves experience into an evolving context that shapes retrieval and prediction.</p>
-          <p data-act="3">Together, they form <strong>belief</strong>. A structured internal position from which decisions follow.</p>
+          <p data-act="0" class="active" data-i18n="hero.caption_0">We design and test representations that help AI make <strong>consistent decisions</strong>, not just plausible outputs.</p>
+          <p data-act="1" data-i18n="hero.caption_1"><span class="huginn-mark">Huginn</span> — <strong>thought</strong> — structures raw language into discrete semantic units.</p>
+          <p data-act="2" data-i18n="hero.caption_2"><span class="muninn-mark">Muninn</span> — <strong>memory</strong> — weaves experience into an evolving context that shapes retrieval and prediction.</p>
+          <p data-act="3" data-i18n="hero.caption_3">Together, they form <strong>belief</strong>. A structured internal position from which decisions follow.</p>
         </div>
 
         <div class="stage-ctas">
-          <a href="#about" class="btn-primary">Read the thesis</a>
-          <a href="papers/gentags-pre.pdf" class="btn-link">Read the paper &rarr;</a>
+          <a href="#about" class="btn-primary" data-i18n="hero.cta_primary">Read the thesis</a>
+          <a href="papers/gentags-pre.pdf" class="btn-link" data-i18n="hero.cta_secondary">Read the paper &rarr;</a>
         </div>
 
       </div>
@@ -839,65 +867,65 @@
 
 <!-- ════════ TAGLINE ════════ -->
 <section style="background: transparent; padding: 64px 48px 0;">
-  <p class="hero-tagline" style="margin: 0;">Experiments, research, and notes from the lab.</p>
+  <p class="hero-tagline" data-i18n="tagline" style="margin: 0;">Experiments, research, and notes from the lab.</p>
 </section>
 
 <!-- ════════ CORE IDEA ════════ -->
 <section class="thesis" id="about">
-  <div class="eyebrow">Core idea</div>
-  <h2>AI systems generate outputs from implicit context, but reliable decisions require explicit state.</h2>
-  <p class="lead">We study whether making semantic representation, memory dynamics, and belief explicit improves:</p>
+  <div class="eyebrow" data-i18n="core.eyebrow">Core idea</div>
+  <h2 data-i18n="core.headline">AI systems generate outputs from implicit context, but reliable decisions require explicit state.</h2>
+  <p class="lead" data-i18n="core.lead">We study whether making semantic representation, memory dynamics, and belief explicit improves:</p>
   <ul style="list-style: none; padding: 0; margin: 0 0 32px;">
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Decision consistency</li>
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Interpretability</li>
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Controllability</li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="core.item_0">Decision consistency</span></li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="core.item_1">Interpretability</span></li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="core.item_2">Controllability</span></li>
   </ul>
 </section>
 
 <!-- ════════ PIPELINE ════════ -->
 <section style="padding: 0 48px; max-width: 920px; margin: 0 auto;">
   <div class="pipeline">
-    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--huginn-600);">1</div><div class="step-name" style="color: var(--huginn-800);">Semantic state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Structured meaning extracted from input</div></div>
+    <div class="pipeline-step" style="background: var(--huginn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--huginn-600);">1</div><div class="step-name" style="color: var(--huginn-800);" data-i18n="pipeline.name_0">Semantic state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;" data-i18n="pipeline.desc_0">Structured meaning extracted from input</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--muninn-600);">2</div><div class="step-name" style="color: var(--muninn-800);">Context state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;">Evolving memory that shapes interpretation</div></div>
+    <div class="pipeline-step" style="background: var(--muninn-100); border-radius: var(--r-lg);"><div class="step-label" style="color: var(--muninn-600);">2</div><div class="step-name" style="color: var(--muninn-800);" data-i18n="pipeline.name_1">Context state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--muninn-600); margin-top: 6px;" data-i18n="pipeline.desc_1">Evolving memory that shapes interpretation</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step active"><div class="step-label">3</div><div class="step-name">Belief state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;">Uncertainty-bearing position used for decisions</div></div>
+    <div class="pipeline-step active"><div class="step-label">3</div><div class="step-name" data-i18n="pipeline.name_2">Belief state</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--huginn-600); margin-top: 6px;" data-i18n="pipeline.desc_2">Uncertainty-bearing position used for decisions</div></div>
     <div class="pipeline-arrow">&rarr;</div>
-    <div class="pipeline-step"><div class="step-label">4</div><div class="step-name">Decision</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--fg-subtle); margin-top: 6px;">Action or judgment based on belief</div></div>
+    <div class="pipeline-step"><div class="step-label">4</div><div class="step-name" data-i18n="pipeline.name_3">Decision</div><div style="font-family: var(--font-serif); font-size: 12px; color: var(--fg-subtle); margin-top: 6px;" data-i18n="pipeline.desc_3">Action or judgment based on belief</div></div>
   </div>
 </section>
 
 <!-- ════════ FIRST RESULT ════════ -->
 <section class="thesis" id="first-result" style="padding-top: 72px; border-top: 1px solid var(--border);">
-  <div class="eyebrow">First result</div>
+  <div class="eyebrow" data-i18n="paper.eyebrow">First result</div>
   <h2 style="font-size: 38px;">Gentags</h2>
-  <p>A representation that compresses text into discrete semantic units.</p>
-  <p>In controlled decision tasks, this improves agreement with full-evidence decisions and increases constraint satisfaction.</p>
-  <div style="display: flex; gap: 12px; margin-top: 28px;"><a href="papers/gentags-pre.pdf" class="btn-primary">Read the paper</a></div>
-  <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);">ACL 2026 submission &middot; Pre-print</div>
+  <p data-i18n="paper.description">A representation that compresses text into discrete semantic units.</p>
+  <p data-i18n="paper.result">In controlled decision tasks, this improves agreement with full-evidence decisions and increases constraint satisfaction.</p>
+  <div style="display: flex; gap: 12px; margin-top: 28px;"><a href="papers/gentags-pre.pdf" class="btn-primary" data-i18n="paper.cta">Read the paper</a></div>
+  <div style="margin-top: 14px; font-family: var(--font-mono); font-size: 12px; color: var(--fg-subtle);" data-i18n="paper.meta">ACL 2026 submission &middot; Pre-print</div>
 </section>
 
 <!-- ════════ WHAT WE'RE TESTING ════════ -->
 <section class="thesis" style="padding-top: 72px; border-top: 1px solid var(--border);">
-  <div class="eyebrow">What we're testing</div>
+  <div class="eyebrow" data-i18n="testing.eyebrow">What we're testing</div>
   <ul style="list-style: none; padding: 0; margin: 0;">
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Structured semantic state improves decision stability</li>
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Explicit state improves multi-step reasoning</li>
-    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span>Memory dynamics affect decision consistency</li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="testing.item_0">Structured semantic state improves decision stability</span></li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative; margin-bottom: 14px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="testing.item_1">Explicit state improves multi-step reasoning</span></li>
+    <li style="font-family: var(--font-serif); font-size: 18px; line-height: 1.6; color: var(--fg); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--huginn-500);"></span><span data-i18n="testing.item_2">Memory dynamics affect decision consistency</span></li>
   </ul>
 </section>
 
 <!-- ════════ EXPLORATIONS ════════ -->
 <section class="thesis" style="padding-top: 72px; border-top: 1px solid var(--border);">
-  <div class="eyebrow">Explorations</div>
-  <p>We explore candidate models for how memory should evolve during inference.</p>
-  <p>This includes simplified structures that capture:</p>
+  <div class="eyebrow" data-i18n="explorations.eyebrow">Explorations</div>
+  <p data-i18n="explorations.description">We explore candidate models for how memory should evolve during inference.</p>
+  <p data-i18n="explorations.lead">This includes simplified structures that capture:</p>
   <ul style="list-style: none; padding: 0; margin: 0 0 24px;">
-    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span>Recency</li>
-    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span>Interference</li>
-    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span>Context-dependent retrieval</li>
+    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span><span data-i18n="explorations.item_0">Recency</span></li>
+    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative; margin-bottom: 8px;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span><span data-i18n="explorations.item_1">Interference</span></li>
+    <li style="font-family: var(--font-serif); font-size: 16px; line-height: 1.6; color: var(--fg-muted); padding-left: 16px; position: relative;"><span style="position: absolute; left: 0; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--muninn-500);"></span><span data-i18n="explorations.item_2">Context-dependent retrieval</span></li>
   </ul>
-  <p style="color: var(--fg-subtle);">These are treated as testable approximations, not assumptions about how memory fundamentally works.</p>
+  <p style="color: var(--fg-subtle);" data-i18n="explorations.caveat">These are treated as testable approximations, not assumptions about how memory fundamentally works.</p>
 </section>
 
 <!-- ════════ LOGO ════════ -->
@@ -915,16 +943,16 @@
   <div class="footer-grid">
     <div>
       <div class="footer-brand"><img src="Hug&Mun Labs Design System/assets/logo-mark-duo.svg" alt=""><span>hug<em>&</em>mun</span></div>
-      <p class="footer-desc">Thought and memory, structured into state for reliable decisions.</p>
+      <p class="footer-desc" data-i18n="footer.tagline">Thought and memory, structured into state for reliable decisions.</p>
     </div>
-    <div class="footer-col"><h5>Research</h5><ul><li><a href="#first-result">Papers</a></li><!-- <li><a href="#">Notebooks</a></li> --><!-- <li><a href="#">Open models</a></li> --><!-- <li><a href="#">Datasets</a></li> --></ul></div>
-    <div class="footer-col"><h5>Lab</h5><ul><li><a href="#about">About</a></li><!-- <li><a href="#">Team</a></li> --><!-- <li><a href="#">Careers</a></li> --><!-- <li><a href="#">Press</a></li> --></ul></div>
-    <div class="footer-col"><h5>Contact</h5><ul><li>hello@hugmun.ai</li><li>Monterrey, NL, Mexico</li></ul></div>
+    <div class="footer-col"><h5 data-i18n="footer.research">Research</h5><ul><li><a href="#first-result" data-i18n="footer.papers">Papers</a></li></ul></div>
+    <div class="footer-col"><h5 data-i18n="footer.lab">Lab</h5><ul><li><a href="#about" data-i18n="footer.about">About</a></li></ul></div>
+    <div class="footer-col"><h5 data-i18n="footer.contact">Contact</h5><ul><li>hello@hugmun.ai</li><li data-i18n="footer.location">Monterrey, NL, Mexico</li></ul></div>
   </div>
   <div class="footer-bottom">
     <div>&copy; 2026 Hug&Mun Labs</div>
     <div class="footer-rune">ᚺ ᛫ ᛗ</div>
-    <div class="footer-legal"><a href="#">Privacy</a><a href="#">Terms</a><a href="#">RSS</a></div>
+    <div class="footer-legal"><a href="#" data-i18n="footer.privacy">Privacy</a><a href="#" data-i18n="footer.terms">Terms</a><a href="#" data-i18n="footer.rss">RSS</a></div>
   </div>
 </footer>
 
@@ -986,6 +1014,50 @@
 </section>
 
 <script src="content/site-content.js"></script>
+
+<!-- I18N: hydrate [data-i18n] from window.SITE[lang] -->
+<script>
+(function(){
+  if (!window.SITE) return;
+  var SUPPORTED = ['en','es'];
+  function get(dict, path){
+    return path.split('.').reduce(function(o,k){ return (o && o[k] != null) ? o[k] : null; }, dict);
+  }
+  function pickInitial(){
+    try {
+      var url = new URLSearchParams(location.search).get('lang');
+      if (SUPPORTED.indexOf(url) !== -1) return url;
+      var stored = localStorage.getItem('hugmun.lang');
+      if (SUPPORTED.indexOf(stored) !== -1) return stored;
+      var nav = (navigator.language || 'en').toLowerCase();
+      if (nav.indexOf('es') === 0) return 'es';
+    } catch (e) {}
+    return 'en';
+  }
+  function applyLang(lang){
+    if (SUPPORTED.indexOf(lang) === -1) lang = 'en';
+    var dict = window.SITE[lang];
+    if (!dict) return;
+    document.documentElement.setAttribute('lang', lang);
+    document.querySelectorAll('[data-i18n]').forEach(function(el){
+      var v = get(dict, el.getAttribute('data-i18n'));
+      if (v != null) el.innerHTML = v;
+    });
+    if (dict.meta && dict.meta.title) document.title = dict.meta.title;
+    document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+      b.classList.toggle('active', b.getAttribute('data-lang-btn') === lang);
+      b.setAttribute('aria-pressed', b.getAttribute('data-lang-btn') === lang ? 'true' : 'false');
+    });
+    try { localStorage.setItem('hugmun.lang', lang); } catch (e) {}
+    window.dispatchEvent(new CustomEvent('hugmun-lang-change', { detail: { lang: lang } }));
+  }
+  document.querySelectorAll('[data-lang-btn]').forEach(function(b){
+    b.addEventListener('click', function(){ applyLang(b.getAttribute('data-lang-btn')); });
+  });
+  applyLang(pickInitial());
+  window.hugmunSetLang = applyLang;
+})();
+</script>
 
 <!-- NAV THEME SWITCHER -->
 <script>
