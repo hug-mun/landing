@@ -24,17 +24,17 @@ en: {
   mv: {
     title: "Mission &amp; vision.",
     mission_label: "Mission",
-    mission_statement: 'Advance how <span class="accent">representation</span> and <span class="accent">state</span> are used in AI systems to produce more reliable and controllable decisions.',
+    mission_statement: 'Advance how <span class="accent">representation</span> and <span class="accent">state</span> are used in <span class="accent">language-based AI systems</span> to produce more reliable and controllable decisions.',
     vision_label: "Vision",
-    vision_statement: 'AI systems that make decisions from <span class="accent">explicit, updatable state</span> rather than implicit text representations.',
+    vision_statement: '<span class="accent">Language-based AI systems</span> that make decisions from <span class="accent">explicit, updatable state</span> rather than implicit text representations.',
     how_label: "How we work",
-    how_body: "We design and evaluate structured representations and intermediate state mechanisms to understand how they shape decision behavior. Our work starts with <strong>semantic state</strong>: making decision-relevant information explicit and addressable. From there, we study how such state can support <strong>revision</strong>, <strong>aggregation</strong>, and <strong>uncertainty</strong>, moving toward systems that can make decisions from consistent, belief-like representations over time.",
+    how_body: "We design and evaluate structured representations and intermediate state mechanisms for <strong>language-based AI systems</strong> to understand how they shape decision behavior. Our work starts with <strong>semantic state</strong>: making decision-relevant information explicit and addressable. From there, we study how such state can support <strong>revision</strong>, <strong>aggregation</strong>, and <strong>uncertainty</strong>, moving toward systems that can make decisions from consistent, belief-like representations over time.",
   },
 
   hero: {
     eyebrow: "hug&amp;mun labs &middot; ai research",
     headline: "AI systems that make consistent decisions.",
-    subline: "AI systems today generate fluent text but do not maintain stable internal state. We study how structured representations and memory dynamics improve decision behavior.",
+    subline: "Language-based AI systems generate fluent text but do not maintain stable internal state. We study how structured representations and memory dynamics improve decision behavior.",
     caption_0: 'We design and test representations that help AI make <strong>consistent decisions</strong>, not just plausible outputs.',
     caption_1: '<span class="huginn-mark">Huginn</span> — <strong>thought</strong> — structures raw language into discrete semantic units.',
     caption_2: '<span class="muninn-mark">Muninn</span> — <strong>memory</strong> — weaves experience into an evolving context that shapes retrieval and prediction.',
@@ -133,17 +133,17 @@ es: {
   mv: {
     title: "Misión y visión.",
     mission_label: "Misión",
-    mission_statement: 'Avanzar cómo se usan la <span class="accent">representación</span> y el <span class="accent">estado</span> en sistemas de IA para producir decisiones más confiables y controlables.',
+    mission_statement: 'Avanzar cómo se usan la <span class="accent">representación</span> y el <span class="accent">estado</span> en <span class="accent">sistemas de IA basados en lenguaje</span> para producir decisiones más confiables y controlables.',
     vision_label: "Visión",
-    vision_statement: 'Sistemas de IA que toman decisiones desde un <span class="accent">estado explícito y actualizable</span>, en lugar de representaciones implícitas en texto.',
+    vision_statement: '<span class="accent">Sistemas de IA basados en lenguaje</span> que toman decisiones desde un <span class="accent">estado explícito y actualizable</span>, en lugar de representaciones implícitas en texto.',
     how_label: "Cómo trabajamos",
-    how_body: "Diseñamos y evaluamos representaciones estructuradas y mecanismos de estado intermedio para entender cómo moldean el comportamiento de decisión. Nuestro trabajo parte del <strong>estado semántico</strong>: hacer la información relevante para la decisión explícita y direccionable. Desde ahí, estudiamos cómo ese estado puede sustentar la <strong>revisión</strong>, la <strong>agregación</strong> y la <strong>incertidumbre</strong>, avanzando hacia sistemas que pueden tomar decisiones desde representaciones consistentes, similares a creencias, a lo largo del tiempo.",
+    how_body: "Diseñamos y evaluamos representaciones estructuradas y mecanismos de estado intermedio para <strong>sistemas de IA basados en lenguaje</strong>, para entender cómo moldean el comportamiento de decisión. Nuestro trabajo parte del <strong>estado semántico</strong>: hacer la información relevante para la decisión explícita y direccionable. Desde ahí, estudiamos cómo ese estado puede sustentar la <strong>revisión</strong>, la <strong>agregación</strong> y la <strong>incertidumbre</strong>, avanzando hacia sistemas que pueden tomar decisiones desde representaciones consistentes, similares a creencias, a lo largo del tiempo.",
   },
 
   hero: {
     eyebrow: "hug&amp;mun labs &middot; investigación en ia",
     headline: "Sistemas de IA que toman decisiones consistentes.",
-    subline: "Los sistemas de IA hoy generan texto fluido pero no mantienen un estado interno estable. Estudiamos cómo las representaciones estructuradas y la dinámica de memoria mejoran el comportamiento de decisión.",
+    subline: "Los sistemas de IA basados en lenguaje generan texto fluido pero no mantienen un estado interno estable. Estudiamos cómo las representaciones estructuradas y la dinámica de memoria mejoran el comportamiento de decisión.",
     caption_0: 'Diseñamos y probamos representaciones que ayudan a la IA a tomar <strong>decisiones consistentes</strong>, no solo salidas plausibles.',
     caption_1: '<span class="huginn-mark">Huginn</span> — <strong>pensamiento</strong> — estructura el lenguaje crudo en unidades semánticas discretas.',
     caption_2: '<span class="muninn-mark">Muninn</span> — <strong>memoria</strong> — entreteje la experiencia en un contexto en evolución que moldea la recuperación y la predicción.',
